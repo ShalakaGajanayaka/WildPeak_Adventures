@@ -44,7 +44,7 @@ public class Employee_SignIn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee Signin");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/WhatsApp Image 2024-10-26 at 4.45.44 PM.jpeg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logo.jpeg"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
