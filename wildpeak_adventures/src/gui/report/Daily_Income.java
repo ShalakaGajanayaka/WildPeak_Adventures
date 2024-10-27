@@ -1,19 +1,20 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package gui.reports;
+package gui.report;
 
 /**
  *
- * @author sandu
+ * @author shalaka
  */
-public class daily_income extends javax.swing.JPanel {
+public class Daily_Income extends javax.swing.JPanel {
 
     /**
-     * Creates new form dailyIncome
+     * Creates new form Daily_Income
      */
-    public daily_income() {
+    public Daily_Income() {
         initComponents();
     }
 
