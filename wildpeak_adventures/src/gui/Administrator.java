@@ -104,7 +104,7 @@ public class Administrator extends javax.swing.JFrame {
         tbp_ManageCustomerLayout.setHorizontalGroup(
             tbp_ManageCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tbp_ManageCustomerLayout.createSequentialGroup()
-                .addComponent(manage_Customer2, javax.swing.GroupLayout.DEFAULT_SIZE, 895, Short.MAX_VALUE)
+                .addComponent(manage_Customer2, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tbp_ManageCustomerLayout.setVerticalGroup(
@@ -120,7 +120,7 @@ public class Administrator extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 905, Short.MAX_VALUE)
+            .addGap(0, 915, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +133,7 @@ public class Administrator extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

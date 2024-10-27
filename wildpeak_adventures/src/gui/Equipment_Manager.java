@@ -4,6 +4,8 @@
  */
 package gui;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 /**
  *
  * @author sandu
@@ -15,6 +17,9 @@ public class Equipment_Manager extends javax.swing.JFrame {
      */
     public Equipment_Manager() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -42,6 +47,11 @@ public class Equipment_Manager extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         category_Management1 = new gui.equipment_manager.Category_Management();
         jPanel8 = new javax.swing.JPanel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel11 = new javax.swing.JPanel();
+        stock_Report1 = new gui.equipment_manager_reports.Stock_Report();
+        jPanel12 = new javax.swing.JPanel();
+        supplier_Report1 = new gui.equipment_manager_reports.Supplier_Report();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         grn_Management1 = new gui.equipment_manager.Grn_Management();
@@ -108,8 +118,8 @@ public class Equipment_Manager extends javax.swing.JFrame {
             tbp_ManageCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tbp_ManageCustomerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(stock_Management1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(stock_Management1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                .addGap(68, 68, 68))
         );
 
         jTabbedPane1.addTab("Stock management ", tbp_ManageCustomer);
@@ -126,7 +136,8 @@ public class Equipment_Manager extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(brand_Management1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
+                .addComponent(brand_Management1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addGap(52, 52, 52))
         );
 
         jTabbedPane1.addTab("Brand Management", jPanel7);
@@ -143,20 +154,58 @@ public class Equipment_Manager extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(category_Management1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
+                .addComponent(category_Management1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Category Management", jPanel6);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(stock_Report1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(stock_Report1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Stock Report", jPanel11);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(supplier_Report1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(supplier_Report1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Supplier Report", jPanel12);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 919, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane2)
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane2)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Report", jPanel8);
@@ -169,7 +218,7 @@ public class Equipment_Manager extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGap(0, 522, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Invoice", jPanel9);
@@ -182,7 +231,7 @@ public class Equipment_Manager extends javax.swing.JFrame {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(grn_Management1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(grn_Management1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("GRN", jPanel10);
@@ -192,8 +241,8 @@ public class Equipment_Manager extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 919, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(jTabbedPane1))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +296,7 @@ public class Equipment_Manager extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
         );
 
         pack();
@@ -258,27 +307,7 @@ public class Equipment_Manager extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Equipment_Manager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Equipment_Manager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Equipment_Manager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Equipment_Manager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        FlatMacLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -297,6 +326,8 @@ public class Equipment_Manager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -306,7 +337,10 @@ public class Equipment_Manager extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private gui.equipment_manager.Stock_Management stock_Management1;
+    private gui.equipment_manager_reports.Stock_Report stock_Report1;
+    private gui.equipment_manager_reports.Supplier_Report supplier_Report1;
     private javax.swing.JPanel tbp_ManageCustomer;
     // End of variables declaration//GEN-END:variables
 }
