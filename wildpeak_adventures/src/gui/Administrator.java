@@ -40,10 +40,13 @@ public class Administrator extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+<<<<<<< Updated upstream
         jTabbedPane1 = new javax.swing.JTabbedPane();
         tbp_ManageCustomer = new javax.swing.JPanel();
         manage_Customer2 = new gui.administrator.Manage_Customer();
         jPanel7 = new javax.swing.JPanel();
+=======
+>>>>>>> Stashed changes
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,11 +136,19 @@ public class Administrator extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< Updated upstream
             .addComponent(jTabbedPane1)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
+=======
+            .addGap(0, 910, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+>>>>>>> Stashed changes
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -216,9 +227,12 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+<<<<<<< Updated upstream
     private javax.swing.JPanel jPanel7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private gui.administrator.Manage_Customer manage_Customer2;
     private javax.swing.JPanel tbp_ManageCustomer;
+=======
+>>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 }
