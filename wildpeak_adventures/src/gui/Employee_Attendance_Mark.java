@@ -10,24 +10,18 @@ import javax.swing.Timer;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author shalaka
  */
 public class Employee_Attendance_Mark extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Employee_Attendence_Mark
-     */
     public Employee_Attendance_Mark() {
         initComponents();
-        
-        
         currentTime();
     }
-    
-    public void currentTime(){
+
+    public void currentTime() {
         Timer timer = new Timer(1000, e -> {
             String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             jLabel5.setText(dateTime);
