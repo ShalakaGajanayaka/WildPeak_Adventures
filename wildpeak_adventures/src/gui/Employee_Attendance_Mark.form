@@ -45,7 +45,7 @@
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="20" max="32767" attributes="0"/>
               <Component id="jPanel4" max="32767" attributes="0"/>
-              <EmptySpace pref="10" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,10 +54,8 @@
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder roundedCorners="true" thickness="3">
-              <Color PropertyName="color" blue="33" green="99" red="0" type="rgb"/>
-            </LineBorder>
+          <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+            <MatteColorBorder bottom="2" left="0" right="0" top="2"/>
           </Border>
         </Property>
       </Properties>
@@ -122,9 +120,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder roundedCorners="true" thickness="3">
-              <Color PropertyName="color" blue="33" green="99" red="0" type="rgb"/>
-            </LineBorder>
+            <LineBorder roundedCorners="true" thickness="3"/>
           </Border>
         </Property>
       </Properties>
@@ -340,10 +336,8 @@
               <Image iconType="3" name="/resources/logo.jpeg"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder roundedCorners="true" thickness="3">
-                  <Color PropertyName="color" blue="33" green="99" red="0" type="rgb"/>
-                </LineBorder>
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="2" left="2" right="2" top="2"/>
               </Border>
             </Property>
           </Properties>
@@ -355,13 +349,6 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="WILDPEAK ADVENTURE"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder roundedCorners="true" thickness="3">
-                  <Color PropertyName="color" blue="33" green="99" red="0" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -370,9 +357,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder roundedCorners="true" thickness="3">
-              <Color PropertyName="color" blue="33" green="99" red="0" type="rgb"/>
-            </LineBorder>
+            <LineBorder roundedCorners="true" thickness="3"/>
           </Border>
         </Property>
       </Properties>
