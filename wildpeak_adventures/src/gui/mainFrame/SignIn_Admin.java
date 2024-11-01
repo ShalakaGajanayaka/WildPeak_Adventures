@@ -187,7 +187,7 @@ public class SignIn_Admin extends javax.swing.JPanel {
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         Container parent = SignIn_Admin.this.getParent();
         parent.remove(SignIn_Admin.this);
-        parent.add(new Main_P2());
+        parent.add(new Administrator());
         parent.revalidate();
         parent.repaint();
     }//GEN-LAST:event_back_buttonMouseClicked

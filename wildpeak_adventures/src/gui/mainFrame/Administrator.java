@@ -12,12 +12,12 @@ import java.awt.Container;
  *
  * @author shalaka
  */
-public class Main_P2 extends javax.swing.JPanel {
+public class Administrator extends javax.swing.JPanel {
 
     /**
      * Creates new form Main_P2
      */
-    public Main_P2() {
+    public Administrator() {
         initComponents();
 
         jPanel1.setBackground(new Color(255, 255, 255, 0));
@@ -182,8 +182,8 @@ public class Main_P2 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        Container parent = Main_P2.this.getParent();
-        parent.remove(Main_P2.this);
+        Container parent = Administrator.this.getParent();
+        parent.remove(Administrator.this);
         parent.add(new Main_P());
         parent.revalidate();
         parent.repaint();
@@ -194,32 +194,32 @@ public class Main_P2 extends javax.swing.JPanel {
     }//GEN-LAST:event_close_buttonMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Container parent = Main_P2.this.getParent();
-        parent.remove(Main_P2.this);
+        Container parent = Administrator.this.getParent();
+        parent.remove(Administrator.this);
         parent.add(new SignIn_StockManager());
         parent.revalidate();
         parent.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Container parent = Main_P2.this.getParent();
-        parent.remove(Main_P2.this);
+        Container parent = Administrator.this.getParent();
+        parent.remove(Administrator.this);
         parent.add(new SignIn_FinanceManager());
         parent.revalidate();
         parent.repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Container parent = Main_P2.this.getParent();
-        parent.remove(Main_P2.this);
+        Container parent = Administrator.this.getParent();
+        parent.remove(Administrator.this);
         parent.add(new SignIn_Admin());
         parent.revalidate();
         parent.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Container parent = Main_P2.this.getParent();
-        parent.remove(Main_P2.this);
+        Container parent = Administrator.this.getParent();
+        parent.remove(Administrator.this);
         parent.add(new SignIn_SuperAdmin());
         parent.revalidate();
         parent.repaint();
