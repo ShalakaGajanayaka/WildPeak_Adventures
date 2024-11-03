@@ -169,8 +169,8 @@ public class Main_P extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Container parent = Main_P.this.getParent();
-        parent.remove(Main_P.this);
-        parent.add(new Administrator());
+        parent.removeAll();
+        parent.add(new Administrator_P());
         parent.revalidate();
         parent.repaint();
 
@@ -179,7 +179,7 @@ public class Main_P extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Container parent = Main_P.this.getParent();
-        parent.remove(Main_P.this);
+        parent.removeAll();
         parent.add(new SignIn_Employee());
         parent.revalidate();
         parent.repaint();

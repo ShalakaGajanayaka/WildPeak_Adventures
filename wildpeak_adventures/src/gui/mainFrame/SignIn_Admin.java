@@ -7,6 +7,8 @@ package gui.mainFrame;
 
 import java.awt.Color;
 import java.awt.Container;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,7 +21,7 @@ public class SignIn_Admin extends javax.swing.JPanel {
      */
     public SignIn_Admin() {
         initComponents();
-        
+
         jPanel1.setBackground(new Color(255, 255, 255, 0));
         jPanel1.setOpaque(false);
 
@@ -119,6 +121,11 @@ public class SignIn_Admin extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("Sign in");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,7 +194,7 @@ public class SignIn_Admin extends javax.swing.JPanel {
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         Container parent = SignIn_Admin.this.getParent();
         parent.remove(SignIn_Admin.this);
-        parent.add(new Administrator());
+        parent.add(new Administrator_P());
         parent.revalidate();
         parent.repaint();
     }//GEN-LAST:event_back_buttonMouseClicked
@@ -199,6 +206,13 @@ public class SignIn_Admin extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new gui.administrator.Administrator().setVisible(true);
+        Container parent = SignIn_Admin.this.getParent();
+        SwingUtilities.getWindowAncestor(parent).dispose();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

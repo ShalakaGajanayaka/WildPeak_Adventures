@@ -42,7 +42,6 @@ public class Administrator extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         tbp_ManageCustomer = new javax.swing.JPanel();
-        manage_Customer2 = new gui.administrator.Manage_Customer();
         jPanel7 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,15 +102,11 @@ public class Administrator extends javax.swing.JFrame {
         tbp_ManageCustomer.setLayout(tbp_ManageCustomerLayout);
         tbp_ManageCustomerLayout.setHorizontalGroup(
             tbp_ManageCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tbp_ManageCustomerLayout.createSequentialGroup()
-                .addComponent(manage_Customer2, javax.swing.GroupLayout.DEFAULT_SIZE, 895, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 905, Short.MAX_VALUE)
         );
         tbp_ManageCustomerLayout.setVerticalGroup(
             tbp_ManageCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tbp_ManageCustomerLayout.createSequentialGroup()
-                .addComponent(manage_Customer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 450, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Manage Customer", tbp_ManageCustomer);
@@ -218,7 +213,6 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private gui.administrator.Manage_Customer manage_Customer2;
     private javax.swing.JPanel tbp_ManageCustomer;
     // End of variables declaration//GEN-END:variables
 }
