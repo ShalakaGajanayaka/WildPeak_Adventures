@@ -121,6 +121,11 @@ public class Administrator extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton3.setText("Event");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton4.setText("Invoice");
@@ -292,12 +297,22 @@ public class Administrator extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+       jPanel5.removeAll();
+        jPanel5.add(new JobRoleManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       jPanel5.removeAll();
+        jPanel5.add(new EventManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
