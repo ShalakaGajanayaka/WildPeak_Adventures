@@ -14,7 +14,6 @@ import java.awt.Window;
  */
 public class Administrator extends javax.swing.JFrame {
 
-   
     public Administrator() {
         setUndecorated(true);
         initComponents();
@@ -121,6 +120,11 @@ public class Administrator extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton3.setText("Event");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton4.setText("Invoice");
@@ -219,7 +223,7 @@ public class Administrator extends javax.swing.JFrame {
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -233,7 +237,7 @@ public class Administrator extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1575, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1056, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -297,19 +301,18 @@ public class Administrator extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        jPanel5.removeAll();
+        jPanel5.add(new JobRoleManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-         jPanel5.removeAll();
-        jPanel5.add(new StockManagement());
-        jPanel5.revalidate();
-        jPanel5.repaint();
-    }//GEN-LAST:event_jButton10ActionPerformed
+
+  
 
     /**
      * @param args the command line arguments
