@@ -7,8 +7,10 @@ package gui.mainFrame;
 
 import java.awt.Color;
 import java.awt.Container;
-import javax.swing.JFrame;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import model.MYSQL;
 
 /**
  *
@@ -16,9 +18,16 @@ import javax.swing.SwingUtilities;
  */
 public class SignIn_Admin extends javax.swing.JPanel {
 
-    /**
-     * Creates new form SignIn_Admin
-     */
+    private static String jobrole;
+
+    public static String getjobrole() {
+        return jobrole;
+    }
+
+    public static void setjobrole(String role) {
+        SignIn_Admin.jobrole = role;
+    }
+
     public SignIn_Admin() {
         initComponents();
 
@@ -208,9 +217,41 @@ public class SignIn_Admin extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new gui.administrator.Administrator().setVisible(true);
-        Container parent = SignIn_Admin.this.getParent();
-        SwingUtilities.getWindowAncestor(parent).dispose();
+
+        String email = jTextField1.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Your Email", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+"
+                + "(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
+            JOptionPane.showMessageDialog(this, "Please enter valid email", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Your Password", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$")) {
+            JOptionPane.showMessageDialog(this, "Invalid Password");
+        } else {
+            try {
+                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `admin` "
+                        + "INNER JOIN `admin_type` ON `admin`.`admin_type_id` = `admin_type`.`id` "
+                        + "WHERE `email` = '" + email + "' AND `password` = '" + password + "' AND `status_id` = '" + 1 + "' AND `admin_type`.`name` LIKE 'Admin%'");
+                if (resultSet.next()) {
+
+                    String jobTitle = jLabel5.getText();
+                    setjobrole(jobTitle);
+
+                    new gui.administrator.Administrator().setVisible(true);
+                    Container parent = SignIn_Admin.this.getParent();
+                    SwingUtilities.getWindowAncestor(parent).dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid User Id Or Passowrd AND Inactive USER! Please Check", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
