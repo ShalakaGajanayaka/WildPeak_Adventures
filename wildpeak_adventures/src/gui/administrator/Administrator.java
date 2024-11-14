@@ -137,6 +137,11 @@ public class Administrator extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton3.setText("Event");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton4.setText("Invoice");
@@ -146,6 +151,11 @@ public class Administrator extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton6.setText("Booking");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -167,15 +177,35 @@ public class Administrator extends javax.swing.JFrame {
 
         jButton10.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton10.setText("Stock");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton11.setText("Brand");
+        jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton11MouseClicked(evt);
+            }
+        });
 
         jButton12.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton12.setText("GRN");
+        jButton12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton12MouseClicked(evt);
+            }
+        });
 
         jButton13.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton13.setText("Category");
+        jButton13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton13MouseClicked(evt);
+            }
+        });
 
         jLabel3.setText("jLabel3");
 
@@ -309,12 +339,59 @@ public class Administrator extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        jPanel5.removeAll();
+        jPanel5.add(new JobRoleManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+//<<<<<<< HEAD
+    private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
+             jPanel5.removeAll();
+        jPanel5.add(new Brand());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton11MouseClicked
+
+    private void jButton13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseClicked
+             jPanel5.removeAll();
+        jPanel5.add(new Category());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton13MouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+                 jPanel5.removeAll();
+        jPanel5.add(new BookingManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
+                jPanel5.removeAll();
+        jPanel5.add(new GRNManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton12MouseClicked
+//=======
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jPanel5.removeAll();
+        jPanel5.add(new EventManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        jPanel5.removeAll();
+        jPanel5.add(new StockManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton10ActionPerformed
+//>>>>>>> main
 
     /**
      * @param args the command line arguments
