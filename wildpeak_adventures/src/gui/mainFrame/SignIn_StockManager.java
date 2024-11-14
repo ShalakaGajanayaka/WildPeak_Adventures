@@ -7,6 +7,10 @@ package gui.mainFrame;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import model.MYSQL;
 
 /**
  *
@@ -14,12 +18,22 @@ import java.awt.Container;
  */
 public class SignIn_StockManager extends javax.swing.JPanel {
 
+    private static String jobrole;
+
+    public static String getjobrole() {
+        return jobrole;
+    }
+
+    public static void setjobrole(String role) {
+        SignIn_StockManager.jobrole = role;
+    }
+
     /**
      * Creates new form StockManager_SignIn
      */
     public SignIn_StockManager() {
         initComponents();
-        
+
         jPanel1.setBackground(new Color(255, 255, 255, 0));
         jPanel1.setOpaque(false);
 
@@ -119,6 +133,11 @@ public class SignIn_StockManager extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("Sign in");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,6 +220,43 @@ public class SignIn_StockManager extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String email = jTextField1.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Your Email", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+"
+                + "(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
+            JOptionPane.showMessageDialog(this, "Please enter valid email", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Your Password", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$")) {
+            JOptionPane.showMessageDialog(this, "Invalid Password");
+        } else {
+            try {
+                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `employee` "
+                        + "INNER JOIN `job_position` ON `employee`.`job_position_id` = `job_position`.`id` "
+                        + "WHERE `email` = '" + email + "' AND `password` = '" + password + "' AND `employee`.`status_id` = '" + 1 + "' AND `job_position`.`name` LIKE 'Stock%Manager%'");
+                if (resultSet.next()) {
+
+                    String jobTitle = jLabel5.getText();
+                    setjobrole(jobTitle);
+
+                    new gui.administrator.Administrator().setVisible(true);
+                    Container parent = SignIn_StockManager.this.getParent();
+                    SwingUtilities.getWindowAncestor(parent).dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid Email Or Passowrd AND Inactive USER! Please Check", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
