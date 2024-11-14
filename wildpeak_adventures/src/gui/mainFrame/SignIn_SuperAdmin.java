@@ -5,7 +5,6 @@
  */
 package gui.mainFrame;
 
-import static gui.mainFrame.SignIn_Admin.setjobrole;
 import java.awt.Color;
 import java.awt.Container;
 import java.sql.ResultSet;
@@ -19,7 +18,7 @@ import model.MYSQL;
  */
 public class SignIn_SuperAdmin extends javax.swing.JPanel {
 
-        private static String jobrole;
+    private static String jobrole;
 
     public static String getjobrole() {
         return jobrole;
@@ -28,12 +27,13 @@ public class SignIn_SuperAdmin extends javax.swing.JPanel {
     public static void setjobrole(String role) {
         SignIn_SuperAdmin.jobrole = role;
     }
+
     /**
      * Creates new form SignIn_SuperAdmin
      */
     public SignIn_SuperAdmin() {
         initComponents();
-        
+
         jPanel1.setBackground(new Color(255, 255, 255, 0));
         jPanel1.setOpaque(false);
 
@@ -220,7 +220,7 @@ public class SignIn_SuperAdmin extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
         String email = jTextField1.getText();
         String password = String.valueOf(jPasswordField1.getPassword());
 

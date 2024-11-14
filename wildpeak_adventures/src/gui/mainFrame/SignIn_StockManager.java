@@ -5,7 +5,6 @@
  */
 package gui.mainFrame;
 
-import static gui.mainFrame.SignIn_FinanceManager.setjobrole;
 import java.awt.Color;
 import java.awt.Container;
 import java.sql.ResultSet;

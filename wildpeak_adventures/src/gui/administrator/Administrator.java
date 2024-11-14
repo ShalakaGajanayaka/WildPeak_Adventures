@@ -17,7 +17,6 @@ import gui.mainFrame.SignIn_SuperAdmin;
  */
 public class Administrator extends javax.swing.JFrame {
 
-   
     public Administrator() {
         setUndecorated(true);
         initComponents();
@@ -25,15 +24,21 @@ public class Administrator extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
 
         jPanel5.add(new CustomerManagement());
-        
-        
-        jLabel3.setText(SignIn_Admin.getjobrole());
-        jLabel3.setText(SignIn_FinanceManager.getjobrole());
-        jLabel3.setText(SignIn_StockManager.getjobrole());
-        jLabel3.setText(SignIn_SuperAdmin.getjobrole());
- 
+
+        String jobRole = SignIn_Admin.getjobrole();
+        if (jobRole != null && !jobRole.isEmpty()) {
+            jLabel3.setText(jobRole);
+        } else if ((jobRole = SignIn_FinanceManager.getjobrole()) != null && !jobRole.isEmpty()) {
+            jLabel3.setText(jobRole);
+        } else if ((jobRole = SignIn_StockManager.getjobrole()) != null && !jobRole.isEmpty()) {
+            jLabel3.setText(jobRole);
+        } else if ((jobRole = SignIn_SuperAdmin.getjobrole()) != null && !jobRole.isEmpty()) {
+            jLabel3.setText(jobRole);
+        } else {
+            jLabel3.setText("Unknown Role");
+        }
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
