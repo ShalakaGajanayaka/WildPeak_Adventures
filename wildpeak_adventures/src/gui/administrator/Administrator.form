@@ -286,6 +286,7 @@
                     <Property name="text" type="java.lang.String" value="Booking"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton6MouseClicked"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
                   </Events>
                 </Component>
@@ -333,6 +334,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Brand"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton11MouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton12">
                   <Properties>
@@ -341,6 +345,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="GRN"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton12MouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton13">
                   <Properties>
@@ -349,6 +356,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Category"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton13MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

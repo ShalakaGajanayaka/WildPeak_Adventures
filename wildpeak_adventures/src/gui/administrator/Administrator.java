@@ -134,6 +134,11 @@ public class Administrator extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton6.setText("Booking");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -163,12 +168,27 @@ public class Administrator extends javax.swing.JFrame {
 
         jButton11.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton11.setText("Brand");
+        jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton11MouseClicked(evt);
+            }
+        });
 
         jButton12.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton12.setText("GRN");
+        jButton12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton12MouseClicked(evt);
+            }
+        });
 
         jButton13.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton13.setText("Category");
+        jButton13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton13MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -311,6 +331,35 @@ public class Administrator extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+//<<<<<<< HEAD
+    private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
+             jPanel5.removeAll();
+        jPanel5.add(new Brand());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton11MouseClicked
+
+    private void jButton13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseClicked
+             jPanel5.removeAll();
+        jPanel5.add(new Category());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton13MouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+                 jPanel5.removeAll();
+        jPanel5.add(new BookingManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
+                jPanel5.removeAll();
+        jPanel5.add(new GRNManagement());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton12MouseClicked
+//=======
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jPanel5.removeAll();
         jPanel5.add(new EventManagement());
@@ -324,6 +373,7 @@ public class Administrator extends javax.swing.JFrame {
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton10ActionPerformed
+//>>>>>>> main
 
     /**
      * @param args the command line arguments
