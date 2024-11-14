@@ -148,6 +148,11 @@ public class Administrator extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton5.setText("Report");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton6.setText("Booking");
@@ -392,6 +397,13 @@ public class Administrator extends javax.swing.JFrame {
         jPanel5.repaint();
     }//GEN-LAST:event_jButton10ActionPerformed
 //>>>>>>> main
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       jPanel5.removeAll();
+        jPanel5.add(new Reports());
+        jPanel5.revalidate();
+        jPanel5.repaint();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
