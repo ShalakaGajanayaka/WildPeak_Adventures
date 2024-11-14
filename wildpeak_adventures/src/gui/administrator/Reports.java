@@ -5,7 +5,10 @@
  */
 package gui.administrator;
 
+import gui.administrator.report.customers;
 import gui.administrator.report.dailyIncome;
+import gui.administrator.report.employees;
+import gui.administrator.report.monthlyIncome;
 
 /**
  *
@@ -18,11 +21,11 @@ public class Reports extends javax.swing.JPanel {
      */
     public Reports() {
         initComponents();
-        
+
         dailyIncomePanel.add(new dailyIncome());
-//        dailyIncomePanel.add(new dailyIncome());
-//        dailyIncomePanel.add(new dailyIncome());
-//        dailyIncomePanel.add(new dailyIncome());
+        monthlyIncomePanle.add(new monthlyIncome());
+        employeesPanel.add(new employees());
+        customerPanel.add(new customers());
 //        dailyIncomePanel.add(new dailyIncome());
 //        dailyIncomePanel.add(new dailyIncome());
     }
