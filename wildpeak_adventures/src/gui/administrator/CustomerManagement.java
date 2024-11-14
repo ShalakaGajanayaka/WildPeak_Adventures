@@ -9,6 +9,10 @@ import gui.administrator.customerManagement.addCustomer;
 import gui.administrator.customerManagement.allCustomers;
 import gui.administrator.customerManagement.forignCustomers;
 import gui.administrator.customerManagement.localCustomers;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 /**
  *
@@ -21,11 +25,31 @@ public class CustomerManagement extends javax.swing.JPanel {
      */
     public CustomerManagement() {
         initComponents();
-        
+        setOpaque(false); // Make the panel transparent so we can paint a rounded background
+        setBackground(new Color(100, 150, 200)); // Choose your background color
+        jTabbedPane1.setBackground(new Color(100, 150, 200));
+        allCustomersPanel.setBackground(new Color(100, 150, 200));
+
         allCustomersPanel.add(new allCustomers());
         localCustomersPanel.add(new localCustomers());
         forignCustomersPanel.add(new forignCustomers());
         addCustomerPanel.add(new addCustomer());
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Set the background color for the rounded panel
+        g2.setColor(getBackground());
+
+        // Define the rounded rectangle shape
+        int arcWidth = 50;  // Adjust these values for roundness
+        int arcHeight = 50;
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
     }
 
     /**
@@ -39,7 +63,6 @@ public class CustomerManagement extends javax.swing.JPanel {
 
         genderGroup = new javax.swing.ButtonGroup();
         typeGroup = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         allCustomersPanel = new javax.swing.JPanel();
@@ -64,37 +87,25 @@ public class CustomerManagement extends javax.swing.JPanel {
         addCustomerPanel.setLayout(new java.awt.CardLayout());
         jTabbedPane1.addTab("Add/Edit Customer", addCustomerPanel);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1086, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                .addGap(22, 22, 22))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -105,7 +116,6 @@ public class CustomerManagement extends javax.swing.JPanel {
     private javax.swing.JPanel forignCustomersPanel;
     private javax.swing.ButtonGroup genderGroup;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel localCustomersPanel;
     private javax.swing.ButtonGroup typeGroup;

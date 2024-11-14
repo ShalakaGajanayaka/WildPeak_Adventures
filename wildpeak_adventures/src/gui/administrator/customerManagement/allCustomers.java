@@ -5,6 +5,26 @@
  */
 package gui.administrator.customerManagement;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import gui.administrator.CustomerManagement;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.AbstractBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JPanel;
+
 /**
  *
  * @author shalaka
@@ -16,6 +36,24 @@ public class allCustomers extends javax.swing.JPanel {
      */
     public allCustomers() {
         initComponents();
+     
+
+    }
+    
+     @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Set the background color for the rounded panel
+        g2.setColor(getBackground());
+
+        // Define the rounded rectangle shape
+        int arcWidth = 50;  // Adjust these values for roundness
+        int arcHeight = 50;
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
     }
 
     /**

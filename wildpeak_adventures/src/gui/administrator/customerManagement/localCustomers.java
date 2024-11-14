@@ -5,6 +5,8 @@
  */
 package gui.administrator.customerManagement;
 
+import java.awt.Color;
+
 /**
  *
  * @author shalaka
@@ -16,6 +18,7 @@ public class localCustomers extends javax.swing.JPanel {
      */
     public localCustomers() {
         initComponents();
+        setBackground(new Color(100, 150, 200));
     }
 
     /**
