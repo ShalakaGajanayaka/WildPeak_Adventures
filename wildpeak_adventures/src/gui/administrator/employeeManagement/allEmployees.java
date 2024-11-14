@@ -31,8 +31,11 @@ public class allEmployees extends javax.swing.JPanel {
         getEmployeeCount();
         refreshTable();
         setupRightClickMenu();
+        jDateChooser1.getDateEditor().setEnabled(false);
 
     }
+    
+    
     private void setupRightClickMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 
