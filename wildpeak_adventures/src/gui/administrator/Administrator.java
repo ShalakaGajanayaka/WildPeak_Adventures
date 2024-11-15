@@ -44,18 +44,18 @@ public class Administrator extends javax.swing.JFrame {
 
         jPanel5.add(new CustomerManagement());
 
-        String jobRole = SignIn_Admin.getjobrole();
-        if (jobRole != null && !jobRole.isEmpty()) {
-            jLabel3.setText(jobRole);
-        } else if ((jobRole = SignIn_FinanceManager.getjobrole()) != null && !jobRole.isEmpty()) {
-            jLabel3.setText(jobRole);
-        } else if ((jobRole = SignIn_StockManager.getjobrole()) != null && !jobRole.isEmpty()) {
-            jLabel3.setText(jobRole);
-        } else if ((jobRole = SignIn_SuperAdmin.getjobrole()) != null && !jobRole.isEmpty()) {
-            jLabel3.setText(jobRole);
-        } else {
-            jLabel3.setText("Unknown Role");
-        }
+//        String jobRole = SignIn_Admin.getjobrole();
+//        if (jobRole != null && !jobRole.isEmpty()) {
+//            jLabel3.setText(jobRole);
+//        } else if ((jobRole = SignIn_FinanceManager.getjobrole()) != null && !jobRole.isEmpty()) {
+//            jLabel3.setText(jobRole);
+//        } else if ((jobRole = SignIn_StockManager.getjobrole()) != null && !jobRole.isEmpty()) {
+//            jLabel3.setText(jobRole);
+//        } else if ((jobRole = SignIn_SuperAdmin.getjobrole()) != null && !jobRole.isEmpty()) {
+//            jLabel3.setText(jobRole);
+//        } else {
+//            jLabel3.setText("Unknown Role");
+//        }
 
     }
 
@@ -203,7 +203,7 @@ public class Administrator extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-/>>>>>>> main
+///>>>>>>> main
 
     /**
      * @param args the command line arguments
