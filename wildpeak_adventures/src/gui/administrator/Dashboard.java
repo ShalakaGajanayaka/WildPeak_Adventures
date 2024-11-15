@@ -46,10 +46,10 @@ public class Dashboard extends javax.swing.JPanel {
 //                shadowSize + 2,
 //                shadowSize + 4,
 //                shadowSize + 2));
-         setBorder(BorderFactory.createEmptyBorder(shadowSize + 2,
-                shadowSize + 2,
-                shadowSize + 4,
-                shadowSize + 2));
+         setBorder(BorderFactory.createEmptyBorder(shadowSize + 10,
+                shadowSize + 10,
+                shadowSize + 20,
+                shadowSize + 10));
 //        setBackground(new Color(100, 150, 200)); // Choose your background color
 
         String jobRole = SignIn_Admin.getjobrole();
