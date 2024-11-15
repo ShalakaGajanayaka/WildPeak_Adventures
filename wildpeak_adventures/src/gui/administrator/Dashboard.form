@@ -46,33 +46,33 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel3" pref="36" max="32767" attributes="0"/>
+                  <Component id="jLabel3" max="32767" attributes="0"/>
                   <Component id="jButton9" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton1" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton1" pref="32" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton2" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton2" pref="32" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton8" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton8" pref="32" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton3" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton3" pref="32" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton6" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton6" pref="32" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton10" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton10" pref="32" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton11" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton11" pref="32" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton13" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton13" pref="32" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton5" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton5" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton4" pref="33" max="32767" attributes="0"/>
+              <Component id="jButton4" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton12" pref="33" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Component id="jButton7" pref="32" max="32767" attributes="0"/>
+              <Component id="jButton12" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="jButton7" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
