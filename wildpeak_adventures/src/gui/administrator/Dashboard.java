@@ -9,6 +9,8 @@ import gui.mainFrame.SignIn_Admin;
 import gui.mainFrame.SignIn_FinanceManager;
 import gui.mainFrame.SignIn_StockManager;
 import gui.mainFrame.SignIn_SuperAdmin;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -21,7 +23,7 @@ public class Dashboard extends javax.swing.JPanel {
      */
     public Dashboard() {
         initComponents();
-        
+
         String jobRole = SignIn_Admin.getjobrole();
         if (jobRole != null && !jobRole.isEmpty()) {
             jLabel3.setText(jobRole);
@@ -86,6 +88,11 @@ public class Dashboard extends javax.swing.JPanel {
 
         jButton4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton4.setText("Invoice");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton5.setText("Report");
@@ -136,6 +143,11 @@ public class Dashboard extends javax.swing.JPanel {
                 jButton11MouseClicked(evt);
             }
         });
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton12.setText("GRN");
@@ -144,12 +156,22 @@ public class Dashboard extends javax.swing.JPanel {
                 jButton12MouseClicked(evt);
             }
         });
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jButton13.setText("Category");
         jButton13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton13MouseClicked(evt);
+            }
+        });
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
             }
         });
 
@@ -223,6 +245,13 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.add(new CustomerManagement());
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
+
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new CustomerManagement());
+        panel5.revalidate();
+        panel5.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -230,6 +259,13 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.add(new EmployeeManagement());
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
+
+Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new EmployeeManagement());
+        panel5.revalidate();
+        panel5.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -237,6 +273,13 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.add(new EventManagement());
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
+
+Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new EventManagement());
+        panel5.revalidate();
+        panel5.repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -244,6 +287,12 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.add(new Reports());
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
+Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new Reports());
+        panel5.revalidate();
+        panel5.repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
@@ -254,7 +303,12 @@ public class Dashboard extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new BookingManagement());
+        panel5.revalidate();
+        panel5.repaint();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -262,6 +316,13 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.add(new JobRoleManagement());
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
+
+Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new JobRoleManagement());
+        panel5.revalidate();
+        panel5.repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -269,6 +330,13 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.add(new StockManagement());
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
+
+Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new StockManagement());
+        panel5.revalidate();
+        panel5.repaint();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
@@ -291,6 +359,40 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
     }//GEN-LAST:event_jButton13MouseClicked
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new GRNManagement());
+        panel5.revalidate();
+        panel5.repaint();
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+       Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new Brand());
+        panel5.revalidate();
+        panel5.repaint();
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+       Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new Category());
+        panel5.revalidate();
+        panel5.repaint();
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

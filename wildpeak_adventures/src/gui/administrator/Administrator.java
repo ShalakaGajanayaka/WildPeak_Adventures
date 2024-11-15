@@ -58,6 +58,10 @@ public class Administrator extends javax.swing.JFrame {
 //        }
 
     }
+    
+     public JPanel getJPanel5() {
+        return jPanel5;
+    }
 
     
 
