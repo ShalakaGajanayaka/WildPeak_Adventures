@@ -16,6 +16,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -26,15 +27,21 @@ import javax.swing.SwingUtilities;
 public class Dashboard extends javax.swing.JPanel {
 
     private Color color1 = new Color(46, 125, 50);    // Forest green
-    private Color color2 = new Color(129, 199, 132);
-    private int cornerRadius = 20; 
+    private Color color2 = new Color(129, 199, 132);  // Light green
+    private int cornerRadius = 20;
+    private int shadowSize = 5;  // Shadow width
+    private int shadowOpacity = 60;  // Shadow darkness (0-255) 
 
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
-        setOpaque(false); // Make the panel transparent so we can paint a rounded background
+        setOpaque(false);
+
+        // Add padding for the shadow
+        setBorder(BorderFactory.createEmptyBorder(shadowSize, shadowSize,
+                shadowSize, shadowSize));
 //        setBackground(new Color(100, 150, 200)); // Choose your background color
 
         String jobRole = SignIn_Admin.getjobrole();
@@ -55,28 +62,55 @@ public class Dashboard extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        
-        // Enable antialiasing for smoother corners
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-                            RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        // Create the rounded rectangle shape
-        RoundRectangle2D.Float roundRect = new RoundRectangle2D.Float(
-            0, 0, getWidth()-1, getHeight()-1, cornerRadius, cornerRadius);
-        
-        // Create the gradient
+
+        // Enable antialiasing
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
+
+        // Calculate the area for drawing (accounting for shadow)
+        int width = getWidth() - (2 * shadowSize);
+        int height = getHeight() - (2 * shadowSize);
+
+        // Create shadow effect
+        drawShadow(g2d, shadowSize, shadowSize, width, height);
+
+        // Create main panel shape
+        RoundRectangle2D.Float mainShape = new RoundRectangle2D.Float(
+                shadowSize, shadowSize, width - 1, height - 1, cornerRadius, cornerRadius);
+
+        // Create and draw the gradient
         GradientPaint gradient = new GradientPaint(
-            0, 0, color1,
-            getWidth(), getHeight(), color2);
-        
-        // Fill the rounded rectangle with the gradient
+                0, 0, color1,
+                width, height, color2);
+
         g2d.setPaint(gradient);
-        g2d.fill(roundRect);
-        
-        // Optional: Add a border
-        g2d.setColor(new Color(0, 0, 0, 50));  // Semi-transparent black
+        g2d.fill(mainShape);
+
+        // Add a subtle border
+        g2d.setColor(new Color(255, 255, 255, 50));
         g2d.setStroke(new BasicStroke(1f));
-        g2d.draw(roundRect);
+        g2d.draw(mainShape);
+    }
+    
+       private void drawShadow(Graphics2D g2d, int x, int y, int width, int height) {
+        // Create gradual shadow effect
+        for (int i = 0; i < shadowSize; i++) {
+            float opacity = (float) (shadowOpacity * (1 - (i / (float) shadowSize)));
+            g2d.setColor(new Color(0, 0, 0, (int) opacity));
+            
+            // Draw shadow on all sides
+            RoundRectangle2D.Float shadow = new RoundRectangle2D.Float(
+                x - i, 
+                y - i, 
+                width + (2 * i), 
+                height + (2 * i), 
+                cornerRadius + i, 
+                cornerRadius + i);
+                
+            g2d.fill(shadow);
+        }
     }
 
     /**
