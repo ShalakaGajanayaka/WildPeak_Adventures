@@ -351,28 +351,28 @@ public class Administrator extends javax.swing.JFrame {
 
 //<<<<<<< HEAD
     private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
-             jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new Brand());
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton11MouseClicked
 
     private void jButton13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseClicked
-             jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new Category());
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton13MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-                 jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new BookingManagement());
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
-                jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new GRNManagement());
         jPanel5.revalidate();
         jPanel5.repaint();

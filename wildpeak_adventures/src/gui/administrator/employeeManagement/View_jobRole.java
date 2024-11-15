@@ -4,47 +4,13 @@
  */
 package gui.administrator.employeeManagement;
 
-;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 import java.sql.ResultSet;
-import java.util.HashMap;
 import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import model.MYSQL;
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Vector;
-import java.util.logging.Level;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import java.sql.PreparedStatement;
-import javax.swing.table.DefaultTableModel;
-import model.MYSQL;
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import model.MYSQL;
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Vector;
-import java.util.logging.Level;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import java.sql.PreparedStatement;
+
 
 
 
@@ -56,7 +22,7 @@ public class View_jobRole extends javax.swing.JDialog {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable3.setDefaultRenderer(Object.class, renderer);
-        loadAddress();
+        loadposition();
         jTable3.getSelectionModel()
                 .addListSelectionListener(event -> {
                     if (!event.getValueIsAdjusting() && jTable3.getSelectedRow() != -1) {
@@ -69,7 +35,7 @@ public class View_jobRole extends javax.swing.JDialog {
                 );
     }
 
-    private void loadAddress() {
+    private void loadposition() {
 
         try {
 
