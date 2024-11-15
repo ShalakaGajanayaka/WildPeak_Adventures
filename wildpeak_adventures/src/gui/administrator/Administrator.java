@@ -12,7 +12,14 @@ import gui.mainFrame.SignIn_StockManager;
 import gui.mainFrame.SignIn_SuperAdmin;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +36,7 @@ public class Administrator extends javax.swing.JFrame {
 //        setUndecorated(true);
         initComponents();
         
-       
+    
 
         ImageIcon icon = new ImageIcon("F:\\github\\WildPeak_Adventures\\wildpeak_adventures\\src\\resources\\logo 30-30.jpeg");
         setIconImage(icon.getImage());
@@ -53,6 +60,8 @@ public class Administrator extends javax.swing.JFrame {
         }
 
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
