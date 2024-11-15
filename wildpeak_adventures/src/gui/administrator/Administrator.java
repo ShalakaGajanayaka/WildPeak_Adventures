@@ -10,6 +10,14 @@ import gui.mainFrame.SignIn_Admin;
 import gui.mainFrame.SignIn_FinanceManager;
 import gui.mainFrame.SignIn_StockManager;
 import gui.mainFrame.SignIn_SuperAdmin;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -18,8 +26,14 @@ import gui.mainFrame.SignIn_SuperAdmin;
 public class Administrator extends javax.swing.JFrame {
 
     public Administrator() {
-        setUndecorated(true);
+//        setUndecorated(true);
         initComponents();
+        
+       
+
+        ImageIcon icon = new ImageIcon("F:\\github\\WildPeak_Adventures\\wildpeak_adventures\\src\\resources\\logo 30-30.jpeg");
+        setIconImage(icon.getImage());
+
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
 
@@ -51,8 +65,6 @@ public class Administrator extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        close_button = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -74,19 +86,6 @@ public class Administrator extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logo 30-30.jpeg"))); // NOI18N
-
-        close_button.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        close_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close-31-20.png"))); // NOI18N
-        close_button.setPreferredSize(new java.awt.Dimension(31, 20));
-        close_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                close_buttonMouseClicked(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Administrator");
@@ -95,25 +94,13 @@ public class Administrator extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(close_button, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(close_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -268,9 +255,9 @@ public class Administrator extends javax.swing.JFrame {
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         jPanel5.setLayout(new java.awt.CardLayout());
@@ -302,7 +289,7 @@ public class Administrator extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -324,10 +311,6 @@ public class Administrator extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void close_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_close_buttonMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_close_buttonMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jPanel5.removeAll();
@@ -356,28 +339,28 @@ public class Administrator extends javax.swing.JFrame {
 
 //<<<<<<< HEAD
     private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
-             jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new Brand());
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton11MouseClicked
 
     private void jButton13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseClicked
-             jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new Category());
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton13MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-                 jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new BookingManagement());
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
-                jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new GRNManagement());
         jPanel5.revalidate();
         jPanel5.repaint();
@@ -399,7 +382,7 @@ public class Administrator extends javax.swing.JFrame {
 //>>>>>>> main
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       jPanel5.removeAll();
+        jPanel5.removeAll();
         jPanel5.add(new Reports());
         jPanel5.revalidate();
         jPanel5.repaint();
@@ -420,7 +403,6 @@ public class Administrator extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel close_button;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -434,7 +416,6 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
