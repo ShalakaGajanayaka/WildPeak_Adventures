@@ -12,14 +12,12 @@ import gui.mainFrame.SignIn_StockManager;
 import gui.mainFrame.SignIn_SuperAdmin;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import model.RoundedPanel;
 
 /**
  *
@@ -30,23 +28,8 @@ public class Administrator extends javax.swing.JFrame {
     public Administrator() {
 //        setUndecorated(true);
         initComponents();
-
-        jPanel4.removeAll();
-        RoundedPanel roundedPanel = new RoundedPanel();
-        roundedPanel.setBackground(jPanel4.getBackground());
-        roundedPanel.setLayout(jPanel4.getLayout());
-
-// Add all components from jPanel2 to roundedPanel
-        Component[] components = jPanel4.getComponents();
-        for (Component comp : components) {
-            roundedPanel.add(comp);
-        }
-
-        jPanel4 = roundedPanel;
         
-        roundedPanel.setBackground(new Color(230, 230, 230));
-        
-        
+       
 
         ImageIcon icon = new ImageIcon("F:\\github\\WildPeak_Adventures\\wildpeak_adventures\\src\\resources\\logo 30-30.jpeg");
         setIconImage(icon.getImage());
@@ -397,7 +380,7 @@ public class Administrator extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-
+//<<<<<<< HEAD
     private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
         jPanel5.removeAll();
         jPanel5.add(new Brand());
@@ -425,7 +408,7 @@ public class Administrator extends javax.swing.JFrame {
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton12MouseClicked
-
+//=======
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jPanel5.removeAll();
         jPanel5.add(new EventManagement());
@@ -439,7 +422,7 @@ public class Administrator extends javax.swing.JFrame {
         jPanel5.revalidate();
         jPanel5.repaint();
     }//GEN-LAST:event_jButton10ActionPerformed
-
+//>>>>>>> main
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         jPanel5.removeAll();
@@ -484,7 +467,7 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    public javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
