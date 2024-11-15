@@ -9,10 +9,13 @@ import gui.mainFrame.SignIn_Admin;
 import gui.mainFrame.SignIn_FinanceManager;
 import gui.mainFrame.SignIn_StockManager;
 import gui.mainFrame.SignIn_SuperAdmin;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -22,13 +25,17 @@ import javax.swing.SwingUtilities;
  */
 public class Dashboard extends javax.swing.JPanel {
 
+    private Color color1 = new Color(46, 125, 50);    // Forest green
+    private Color color2 = new Color(129, 199, 132);
+    private int cornerRadius = 20; 
+
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
         setOpaque(false); // Make the panel transparent so we can paint a rounded background
-        setBackground(new Color(100, 150, 200)); // Choose your background color
+//        setBackground(new Color(100, 150, 200)); // Choose your background color
 
         String jobRole = SignIn_Admin.getjobrole();
         if (jobRole != null && !jobRole.isEmpty()) {
@@ -43,23 +50,34 @@ public class Dashboard extends javax.swing.JPanel {
             jLabel3.setText("Unknown Role");
         }
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Set the background color for the rounded panel
-        g2.setColor(getBackground());
-
-        // Define the rounded rectangle shape
-        int arcWidth = 25;  // Adjust these values for roundness
-        int arcHeight = 25;
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
+        Graphics2D g2d = (Graphics2D) g;
+        
+        // Enable antialiasing for smoother corners
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        // Create the rounded rectangle shape
+        RoundRectangle2D.Float roundRect = new RoundRectangle2D.Float(
+            0, 0, getWidth()-1, getHeight()-1, cornerRadius, cornerRadius);
+        
+        // Create the gradient
+        GradientPaint gradient = new GradientPaint(
+            0, 0, color1,
+            getWidth(), getHeight(), color2);
+        
+        // Fill the rounded rectangle with the gradient
+        g2d.setPaint(gradient);
+        g2d.fill(roundRect);
+        
+        // Optional: Add a border
+        g2d.setColor(new Color(0, 0, 0, 50));  // Semi-transparent black
+        g2d.setStroke(new BasicStroke(1f));
+        g2d.draw(roundRect);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -283,7 +301,7 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
 
-Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
         panel5.add(new EmployeeManagement());
@@ -297,7 +315,7 @@ Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
 
-Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
         panel5.add(new EventManagement());
@@ -310,7 +328,7 @@ Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
 //        jPanel5.add(new Reports());
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
-Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
         panel5.add(new Reports());
@@ -340,7 +358,7 @@ Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
 
-Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
         panel5.add(new JobRoleManagement());
@@ -354,7 +372,7 @@ Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
 
-Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
         panel5.add(new StockManagement());
@@ -394,7 +412,7 @@ Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-       Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
         panel5.add(new Brand());
@@ -404,7 +422,7 @@ Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
-       Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
         panel5.add(new Category());
@@ -414,7 +432,7 @@ Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
