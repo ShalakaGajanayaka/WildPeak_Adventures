@@ -29,10 +29,8 @@ public class Dashboard extends javax.swing.JPanel {
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);  // Light green
     private int cornerRadius = 20;
-    private int shadowSize = 3;          // Reduced shadow size for subtle effect
-    private int shadowOffset = 2;        // Offset to create 3D elevation effect
-    private int shadowOpacity = 25;      // Lower opacity for softer shadow
-
+    private int shadowSize = 5;  // Shadow width
+    private int shadowOpacity = 60;  // Shadow darkness (0-255) 
 
     /**
      * Creates new form Dashboard
@@ -41,11 +39,9 @@ public class Dashboard extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
 
-        // Add padding for the shadow and elevation
-        setBorder(BorderFactory.createEmptyBorder(shadowSize + 2,
-                shadowSize + 2,
-                shadowSize + 4,
-                shadowSize + 2));
+        // Add padding for the shadow
+        setBorder(BorderFactory.createEmptyBorder(shadowSize, shadowSize,
+                shadowSize, shadowSize));
 //        setBackground(new Color(100, 150, 200)); // Choose your background color
 
         String jobRole = SignIn_Admin.getjobrole();
@@ -67,23 +63,24 @@ public class Dashboard extends javax.swing.JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // Enable antialiasing for smooth edges
+        // Enable antialiasing
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
 
-        int width = getWidth() - (2 * shadowSize) - 4;
-        int height = getHeight() - (2 * shadowSize) - 4;
+        // Calculate the area for drawing (accounting for shadow)
+        int width = getWidth() - (2 * shadowSize);
+        int height = getHeight() - (2 * shadowSize);
 
-        // Draw main shadow for 3D effect
-        draw3DShadow(g2d, shadowSize + 2, shadowSize + shadowOffset, width, height);
+        // Create shadow effect
+        drawShadow(g2d, shadowSize, shadowSize, width, height);
 
-        // Create and fill main panel shape
+        // Create main panel shape
         RoundRectangle2D.Float mainShape = new RoundRectangle2D.Float(
-                shadowSize + 2, shadowSize + 2, width - 1, height - 1, cornerRadius, cornerRadius);
+                shadowSize, shadowSize, width - 1, height - 1, cornerRadius, cornerRadius);
 
-        // Create gradient
+        // Create and draw the gradient
         GradientPaint gradient = new GradientPaint(
                 0, 0, color1,
                 width, height, color2);
@@ -91,29 +88,22 @@ public class Dashboard extends javax.swing.JPanel {
         g2d.setPaint(gradient);
         g2d.fill(mainShape);
 
-        // Add highlight at top for 3D effect
-        GradientPaint highlightGradient = new GradientPaint(
-                0, shadowSize + 2, new Color(255, 255, 255, 50),
-                0, shadowSize + 20, new Color(255, 255, 255, 0));
-        g2d.setPaint(highlightGradient);
-        g2d.fill(mainShape);
-
-        // Add subtle border
-        g2d.setColor(new Color(255, 255, 255, 30));
+        // Add a subtle border
+        g2d.setColor(new Color(255, 255, 255, 50));
         g2d.setStroke(new BasicStroke(1f));
         g2d.draw(mainShape);
     }
-
-    private void draw3DShadow(Graphics2D g2d, int x, int y, int width, int height) {
-        // Create soft shadow gradient
+    
+       private void drawShadow(Graphics2D g2d, int x, int y, int width, int height) {
+        // Create gradual shadow effect
         for (int i = 0; i < shadowSize; i++) {
             float opacity = (float) (shadowOpacity * (1 - (i / (float) shadowSize)));
             g2d.setColor(new Color(0, 0, 0, (int) opacity));
             
-            // Draw shadow with slight offset for 3D effect
+            // Draw shadow on all sides
             RoundRectangle2D.Float shadow = new RoundRectangle2D.Float(
                 x - i, 
-                y - i + shadowOffset, // Add offset for 3D effect
+                y - i, 
                 width + (2 * i), 
                 height + (2 * i), 
                 cornerRadius + i, 
@@ -122,8 +112,6 @@ public class Dashboard extends javax.swing.JPanel {
             g2d.fill(shadow);
         }
     }
-    
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
