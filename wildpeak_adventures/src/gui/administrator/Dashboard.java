@@ -9,6 +9,10 @@ import gui.mainFrame.SignIn_Admin;
 import gui.mainFrame.SignIn_FinanceManager;
 import gui.mainFrame.SignIn_StockManager;
 import gui.mainFrame.SignIn_SuperAdmin;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -23,6 +27,8 @@ public class Dashboard extends javax.swing.JPanel {
      */
     public Dashboard() {
         initComponents();
+        setOpaque(false); // Make the panel transparent so we can paint a rounded background
+        setBackground(new Color(100, 150, 200)); // Choose your background color
 
         String jobRole = SignIn_Admin.getjobrole();
         if (jobRole != null && !jobRole.isEmpty()) {
@@ -37,6 +43,23 @@ public class Dashboard extends javax.swing.JPanel {
             jLabel3.setText("Unknown Role");
         }
     }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Set the background color for the rounded panel
+        g2.setColor(getBackground());
+
+        // Define the rounded rectangle shape
+        int arcWidth = 25;  // Adjust these values for roundness
+        int arcHeight = 25;
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
