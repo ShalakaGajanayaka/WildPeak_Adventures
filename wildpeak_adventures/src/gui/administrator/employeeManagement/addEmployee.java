@@ -314,7 +314,7 @@ public class addEmployee extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTable2);
 
         jLabel18.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel18.setText("You can add, edit or delete Employee");
+        jLabel18.setText("You can add Or edit Employee");
 
         jLabel19.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel19.setText("First Name");
