@@ -29,9 +29,9 @@ public class Dashboard extends javax.swing.JPanel {
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);  // Light green
     private int cornerRadius = 20;
-    private int shadowSize = 25;          // Reduced shadow size for subtle effect
-    private int shadowOffset = 3;        // Offset to create 3D elevation effect
-    private int shadowOpacity = 5;      // Lower opacity for softer shadow
+    private int shadowSize = 3;          // Reduced shadow size for subtle effect
+    private int shadowOffset = 2;        // Offset to create 3D elevation effect
+    private int shadowOpacity = 25;      // Lower opacity for softer shadow
 
 
     /**
@@ -42,14 +42,10 @@ public class Dashboard extends javax.swing.JPanel {
         setOpaque(false);
 
         // Add padding for the shadow and elevation
-//        setBorder(BorderFactory.createEmptyBorder(shadowSize + 2,
-//                shadowSize + 2,
-//                shadowSize + 4,
-//                shadowSize + 2));
-         setBorder(BorderFactory.createEmptyBorder(shadowSize + 10,
-                shadowSize + 10,
-                shadowSize + 20,
-                shadowSize + 10));
+        setBorder(BorderFactory.createEmptyBorder(shadowSize + 2,
+                shadowSize + 2,
+                shadowSize + 4,
+                shadowSize + 2));
 //        setBackground(new Color(100, 150, 200)); // Choose your background color
 
         String jobRole = SignIn_Admin.getjobrole();
