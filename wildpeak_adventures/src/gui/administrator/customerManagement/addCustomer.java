@@ -105,33 +105,54 @@ public class addCustomer extends javax.swing.JPanel {
 
     
     
-    private void loadCustomer(String column, String orderby, String nic, String mobile) {
+  private void loadCustomer(String column, String orderby, String fname, String lname, String email, String mobile) {
         try {
-            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id`"
-                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`");
+            String query = "SELECT * FROM customer "
+                    + "INNER JOIN gender ON customer.gender_id = gender.id "
+                    + "INNER JOIN customer_type ON customer.customer_type_id = customer.id "
+                    + "WHERE customer.fname LIKE ? "
+                    + "OR customer.lname LIKE ? "
+                    + "OR customer.email LIKE ? "
+                    + "OR customer.mobile LIKE ? "
+                    + "OR customer_type.name LIKE ? "
+                    + "ORDER BY customer." + column + " " + orderby;
 
-            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
-            defaultTableModel.setRowCount(0);
-
-            while (resultSet.next()) {
+            try (PreparedStatement statement = MYSQL.getConnection().prepareStatement(query)) {
+                String searchPattern = "%" + fname + "%";
                 
 
-                Vector<String> vector = new Vector<>();
-                vector.add(resultSet.getString("fname"));
-                vector.add(resultSet.getString("lname"));
-                vector.add(resultSet.getString("email"));
-                vector.add(resultSet.getString("mobile"));
-                vector.add(resultSet.getString("gender.name"));
-                vector.add(resultSet.getString("customer_type.name"));
-                
-                defaultTableModel.addRow(vector);
+                statement.setString(1, searchPattern);
+                statement.setString(2, searchPattern);
+                statement.setString(3, searchPattern);
+                statement.setString(4, searchPattern);
+                statement.setString(5, searchPattern);
+
+                ResultSet resultSet = statement.executeQuery();
+                DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
+                defaultTableModel.setRowCount(0);
+
+                while (resultSet.next()) {
+                    Vector<String> vector = new Vector<>();
+                    vector.add(resultSet.getString("customer.fname"));              
+                    vector.add(resultSet.getString("customer.lname"));               
+                    vector.add(resultSet.getString("customer.email"));               
+                    vector.add(resultSet.getString("customer.mobile"));              
+                    vector.add(resultSet.getString("customer.age"));                 
+                    vector.add(resultSet.getString("customer.register_date"));     
+                    vector.add(resultSet.getString("gender.name"));         
+                    vector.add(resultSet.getString("customer_type.name")); 
+                    defaultTableModel.addRow(vector);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
 
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -563,7 +584,7 @@ public class addCustomer extends javax.swing.JPanel {
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
         String searchtext = jTextField2.getText();
-        loadCustomer(String column, String orderby, String nic, String mobile);
+        
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
