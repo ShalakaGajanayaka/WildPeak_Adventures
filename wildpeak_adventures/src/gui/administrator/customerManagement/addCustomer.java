@@ -6,12 +6,15 @@
 package gui.administrator.customerManagement;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
+
 
 /**
  *
@@ -70,7 +73,39 @@ public class addCustomer extends javax.swing.JPanel {
         }
     }
     
-    private void loadCustomer() {
+    private void loadCustomer(){
+        
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`");
+
+           DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
+            defaultTableModel.setRowCount(0);
+            
+
+            while (resultSet.next()) {
+                
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));              
+                vector.add(resultSet.getString("customer.lname"));               
+                vector.add(resultSet.getString("customer.email"));               
+                vector.add(resultSet.getString("customer.mobile"));              
+                vector.add(resultSet.getString("customer.age"));                 
+                vector.add(resultSet.getString("customer.register_date"));     
+                vector.add(resultSet.getString("gender.name"));         
+                vector.add(resultSet.getString("customer_type.name")); 
+
+                defaultTableModel.addRow(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+    
+    private void loadCustomer(String column, String orderby, String nic, String mobile) {
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id`"
                     + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`");
@@ -133,11 +168,18 @@ public class addCustomer extends javax.swing.JPanel {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel3.setText("Search");
 
         jTextField2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -153,6 +195,11 @@ public class addCustomer extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTable2);
@@ -230,6 +277,9 @@ public class addCustomer extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Age");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Password");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -238,31 +288,39 @@ public class addCustomer extends javax.swing.JPanel {
             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel23))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel24)
+                                .addComponent(jLabel23))
+                            .addGap(38, 38, 38)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addGap(86, 86, 86)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel1))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                                .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                                .addComponent(jPasswordField1)))))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox1, jComboBox2, jTextField1, jTextField5, jTextField6, jTextField7, jTextField8});
@@ -276,41 +334,46 @@ public class addCustomer extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel21)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel23))
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                        .addGap(1, 1, 1)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addGap(16, 16, 16)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(25, 25, 25))
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox1, jComboBox2, jLabel1, jLabel19, jLabel20, jLabel21, jLabel22, jLabel23, jLabel24, jTextField1, jTextField5, jTextField6, jTextField7, jTextField8});
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox2, jLabel1, jLabel19, jLabel20, jLabel21, jLabel22, jLabel23, jLabel24, jTextField1, jTextField5, jTextField6, jTextField7, jTextField8});
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -345,9 +408,10 @@ public class addCustomer extends javax.swing.JPanel {
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -370,52 +434,70 @@ public class addCustomer extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String fname = jTextField5.getText();
-        String lname = jTextField6.getText();
-        String email = jTextField8.getText();
-        String mobile = jTextField7.getText();
-        String gender = String.valueOf(jComboBox1.getSelectedItem());
-        String type = String.valueOf(jComboBox2.getSelectedItem());
+       try {
+            String FirstName = jTextField5.getText();
+            String LastName = jTextField6.getText();
+            String Email = jTextField8.getText();
+            String Mobile = jTextField7.getText();
+            String Age = jTextField1.getText();
+            String Password = String.valueOf(jPasswordField1.getPassword());
+            String Gender = String.valueOf(jComboBox1.getSelectedItem());
+            String Type = String.valueOf(jComboBox2.getSelectedItem());
 
-        if (fname.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Customer's First Name", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
-        } else if (lname.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Customer's Last Name", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
-        } else if (email.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Customer's Email", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
-        } else if (mobile.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Customer's Mobile", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
-        } else if (!mobile.matches("^07[01245678]{1}[0-9]{7}$")) {
-            JOptionPane.showMessageDialog(this, "Please Enter Customer's Valid Mobile", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
-        } else if (gender.equals("Select")) {
-            JOptionPane.showMessageDialog(this, "Please Select Customer's gender", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
-        } else if (type.equals("Select")) {
-            JOptionPane.showMessageDialog(this, "Please Select Customer's Type", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
-        } else {
+            if (FirstName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter your first name", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (LastName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter your last name", "Warning", JOptionPane.WARNING_MESSAGE);
+            }else if (Email.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter your email", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (!Email.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+"
+                    + "(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
+                JOptionPane.showMessageDialog(this, "Invalid email", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (Mobile.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter your mobile", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (!Mobile.matches("^07[01245678]{1}[0-9]{7}$")) {
+                JOptionPane.showMessageDialog(this, "Please enter valid mobile", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (Password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter your password", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (!Password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+                JOptionPane.showMessageDialog(this, "Please enter minimum eight characters, at least one letter and one number", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (Gender.equals("Select")) {
+                JOptionPane.showMessageDialog(this, "Please select a gender", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else if (Type.equals("Select")) {
+                JOptionPane.showMessageDialog(this, "Please select a type", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
 
-            try {
-                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + email + "' AND `mobile` = '" + mobile + "'");
+                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `employee` WHERE `Email` = '" + Email + "' OR  `mobile` = '" +Mobile+ "'");
 
                 if (resultSet.next()) {
-                    JOptionPane.showMessageDialog(this, "This Customer Is Already Added", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "This Customer is already registered", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    MYSQL.executeIUD("INSERT INTO `customer`(`fname`,`lname`,`mobile`,`gender_id`,`customer_city_id`)"
-                            + "VALUES('" + fname + "','" + lname + "','" + mobile +"','" + CustomerGenderMap.get(gender) + "','" + CustomerTypeMap.get(type) + "')");
-                    loadCustomer();
-                    
-                }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                    Date date = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                    MYSQL.executeIUD("INSERT INTO customer(fname, lname, email, mobile, age, register_date, password, gender_id, customer_type_id)"
+                            + "VALUES('" + FirstName + "','" + LastName + "','" + Email + "','" + Mobile + "','" + Age + "',"
+                            + "'" + sdf.format(date) + "','" + Password + "','" + CustomerGenderMap.get(Gender) + "','" + CustomerTypeMap.get(Type) + "')");
+
+                    loadCustomer();
+                    reset();
+
+                }
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+                                           
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String fname = jTextField5.getText();
+          String fname = jTextField5.getText();
         String lname = jTextField6.getText();
         String email = jTextField8.getText();
         String mobile = jTextField7.getText();
+        String age = jTextField1.getText();
         String gender = String.valueOf(jComboBox1.getSelectedItem());
         String type = String.valueOf(jComboBox2.getSelectedItem());
 
@@ -425,6 +507,8 @@ public class addCustomer extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Enter Customer's Last Name", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else if (email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Customer's Email", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
+        } else if (age.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Customer's age", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else if (mobile.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Customer's Mobile", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else if (!mobile.matches("^07[01245678]{1}[0-9]{7}$")) {
@@ -435,31 +519,30 @@ public class addCustomer extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Select Customer's Type", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else {
 
+
             try {
 
-                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + email + "'");
-
-                boolean canUpdate = false;
+                boolean update = false;
+                
+                  ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + email + "' AND `mobile` = '" + mobile + "'");
 
                 if (resultSet.next()) {
                     if (resultSet.getString("mobile").equals(mobile)) {
-                        canUpdate = true;
+                        update = true;
                     } else {
 
-                        JOptionPane.showMessageDialog(this, "mobile Number already added", "Warning", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "mobile Number or Email already added", "Warning", JOptionPane.WARNING_MESSAGE);
                     }
 
                 } else {
 
-                    canUpdate = true;
+                    update = true;
                 }
 
-                if (canUpdate) {
-                    MYSQL.executeIUD("UPDATE `customer` SET `fname` = '" + fname + "' , `gender_id`='" + CustomerGenderMap.get(gender) + "' ,`customer_city_id` = '" + CustomerTypeMap.get(type) + "'"
-                            + "WHERE `mobile` = '" + mobile + "'");
-
-                    loadCustomer();
-//                    
+                if (update) {
+                    MYSQL.executeIUD("UPDATE `customer` SET `fname` = '" + fname + "',`lname` = '" + lname + "',`email` = '" + email + "',`mobile` = '" + mobile + "',`age` = '" + age + "',"
+                            + "`gender_id` = '" + CustomerGenderMap.get(gender) + "',`customer_type_id` = '" + CustomerTypeMap.get(type) + "' WHERE `id` = '" + mobile + "'");
+                                       
                     reset();
                 }
 
@@ -478,19 +561,52 @@ public class addCustomer extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
 
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        String searchtext = jTextField2.getText();
+        loadCustomer(String column, String orderby, String nic, String mobile);
+    }//GEN-LAST:event_jTextField2KeyReleased
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        int row = jTable2.getSelectedRow();
+
+    String fname = String.valueOf(jTable2.getValueAt(row, 0));
+    jTextField5.setText(fname);
+
+    String lname = String.valueOf(jTable2.getValueAt(row, 1));
+    jTextField6.setText(lname);
+    
+    String email = String.valueOf(jTable2.getValueAt(row, 2));
+    jTextField8.setText(email);
+    jTextField8.setEnabled(false); 
+
+    String mobile = String.valueOf(jTable2.getValueAt(row, 3));
+    jTextField7.setText(mobile);
+    jTextField7.setEnabled(false); 
+
+    String age = String.valueOf(jTable2.getValueAt(row, 4));
+    jTextField1.setText(age);
+
+    String gender = String.valueOf(jTable2.getValueAt(row, 7));
+    jComboBox1.setSelectedItem(gender);
+
+    String type = String.valueOf(jTable2.getValueAt(row, 8)); 
+    jComboBox2.setSelectedItem(type);
+    
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    
     
     
     
     public void reset() {
         jTextField5.setText("");
         jTextField6.setText("");
+        jTextField8.setText("");
         jTextField7.setText("");
+        jTextField1.setText("");
+        jPasswordField1.setText("");
         jComboBox1.setSelectedIndex(0);
         jComboBox2.setSelectedIndex(0);
-        
-        jTextField8.grabFocus();
-        
-        
 
     }
 
@@ -505,6 +621,7 @@ public class addCustomer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -515,6 +632,7 @@ public class addCustomer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
