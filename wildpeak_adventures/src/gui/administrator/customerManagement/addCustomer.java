@@ -31,6 +31,11 @@ public class addCustomer extends javax.swing.JPanel {
         initComponents();
         loadGender();
         loadType();
+        loadCustomer("id", "ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+        jTable2.revalidate();
+        jTable2.repaint();
+        reset();
+        getCustomerCount();
     }
     
     private void loadGender() {
@@ -154,7 +159,9 @@ public class addCustomer extends javax.swing.JPanel {
     }
   
   public void getCustomerCount() {
+      
         try {
+            
             // Define the SQL query to get the employee count
             String query = "SELECT COUNT(*) AS customer_count FROM `customer_type`";
 
