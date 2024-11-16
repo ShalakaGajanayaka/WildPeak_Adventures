@@ -584,7 +584,7 @@ public class addCustomer extends javax.swing.JPanel {
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
         String searchtext = jTextField2.getText();
-        
+         loadCustomer("id", "ASC", searchtext, searchtext, searchtext, searchtext);
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
