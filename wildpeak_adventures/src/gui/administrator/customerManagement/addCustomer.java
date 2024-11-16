@@ -79,6 +79,7 @@ public class addCustomer extends javax.swing.JPanel {
             defaultTableModel.setRowCount(0);
 
             while (resultSet.next()) {
+                
 
                 Vector<String> vector = new Vector<>();
                 vector.add(resultSet.getString("fname"));
