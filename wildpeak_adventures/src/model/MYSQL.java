@@ -23,6 +23,11 @@ public class MYSQL {
             connection = DriverManager.getConnection("jdbc:mysql://wiledpeak-adventures.cfsiiq2mmc40.eu-north-1.rds.amazonaws.com:3306/wildpeak", "admin", "%qYMqW*{520{");
         }
     }
+    
+    public static Connection getConnection() throws SQLException, Exception {
+        createConnection();  
+        return connection;    
+    }
 
     public static ResultSet executeSearch(String query) throws Exception {
         createConnection();
