@@ -235,11 +235,11 @@ public class addCustomer extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "Name", "Email", "Mobile", "Type"
+                "#", "First Name", "Last Name", "Email", "Mobile", "Age", "Registered Date", "Gender", "Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -632,31 +632,41 @@ public class addCustomer extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        int row = jTable2.getSelectedRow();
-
-    String fname = String.valueOf(jTable2.getValueAt(row, 0));
-    jTextField5.setText(fname);
-
-    String lname = String.valueOf(jTable2.getValueAt(row, 1));
-    jTextField6.setText(lname);
     
-    String email = String.valueOf(jTable2.getValueAt(row, 2));
-    jTextField8.setText(email);
-    jTextField8.setEnabled(false); 
+        try {
+            jButton1.setEnabled(false);
+            int row = jTable2.getSelectedRow();
+            String email = String.valueOf(jTable2.getValueAt(row, 2));  // assuming column 0 is the user ID
 
-    String mobile = String.valueOf(jTable2.getValueAt(row, 3));
-    jTextField7.setText(mobile);
-    jTextField7.setEnabled(false); 
+            // Query database using UserId to retrieve additional details
+            String query = "SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`"
+                    + "WHERE employee.email = ?";
 
-    String age = String.valueOf(jTable2.getValueAt(row, 4));
-    jTextField1.setText(age);
+            // Assuming you have a method for database connection (connection)
+            PreparedStatement pst = MYSQL.getConnection().prepareStatement(query);
+            pst.setString(1, email);  // Sets the 'email' as a parameter in the WHERE clause
+            ResultSet rs = pst.executeQuery();
 
-    String gender = String.valueOf(jTable2.getValueAt(row, 7));
-    jComboBox1.setSelectedItem(gender);
+            if (rs.next()) {
+                // Set text fields with database values
+                jTextField5.setText(rs.getString("fname"));
+                jTextField6.setText(rs.getString("lname"));
+                jTextField8.setText(rs.getString("email"));
+                jTextField7.setText(rs.getString("mobile"));
+                jTextField1.setText(rs.getString("age"));
+                jTextField7.setEditable(false);
+                jPasswordField1.setText(rs.getString("password"));
+                jComboBox1.setSelectedItem(rs.getString("gender.name"));
+                jComboBox2.setSelectedItem(rs.getString("customer_type.name"));
+            }
+            rs.close();
+            pst.close();
 
-    String type = String.valueOf(jTable2.getValueAt(row, 8)); 
-    jComboBox2.setSelectedItem(type);
-    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jTable2MouseClicked
 
     
