@@ -37,8 +37,6 @@ public class CustomerManagement extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        genderGroup = new javax.swing.ButtonGroup();
-        typeGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -103,11 +101,9 @@ public class CustomerManagement extends javax.swing.JPanel {
     private javax.swing.JPanel addCustomerPanel;
     private javax.swing.JPanel allCustomersPanel;
     private javax.swing.JPanel forignCustomersPanel;
-    private javax.swing.ButtonGroup genderGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel localCustomersPanel;
-    private javax.swing.ButtonGroup typeGroup;
     // End of variables declaration//GEN-END:variables
 }
