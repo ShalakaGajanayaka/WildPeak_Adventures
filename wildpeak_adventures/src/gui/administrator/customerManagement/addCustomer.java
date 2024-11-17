@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 
@@ -31,7 +32,7 @@ public class addCustomer extends javax.swing.JPanel {
         initComponents();
         loadGender();
         loadType();
-        loadCustomer("id", "ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+        loadCustomer("id","ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
         jTable2.revalidate();
         jTable2.repaint();
         reset();
@@ -114,7 +115,7 @@ public class addCustomer extends javax.swing.JPanel {
         try {
             String query = "SELECT * FROM customer "
                     + "INNER JOIN gender ON customer.gender_id = gender.id "
-                    + "INNER JOIN customer_type ON customer.customer_type_id = customer.id "
+                    + "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id "
                     + "WHERE customer.fname LIKE ? "
                     + "OR customer.lname LIKE ? "
                     + "OR customer.email LIKE ? "
@@ -147,7 +148,7 @@ public class addCustomer extends javax.swing.JPanel {
                     vector.add(resultSet.getString("gender.name"));         
                     vector.add(resultSet.getString("customer_type.name")); 
                     defaultTableModel.addRow(vector);
-                }
+                } 
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -160,30 +161,7 @@ public class addCustomer extends javax.swing.JPanel {
   
   public void getCustomerCount() {
       
-        try {
-            
-            // Define the SQL query to get the employee count
-            String query = "SELECT COUNT(*) AS customer_count FROM `customer_type`";
-
-            // Execute the query and get the result
-            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
-            ResultSet resultSet = stmt.executeQuery();
-
-            // Process the result
-            if (resultSet.next()) {
-                int customerCount = resultSet.getInt("customer_count");
-
-                // Set the result (employee count) as the text for jLabel6
-                jLabel2.setText("Total customer: " + customerCount);
-            }
-
-            // Close the resources
-            resultSet.close();
-            stmt.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+      
     }
 
 
@@ -225,7 +203,7 @@ public class addCustomer extends javax.swing.JPanel {
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel3.setText("Search");
@@ -242,11 +220,11 @@ public class addCustomer extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "First Name", "Last Name", "Email", "Mobile", "Age", "Registered Date", "Gender", "Type"
+                "First Name", "Last Name", "Email", "Mobile", "Age", "Registered Date", "Gender", "Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -416,7 +394,7 @@ public class addCustomer extends javax.swing.JPanel {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23))
@@ -433,6 +411,9 @@ public class addCustomer extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Count");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setText("Count");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -454,6 +435,8 @@ public class addCustomer extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addGap(48, 48, 48)
                         .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE))
                 .addContainerGap())
@@ -468,40 +451,28 @@ public class addCustomer extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
                         .addContainerGap())
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Count");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(942, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(37, 37, 37))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel6)
-                .addContainerGap(476, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -712,7 +683,7 @@ public class addCustomer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
