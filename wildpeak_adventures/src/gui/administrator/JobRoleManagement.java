@@ -64,7 +64,7 @@ public class JobRoleManagement extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -76,7 +76,7 @@ public class JobRoleManagement extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
