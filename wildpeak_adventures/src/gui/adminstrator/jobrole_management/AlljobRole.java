@@ -15,29 +15,29 @@ public class AllJobRole extends javax.swing.JPanel {
      */
     public AllJobRole() {
         initComponents();
-        loadJobRole("id", "ASC", jTextField2.getText());
-        jTable1.revalidate();
-        jTable1.repaint();
-//        getEmployeeCount();
-//        refreshTable();
-        // Center-align text in the table cells
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(SwingConstants.CENTER);
-        jTable1.setDefaultRenderer(Object.class, renderer);
-
-        // Load job roles
-        loadJobRole("id", "ASC", jTextField2.getText());
-
-        // Add a listener to update the description area when a row is selected
-        jTable1.getSelectionModel()
-                .addListSelectionListener(event -> {
-                    if (!event.getValueIsAdjusting() && jTable1.getSelectedRow() != -1) {
-                        int selectedRow = jTable1.getSelectedRow();
-                        String jobId = (String) jTable1.getValueAt(selectedRow, 0); // Assuming ID is in the first column
-                        loadDescription(jobId);
-                    }
-                });
-        getJobRole();
+//        loadJobRole("id", "ASC", jTextField2.getText());
+//        jTable1.revalidate();
+//        jTable1.repaint();
+////        getEmployeeCount();
+////        refreshTable();
+//        // Center-align text in the table cells
+//        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+//        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+//        jTable1.setDefaultRenderer(Object.class, renderer);
+//
+//        // Load job roles
+//        loadJobRole("id", "ASC", jTextField2.getText());
+//
+//        // Add a listener to update the description area when a row is selected
+//        jTable1.getSelectionModel()
+//                .addListSelectionListener(event -> {
+//                    if (!event.getValueIsAdjusting() && jTable1.getSelectedRow() != -1) {
+//                        int selectedRow = jTable1.getSelectedRow();
+//                        String jobId = (String) jTable1.getValueAt(selectedRow, 0); // Assuming ID is in the first column
+//                        loadDescription(jobId);
+//                    }
+//                });
+//        getJobRole();
 
     }
 

@@ -17,8 +17,8 @@ public class AddJobRole extends javax.swing.JPanel {
 
     public AddJobRole() {
         initComponents();
-        loadStatus();
-        loadJobRole("id", "ASC", jTextField1.getText());
+//        loadStatus();
+//        loadJobRole("id", "ASC", jTextField1.getText());
     }
 
     private void loadStatus() {
