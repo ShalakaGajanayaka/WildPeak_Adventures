@@ -16,12 +16,12 @@ import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 
-
 /**
  *
  * @author shalaka
  */
 public class addCustomer extends javax.swing.JPanel {
+
     HashMap<String, String> CustomerGenderMap = new HashMap<>();
     HashMap<String, String> CustomerTypeMap = new HashMap<>();
 
@@ -32,13 +32,14 @@ public class addCustomer extends javax.swing.JPanel {
         initComponents();
         loadGender();
         loadType();
-        loadCustomer("id","ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
-        jTable2.revalidate();
-        jTable2.repaint();
-        reset();
-        getCustomerCount();
+        loadCustomer();
+//        loadCustomer("id","ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+//        jTable2.revalidate();
+//        jTable2.repaint();
+//        reset();
+//        getCustomerCount();
     }
-    
+
     private void loadGender() {
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `gender`");
@@ -58,7 +59,7 @@ public class addCustomer extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
+
     private void loadType() {
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer_type`");
@@ -78,29 +79,28 @@ public class addCustomer extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
-    private void loadCustomer(){
-        
+
+    private void loadCustomer() {
+
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` "
                     + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
                     + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`");
 
-           DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
             defaultTableModel.setRowCount(0);
-            
 
             while (resultSet.next()) {
-                
+
                 Vector<String> vector = new Vector<>();
-                vector.add(resultSet.getString("customer.fname"));              
-                vector.add(resultSet.getString("customer.lname"));               
-                vector.add(resultSet.getString("customer.email"));               
-                vector.add(resultSet.getString("customer.mobile"));              
-                vector.add(resultSet.getString("customer.age"));                 
-                vector.add(resultSet.getString("customer.register_date"));     
-                vector.add(resultSet.getString("gender.name"));         
-                vector.add(resultSet.getString("customer_type.name")); 
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
 
                 defaultTableModel.addRow(vector);
             }
@@ -109,9 +109,7 @@ public class addCustomer extends javax.swing.JPanel {
         }
     }
 
-    
-    
-  private void loadCustomer(String column, String orderby, String fname, String lname, String email, String mobile) {
+    private void loadCustomer(String column, String orderby, String fname, String lname, String email, String mobile) {
         try {
             String query = "SELECT * FROM customer "
                     + "INNER JOIN gender ON customer.gender_id = gender.id "
@@ -125,7 +123,6 @@ public class addCustomer extends javax.swing.JPanel {
 
             try (PreparedStatement statement = MYSQL.getConnection().prepareStatement(query)) {
                 String searchPattern = "%" + fname + "%";
-                
 
                 statement.setString(1, searchPattern);
                 statement.setString(2, searchPattern);
@@ -139,16 +136,16 @@ public class addCustomer extends javax.swing.JPanel {
 
                 while (resultSet.next()) {
                     Vector<String> vector = new Vector<>();
-                    vector.add(resultSet.getString("customer.fname"));              
-                    vector.add(resultSet.getString("customer.lname"));               
-                    vector.add(resultSet.getString("customer.email"));               
-                    vector.add(resultSet.getString("customer.mobile"));              
-                    vector.add(resultSet.getString("customer.age"));                 
-                    vector.add(resultSet.getString("customer.register_date"));     
-                    vector.add(resultSet.getString("gender.name"));         
-                    vector.add(resultSet.getString("customer_type.name")); 
+                    vector.add(resultSet.getString("customer.fname"));
+                    vector.add(resultSet.getString("customer.lname"));
+                    vector.add(resultSet.getString("customer.email"));
+                    vector.add(resultSet.getString("customer.mobile"));
+                    vector.add(resultSet.getString("customer.age"));
+                    vector.add(resultSet.getString("customer.register_date"));
+                    vector.add(resultSet.getString("gender.name"));
+                    vector.add(resultSet.getString("customer_type.name"));
                     defaultTableModel.addRow(vector);
-                } 
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -158,12 +155,10 @@ public class addCustomer extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-  
-  public void getCustomerCount() {
-      
-      
-    }
 
+    public void getCustomerCount() {
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -477,7 +472,7 @@ public class addCustomer extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try {
+        try {
             String FirstName = jTextField5.getText();
             String LastName = jTextField6.getText();
             String Email = jTextField8.getText();
@@ -491,7 +486,7 @@ public class addCustomer extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please enter your first name", "Warning", JOptionPane.WARNING_MESSAGE);
             } else if (LastName.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter your last name", "Warning", JOptionPane.WARNING_MESSAGE);
-            }else if (Email.isEmpty()) {
+            } else if (Email.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter your email", "Warning", JOptionPane.WARNING_MESSAGE);
             } else if (!Email.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+"
                     + "(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
@@ -510,7 +505,7 @@ public class addCustomer extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please select a type", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
 
-                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `employee` WHERE `Email` = '" + Email + "' OR  `mobile` = '" +Mobile+ "'");
+                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `employee` WHERE `Email` = '" + Email + "' OR  `mobile` = '" + Mobile + "'");
 
                 if (resultSet.next()) {
                     JOptionPane.showMessageDialog(this, "This Customer is already registered", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -532,11 +527,11 @@ public class addCustomer extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-                                           
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-          String fname = jTextField5.getText();
+        String fname = jTextField5.getText();
         String lname = jTextField6.getText();
         String email = jTextField8.getText();
         String mobile = jTextField7.getText();
@@ -562,12 +557,11 @@ public class addCustomer extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Select Customer's Type", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else {
 
-
             try {
 
                 boolean update = false;
-                
-                  ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + email + "' AND `mobile` = '" + mobile + "'");
+
+                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + email + "' AND `mobile` = '" + mobile + "'");
 
                 if (resultSet.next()) {
                     if (resultSet.getString("mobile").equals(mobile)) {
@@ -585,7 +579,7 @@ public class addCustomer extends javax.swing.JPanel {
                 if (update) {
                     MYSQL.executeIUD("UPDATE `customer` SET `fname` = '" + fname + "',`lname` = '" + lname + "',`email` = '" + email + "',`mobile` = '" + mobile + "',`age` = '" + age + "',"
                             + "`gender_id` = '" + CustomerGenderMap.get(gender) + "',`customer_type_id` = '" + CustomerTypeMap.get(type) + "' WHERE `id` = '" + mobile + "'");
-                                       
+
                     reset();
                 }
 
@@ -593,7 +587,7 @@ public class addCustomer extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
-                                           
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -606,11 +600,11 @@ public class addCustomer extends javax.swing.JPanel {
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
         String searchtext = jTextField2.getText();
-         loadCustomer("id", "ASC", searchtext, searchtext, searchtext, searchtext);
+        loadCustomer("id", "ASC", searchtext, searchtext, searchtext, searchtext);
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-    
+
         try {
             jButton1.setEnabled(false);
             int row = jTable2.getSelectedRow();
@@ -647,10 +641,6 @@ public class addCustomer extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTable2MouseClicked
 
-    
-    
-    
-    
     public void reset() {
         jTextField5.setText("");
         jTextField6.setText("");
@@ -663,7 +653,6 @@ public class addCustomer extends javax.swing.JPanel {
 
     }
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
