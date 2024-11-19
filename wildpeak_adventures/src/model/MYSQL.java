@@ -13,7 +13,7 @@ import java.sql.ResultSet;
  * @author sandu
  */
 public class MYSQL {
-    
+
 
     private static Connection connection;
 
