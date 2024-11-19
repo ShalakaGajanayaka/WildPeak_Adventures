@@ -111,46 +111,74 @@ public class addCustomer extends javax.swing.JPanel {
 
     private void loadCustomer(String column, String orderby, String fname, String lname, String email, String mobile) {
         try {
-            String query = "SELECT * FROM customer "
-                    + "INNER JOIN gender ON customer.gender_id = gender.id "
-                    + "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id "
-                    + "WHERE customer.fname LIKE ? "
-                    + "OR customer.lname LIKE ? "
-                    + "OR customer.email LIKE ? "
-                    + "OR customer.mobile LIKE ? "
-                    + "OR customer_type.name LIKE ? "
-                    + "ORDER BY customer." + column + " " + orderby;
+//            String query = "SELECT * FROM customer "
+//                    + "INNER JOIN gender ON customer.gender_id = gender.id "
+//                    + "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id "
+//                    + "WHERE customer.fname LIKE ? "
+//                    + "OR customer.lname LIKE ? "
+//                    + "OR customer.email LIKE ? "
+//                    + "OR customer.mobile LIKE ? "
+//                    + "OR customer_type.name LIKE ? "
+//                    + "ORDER BY customer." + column + " " + orderby;
+//
+//            PreparedStatement statement = MYSQL.getConnection().prepareStatement(query);
+//            String searchPattern = "%" + fname + "%";
+//
+//            statement.setString(1, searchPattern);
+//            statement.setString(2, searchPattern);
+//            statement.setString(3, searchPattern);
+//            statement.setString(4, searchPattern);
+//            statement.setString(5, searchPattern);
+//
+//            ResultSet resultSet = statement.executeQuery();
+//            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
+//            defaultTableModel.setRowCount(0);
+//
+//            while (resultSet.next()) {
+//                Vector<String> vector = new Vector<>();
+//                vector.add(resultSet.getString("customer.fname"));
+//                vector.add(resultSet.getString("customer.lname"));
+//                vector.add(resultSet.getString("customer.email"));
+//                vector.add(resultSet.getString("customer.mobile"));
+//                vector.add(resultSet.getString("customer.age"));
+//                vector.add(resultSet.getString("customer.register_date"));
+//                vector.add(resultSet.getString("gender.name"));
+//                vector.add(resultSet.getString("customer_type.name"));
+//                defaultTableModel.addRow(vector);
+//
+//
+//            }
 
-            try (PreparedStatement statement = MYSQL.getConnection().prepareStatement(query)) {
-                String searchPattern = "%" + fname + "%";
+            String searchText = jTextField2.getText().trim(); // search textfield එකේ text එක ගන්නවා
+            String query = "SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
+                    + "WHERE `customer`.`fname` LIKE ? OR `customer`.`lname` LIKE ? OR `customer`.`email` LIKE ?";
 
-                statement.setString(1, searchPattern);
-                statement.setString(2, searchPattern);
-                statement.setString(3, searchPattern);
-                statement.setString(4, searchPattern);
-                statement.setString(5, searchPattern);
+            PreparedStatement preparedStatement = MYSQL.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, "%" + searchText + "%"); // fname
+            preparedStatement.setString(2, "%" + searchText + "%"); // lname
+            preparedStatement.setString(3, "%" + searchText + "%"); // email
 
-                ResultSet resultSet = statement.executeQuery();
-                DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
-                defaultTableModel.setRowCount(0);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                while (resultSet.next()) {
-                    Vector<String> vector = new Vector<>();
-                    vector.add(resultSet.getString("customer.fname"));
-                    vector.add(resultSet.getString("customer.lname"));
-                    vector.add(resultSet.getString("customer.email"));
-                    vector.add(resultSet.getString("customer.mobile"));
-                    vector.add(resultSet.getString("customer.age"));
-                    vector.add(resultSet.getString("customer.register_date"));
-                    vector.add(resultSet.getString("gender.name"));
-                    vector.add(resultSet.getString("customer_type.name"));
-                    defaultTableModel.addRow(vector);
-                }
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
+            defaultTableModel.setRowCount(0);
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            while (resultSet.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
 
+                defaultTableModel.addRow(vector);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
