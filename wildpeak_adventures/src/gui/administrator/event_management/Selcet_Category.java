@@ -6,6 +6,8 @@ package gui.administrator.event_management;
 
 import gui.administrator.EventManagement;
 import gui.administrator.employeeManagement.*;
+import java.awt.Frame;
+import java.awt.Window;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 import java.sql.ResultSet;
@@ -24,12 +26,14 @@ public class Selcet_Category extends javax.swing.JDialog {
 
     private Add_Event event;
 
+
+
     public void setevent(Add_Event event) {
-        this.event = event; // Set the reference to Add_Event
+        this.event = event;
     }
 
-    public Selcet_Category(EventManagement parent, boolean modal) {
-        super(parent, modal);
+    public Selcet_Category() {
+
         initComponents();
         loadDistrict();
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -264,21 +268,20 @@ public class Selcet_Category extends javax.swing.JDialog {
 
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
 
-        if (evt.getClickCount() == 2) { // Double-click detected
-            int row = jTable3.getSelectedRow();
-            if (row != -1) {
-                String name = String.valueOf(jTable3.getValueAt(row, 1)); // Assuming column 1 contains the category name
-                if (event != null) {
-                    event.setevent(name); // Pass the data to Add_Event
-                    dispose(); // Close the dialog
-                } else {
-                    JOptionPane.showMessageDialog(Selcet_Category.this,
-                            "The event object is null!",
-                            "Information",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
+        int row = jTable3.getSelectedRow();
+
+        if (evt.getClickCount() == 2) {
+
+            if (event != null) {
+                event.getjTextField2().setText(String.valueOf(jTable3.getValueAt(row, 1)));
+//                grn.getjLabel22().setText(String.valueOf(jTable1.getValueAt(row, 1)));
+//                grn.getjLabel23().setText(String.valueOf(jTable1.getValueAt(row, 2)));
+//                grn.getjLabel24().setText(String.valueOf(jTable1.getValueAt(row, 5)));
+//                grn.getjLabel22().setText(String.valueOf(jTable1.getValueAt(row, 1)));
+                this.dispose();
             }
         }
+
 
     }//GEN-LAST:event_jTable3MouseClicked
 

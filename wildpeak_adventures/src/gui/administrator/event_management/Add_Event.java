@@ -4,10 +4,12 @@
  */
 package gui.administrator.event_management;
 
+import gui.administrator.EmployeeManagement;
 import gui.administrator.EventManagement;
 import java.awt.Frame;
 import java.awt.Window;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -19,8 +21,8 @@ public class Add_Event extends javax.swing.JPanel {
 
     }
 
-    public void setevent(String name) {
-        jTextField2.setText(name);
+    public JTextField getjTextField2() {
+        return jTextField2;
     }
 
     @SuppressWarnings("unchecked")
@@ -447,23 +449,10 @@ public class Add_Event extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-// Ensure that the parent is an instance of EventManagement (the JFrame).
-        EventManagement eventManagement = null;
-
-        // Try to get the parent window correctly
-        Window parentWindow = SwingUtilities.getWindowAncestor(this);
-
-        if (parentWindow instanceof EventManagement) {
-            eventManagement = (EventManagement) parentWindow; // cast to EventManagement
-        } else {
-            JOptionPane.showMessageDialog(this, "The parent is not an EventManagement window.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Open Selcet_Category dialog
-        Selcet_Category category = new Selcet_Category(eventManagement, true);
-        category.setVisible(true);
-        category.setevent(this);
+        
+        Selcet_Category selcet_Category = new Selcet_Category();
+        selcet_Category.setVisible(true);
+        selcet_Category.setevent(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
