@@ -5,17 +5,18 @@
  */
 package gui.administrator;
 
-/**
- *
- * @author shalaka
- */
+import gui.administrator.event_management.Add_Event;
+import gui.administrator.event_management.All_Event;
+
+
 public class EventManagement extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CustomerManagement
-     */
+
     public EventManagement() {
         initComponents();
+
+        AllEvent.add(new All_Event());
+        AddEvent.add(new Add_Event());
     }
 
     /**
@@ -30,14 +31,19 @@ public class EventManagement extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        add_Event1 = new gui.administrator.event_management.Add_Event();
+        AllEvent = new javax.swing.JPanel();
+        AddEvent = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1122, 505));
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel1.setText("Event Management");
 
-        jTabbedPane1.addTab("Add Event", add_Event1);
+        AllEvent.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("AllEvent", AllEvent);
+
+        AddEvent.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("AddEvent", AddEvent);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -45,7 +51,7 @@ public class EventManagement extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -72,7 +78,8 @@ public class EventManagement extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.administrator.event_management.Add_Event add_Event1;
+    private javax.swing.JPanel AddEvent;
+    private javax.swing.JPanel AllEvent;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;

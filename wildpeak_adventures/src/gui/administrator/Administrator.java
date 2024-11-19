@@ -36,7 +36,7 @@ public class Administrator extends javax.swing.JFrame {
 //        setUndecorated(true);
         initComponents();
         
-        ImageIcon icon = new ImageIcon("F:\\github\\WildPeak_Adventures\\wildpeak_adventures\\src\\resources\\logo 30-30.jpeg");
+        ImageIcon icon = new ImageIcon("src\\resources\\logo 30-30.jpeg");
         setIconImage(icon.getImage());
 
         setLocationRelativeTo(null);

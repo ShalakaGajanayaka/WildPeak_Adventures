@@ -631,8 +631,8 @@ public class addEmployee extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         JDialog View_jobrole = null;
-        Frame Employee_Management = null;
-        View_jobrole = new View_jobRole(Employee_Management, true);
+        Frame EmployeeManagement = null;
+        View_jobrole = new View_jobRole(EmployeeManagement, true);
         View_jobrole.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
