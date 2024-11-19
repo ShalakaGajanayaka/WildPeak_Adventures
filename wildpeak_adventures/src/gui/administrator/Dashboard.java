@@ -341,12 +341,12 @@ public class Dashboard extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
-        JPanel panel5 = admin.getJPanel5();
-        panel5.removeAll();
-        panel5.add(new BookingManagement());
-        panel5.revalidate();
-        panel5.repaint();
+//        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+//        JPanel panel5 = admin.getJPanel5();
+//        panel5.removeAll();
+//        panel5.add(new BookingManagement());
+//        panel5.revalidate();
+//        panel5.repaint();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -355,12 +355,12 @@ public class Dashboard extends javax.swing.JPanel {
 //        jPanel5.revalidate();
 //        jPanel5.repaint();
 
-        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
-        JPanel panel5 = admin.getJPanel5();
-        panel5.removeAll();
-        panel5.add(new JobRoleManagement());
-        panel5.revalidate();
-        panel5.repaint();
+//        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+//        JPanel panel5 = admin.getJPanel5();
+//        panel5.removeAll();
+//        panel5.add(new JobRoleManagement());
+//        panel5.revalidate();
+//        panel5.repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
