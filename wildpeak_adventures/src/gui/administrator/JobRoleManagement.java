@@ -119,6 +119,11 @@ public class JobRoleManagement extends javax.swing.JPanel {
         jLabel19.setText("Role Name");
 
         jTextField5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField5KeyReleased(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel18.setText("You can Add or Delete Job Role");
@@ -247,6 +252,11 @@ public class JobRoleManagement extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTable2);
 
         jTextField2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel3.setText("Search");
@@ -384,6 +394,14 @@ loadjob();
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         reset();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyReleased
+       
+    }//GEN-LAST:event_jTextField5KeyReleased
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        
+    }//GEN-LAST:event_jTextField2KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
