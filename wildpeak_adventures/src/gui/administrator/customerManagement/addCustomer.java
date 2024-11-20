@@ -601,10 +601,10 @@ public class addCustomer extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Enter Customer's Last Name", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else if (email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Customer's Email", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
+         } else if (mobile.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Customer's Mobile", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else if (age.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Customer's age", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
-        } else if (mobile.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Customer's Mobile", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else if (!mobile.matches("^07[01245678]{1}[0-9]{7}$")) {
             JOptionPane.showMessageDialog(this, "Please Enter Customer's Valid Mobile", "Inforamtion", JOptionPane.INFORMATION_MESSAGE);
         } else if (gender.equals("Select")) {
@@ -634,11 +634,13 @@ public class addCustomer extends javax.swing.JPanel {
 
                 if (update) {
                     MYSQL.executeIUD("UPDATE `customer` SET `fname` = '" + fname + "',`lname` = '" + lname + "',`email` = '" + email + "',`mobile` = '" + mobile + "',`age` = '" + age + "',"
-                            + "`gender_id` = '" + CustomerGenderMap.get(gender) + "',`customer_type_id` = '" + CustomerTypeMap.get(type) + "' WHERE `id` = '" + mobile + "'");
+                            + "`gender_id` = '" + CustomerGenderMap.get(gender) + "',`customer_type_id` = '" + CustomerTypeMap.get(type) + "' WHERE `mobile` = '" + mobile + "'");
 
                     reset();
+                    
                 }
-
+                
+                loadCustomer();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -670,7 +672,7 @@ public class addCustomer extends javax.swing.JPanel {
             String query = "SELECT * FROM `customer` "
                     + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
                     + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`"
-                    + "WHERE employee.email = ?";
+                    + "WHERE customer.email = ?";
 
             // Assuming you have a method for database connection (connection)
             PreparedStatement pst = MYSQL.getConnection().prepareStatement(query);
@@ -682,9 +684,10 @@ public class addCustomer extends javax.swing.JPanel {
                 jTextField5.setText(rs.getString("fname"));
                 jTextField6.setText(rs.getString("lname"));
                 jTextField8.setText(rs.getString("email"));
+                jTextField8.setEditable(false);
                 jTextField7.setText(rs.getString("mobile"));
-                jTextField1.setText(rs.getString("age"));
                 jTextField7.setEditable(false);
+                jTextField1.setText(rs.getString("age"));               
                 jPasswordField1.setText(rs.getString("password"));
                 jComboBox1.setSelectedItem(rs.getString("gender.name"));
                 jComboBox2.setSelectedItem(rs.getString("customer_type.name"));
