@@ -9,6 +9,7 @@ import gui.administrator.report.customers;
 import gui.administrator.report.dailyIncome;
 import gui.administrator.report.employees;
 import gui.administrator.report.monthlyIncome;
+import gui.administrator.report.stock;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Reports extends javax.swing.JPanel {
         monthlyIncomePanle.add(new monthlyIncome());
         employeesPanel.add(new employees());
         customerPanel.add(new customers());
-//        dailyIncomePanel.add(new dailyIncome());
+        stockPanel.add(new stock());
 //        dailyIncomePanel.add(new dailyIncome());
     }
 
@@ -67,43 +68,13 @@ public class Reports extends javax.swing.JPanel {
         customerPanel.setLayout(new java.awt.CardLayout());
         jTabbedPane1.addTab("Customers", customerPanel);
 
-        javax.swing.GroupLayout stockPanelLayout = new javax.swing.GroupLayout(stockPanel);
-        stockPanel.setLayout(stockPanelLayout);
-        stockPanelLayout.setHorizontalGroup(
-            stockPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1096, Short.MAX_VALUE)
-        );
-        stockPanelLayout.setVerticalGroup(
-            stockPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 304, Short.MAX_VALUE)
-        );
-
+        stockPanel.setLayout(new java.awt.CardLayout());
         jTabbedPane1.addTab("Stock", stockPanel);
 
-        javax.swing.GroupLayout eventPanelLayout = new javax.swing.GroupLayout(eventPanel);
-        eventPanel.setLayout(eventPanelLayout);
-        eventPanelLayout.setHorizontalGroup(
-            eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1096, Short.MAX_VALUE)
-        );
-        eventPanelLayout.setVerticalGroup(
-            eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 304, Short.MAX_VALUE)
-        );
-
+        eventPanel.setLayout(new java.awt.CardLayout());
         jTabbedPane1.addTab("Event", eventPanel);
 
-        javax.swing.GroupLayout jobRolePanelLayout = new javax.swing.GroupLayout(jobRolePanel);
-        jobRolePanel.setLayout(jobRolePanelLayout);
-        jobRolePanelLayout.setHorizontalGroup(
-            jobRolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1096, Short.MAX_VALUE)
-        );
-        jobRolePanelLayout.setVerticalGroup(
-            jobRolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 304, Short.MAX_VALUE)
-        );
-
+        jobRolePanel.setLayout(new java.awt.CardLayout());
         jTabbedPane1.addTab("Job Role", jobRolePanel);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
