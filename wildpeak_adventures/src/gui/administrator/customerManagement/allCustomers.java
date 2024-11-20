@@ -23,6 +23,8 @@ public class allCustomers extends javax.swing.JPanel {
     public allCustomers() {
         initComponents();
         loadCustomer();
+        getForignCustomerCount();
+        getLocalCustomerCount();
     }
     
     private void loadCustomer() {
@@ -128,6 +130,44 @@ public class allCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+        
+    public void getForignCustomerCount() {
+        try {
+            String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 1";
+
+            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                int localCustomerCount = resultSet.getInt("customer_count");
+                jLabel6.setText("Total Forign Customers: " + localCustomerCount);
+            }
+            resultSet.close();
+            stmt.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+     public void getLocalCustomerCount() {
+        try {
+            String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 2";
+
+            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                int localCustomerCount = resultSet.getInt("customer_count");
+                jLabel4.setText("Total Local Customers : " + localCustomerCount);
+            }
+            resultSet.close();
+            stmt.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -176,11 +216,11 @@ public class allCustomers extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Local : 2343");
+        jLabel4.setText("Local :  Count");
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Forign : 2343");
+        jLabel6.setText("Forign : Count");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -190,11 +230,12 @@ public class allCustomers extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 487, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

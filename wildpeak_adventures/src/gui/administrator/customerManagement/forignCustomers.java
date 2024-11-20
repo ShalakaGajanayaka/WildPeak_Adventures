@@ -23,6 +23,7 @@ public class forignCustomers extends javax.swing.JPanel {
     public forignCustomers() {
         initComponents();
         loadForeignCustomers();
+        getForignCustomerCount();
     }
     
     private void loadForeignCustomers() {
@@ -57,6 +58,26 @@ public class forignCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    
+    public void getForignCustomerCount() {
+        try {
+            String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 1";
+
+            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                int localCustomerCount = resultSet.getInt("customer_count");
+                jLabel4.setText("Total Forign Customers: " + localCustomerCount);
+            }
+            resultSet.close();
+            stmt.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
         
     private void loadForeignCustomers(String column, String orderby, String fname, String lname, String email, String mobile) {
@@ -146,7 +167,7 @@ public class forignCustomers extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Forign : 2343");
+        jLabel4.setText("Forign customers : Count");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -157,7 +178,8 @@ public class forignCustomers extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel4)
+                .addGap(31, 31, 31))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 812, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
