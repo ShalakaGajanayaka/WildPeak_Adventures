@@ -9,6 +9,7 @@ import gui.administrator.report.customers;
 import gui.administrator.report.dailyIncome;
 import gui.administrator.report.employees;
 import gui.administrator.report.eventReports;
+import gui.administrator.report.jobRoleReport;
 import gui.administrator.report.monthlyIncome;
 import gui.administrator.report.stock;
 
@@ -30,6 +31,7 @@ public class Reports extends javax.swing.JPanel {
         customerPanel.add(new customers());
         stockPanel.add(new stock());
         eventPanel.add(new eventReports());
+        jobRolePanel.add(new jobRoleReport());
     }
 
     /**
