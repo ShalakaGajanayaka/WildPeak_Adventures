@@ -5,6 +5,12 @@
  */
 package gui.administrator.customerManagement;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.MYSQL;
+
 /**
  *
  * @author shalaka
@@ -16,6 +22,111 @@ public class allCustomers extends javax.swing.JPanel {
      */
     public allCustomers() {
         initComponents();
+        loadCustomer();
+    }
+    
+    private void loadCustomer() {
+
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`");
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
+
+                defaultTableModel.addRow(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+        private void loadCustomer(String column, String orderby, String fname, String lname, String email, String mobile) {
+        try {
+//            String query = "SELECT * FROM customer "
+//                    + "INNER JOIN gender ON customer.gender_id = gender.id "
+//                    + "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id "
+//                    + "WHERE customer.fname LIKE ? "
+//                    + "OR customer.lname LIKE ? "
+//                    + "OR customer.email LIKE ? "
+//                    + "OR customer.mobile LIKE ? "
+//                    + "OR customer_type.name LIKE ? "
+//                    + "ORDER BY customer." + column + " " + orderby;
+//
+//            PreparedStatement statement = MYSQL.getConnection().prepareStatement(query);
+//            String searchPattern = "%" + fname + "%";
+//
+//            statement.setString(1, searchPattern);
+//            statement.setString(2, searchPattern);
+//            statement.setString(3, searchPattern);
+//            statement.setString(4, searchPattern);
+//            statement.setString(5, searchPattern);
+//
+//            ResultSet resultSet = statement.executeQuery();
+//            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
+//            defaultTableModel.setRowCount(0);
+//
+//            while (resultSet.next()) {
+//                Vector<String> vector = new Vector<>();
+//                vector.add(resultSet.getString("customer.fname"));
+//                vector.add(resultSet.getString("customer.lname"));
+//                vector.add(resultSet.getString("customer.email"));
+//                vector.add(resultSet.getString("customer.mobile"));
+//                vector.add(resultSet.getString("customer.age"));
+//                vector.add(resultSet.getString("customer.register_date"));
+//                vector.add(resultSet.getString("gender.name"));
+//                vector.add(resultSet.getString("customer_type.name"));
+//                defaultTableModel.addRow(vector);
+//
+//
+//            }
+
+            String searchText = jTextField1.getText().trim(); // search textfield එකේ text එක ගන්නවා
+            String query = "SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
+                    + "WHERE `customer`.`fname` LIKE ? OR `customer`.`lname` LIKE ? OR `customer`.`email` LIKE ?";
+
+            PreparedStatement preparedStatement = MYSQL.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, "%" + searchText + "%"); // fname
+            preparedStatement.setString(2, "%" + searchText + "%"); // lname
+            preparedStatement.setString(3, "%" + searchText + "%"); // email
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
+
+                defaultTableModel.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -39,17 +150,22 @@ public class allCustomers extends javax.swing.JPanel {
         jLabel2.setText("Search");
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "#", "Name", "Email", "Age", "Gender", "Mobile", "Joined Date", "Type"
+                "First Name", "Last Name", "Email", "Mobile", "Age", "Joined Date", "Gender", "Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -113,6 +229,11 @@ public class allCustomers extends javax.swing.JPanel {
                     .addGap(0, 0, 0)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        String searchtext = jTextField1.getText();
+        loadCustomer("id", "ASC", searchtext, searchtext, searchtext, searchtext);
+    }//GEN-LAST:event_jTextField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

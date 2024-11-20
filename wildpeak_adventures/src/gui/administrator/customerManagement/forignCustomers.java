@@ -5,6 +5,12 @@
  */
 package gui.administrator.customerManagement;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.MYSQL;
+
 /**
  *
  * @author shalaka
@@ -16,7 +22,83 @@ public class forignCustomers extends javax.swing.JPanel {
      */
     public forignCustomers() {
         initComponents();
+        loadForeignCustomers();
     }
+    
+    private void loadForeignCustomers() {
+        try {
+            String query = "SELECT customer.fname, customer.lname, customer.email, customer.mobile, customer.age, " +
+                           "customer.register_date, gender.name AS gender, customer_type.name AS type " +
+                           "FROM customer " +
+                           "INNER JOIN gender ON customer.gender_id = gender.id " +
+                           "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id " +
+                           "WHERE customer_type.name = 'Foreign'";
+
+            PreparedStatement preparedStatement = MYSQL.getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("fname"));
+                vector.add(resultSet.getString("lname"));
+                vector.add(resultSet.getString("email"));
+                vector.add(resultSet.getString("mobile"));
+                vector.add(resultSet.getString("age"));
+                vector.add(resultSet.getString("register_date"));
+                vector.add(resultSet.getString("gender"));
+                
+
+                defaultTableModel.addRow(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+        
+    private void loadForeignCustomers(String column, String orderby, String fname, String lname, String email, String mobile) {
+        try {
+
+
+            String searchText = jTextField1.getText().trim(); // search textfield එකේ text එක ගන්නවා
+            String query = "SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
+                    + "WHERE `customer`.`fname` LIKE ? OR `customer`.`lname` LIKE ? OR `customer`.`email` LIKE ?";
+
+            PreparedStatement preparedStatement = MYSQL.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, "%" + searchText + "%"); // fname
+            preparedStatement.setString(2, "%" + searchText + "%"); // lname
+            preparedStatement.setString(3, "%" + searchText + "%"); // email
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+ 
+
+                defaultTableModel.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,17 +120,22 @@ public class forignCustomers extends javax.swing.JPanel {
         jLabel2.setText("Search");
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "#", "Name", "Email", "Age", "Gender", "Mobile", "Joined Date", "Type"
+                "First Name", "Last Name", "Email", "Mobile", "Age", "Joined Date", "Gender"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -105,6 +192,11 @@ public class forignCustomers extends javax.swing.JPanel {
                     .addGap(0, 0, 0)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        String searchtext = jTextField1.getText();
+        loadForeignCustomers("id", "ASC", searchtext, searchtext, searchtext, searchtext);
+    }//GEN-LAST:event_jTextField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
