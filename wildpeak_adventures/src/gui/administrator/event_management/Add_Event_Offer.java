@@ -333,125 +333,125 @@ public class Add_Event_Offer extends javax.swing.JPanel {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
-        int row = jTable1.getSelectedRow();
-
-        try {
-            jButton1.setEnabled(false);
-
-            String id = String.valueOf(jTable1.getValueAt(row, 0));  // assuming column 0 is the user ID
-
-            // Query database using UserId to retrieve additional details
-            String query = "SELECT * FROM event_category "
-                    + "WHERE event_category.id = ?";
-
-            // Assuming you have a method for database connection (connection)
-            PreparedStatement pst = MYSQL.getConnection().prepareStatement(query);
-            pst.setString(1, id);  // Sets the 'email' as a parameter in the WHERE clause
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                jTextField2.setText(rs.getString("name"));
-                // Correctly set date values
-                java.sql.Date date1 = rs.getDate("start_date"); // Use actual column name for start date
-                java.sql.Date date2 = rs.getDate("end_date");   // Use actual column name for end date
-
-                if (date1 != null) {
-                    jDateChooser1.setDate(new java.util.Date(date1.getTime()));
-                }
-                if (date2 != null) {
-                    jDateChooser2.setDate(new java.util.Date(date2.getTime()));
-                }
-
-                jFormattedTextField1.setText(rs.getString("discount_price"));
-                jTextArea1.setText(rs.getString("description"));
-
-            }
-            rs.close();
-            pst.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+//        int row = jTable1.getSelectedRow();
+//
+//        try {
+//            jButton1.setEnabled(false);
+//
+//            String id = String.valueOf(jTable1.getValueAt(row, 0));  // assuming column 0 is the user ID
+//
+//            // Query database using UserId to retrieve additional details
+//            String query = "SELECT * FROM event_category "
+//                    + "WHERE event_category.id = ?";
+//
+//            // Assuming you have a method for database connection (connection)
+//            PreparedStatement pst = MYSQL.getConnection().prepareStatement(query);
+//            pst.setString(1, id);  // Sets the 'email' as a parameter in the WHERE clause
+//            ResultSet rs = pst.executeQuery();
+//
+//            if (rs.next()) {
+//                jTextField2.setText(rs.getString("name"));
+//                // Correctly set date values
+//                java.sql.Date date1 = rs.getDate("start_date"); // Use actual column name for start date
+//                java.sql.Date date2 = rs.getDate("end_date");   // Use actual column name for end date
+//
+//                if (date1 != null) {
+//                    jDateChooser1.setDate(new java.util.Date(date1.getTime()));
+//                }
+//                if (date2 != null) {
+//                    jDateChooser2.setDate(new java.util.Date(date2.getTime()));
+//                }
+//
+//                jFormattedTextField1.setText(rs.getString("discount_price"));
+//                jTextArea1.setText(rs.getString("description"));
+//
+//            }
+//            rs.close();
+//            pst.close();
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
 
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jTable1.clearSelection();
-        jTextArea1.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        loadJobRole("id", "ASC", jTextField1.getText());
-        jButton1.setEnabled(true);
+//        jTable1.clearSelection();
+//        jTextArea1.setText("");
+//        jTextField1.setText("");
+//        jTextField2.setText("");
+//        loadJobRole("id", "ASC", jTextField1.getText());
+//        jButton1.setEnabled(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        String text = jTextField1.getText();
-        loadJobRole("id", "ASC", text);
+//        String text = jTextField1.getText();
+//        loadJobRole("id", "ASC", text);
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String name = jTextField2.getText();
-        String description = jTextArea1.getText();
-
-        if (name.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Category Name", "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else if (description.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Description(Qualification)", "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            try {
-                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_category` WHERE `name` = '" + name + "'");
-                if (resultSet.next()) {
-                    JOptionPane.showMessageDialog(this, "This Category Is Alredy Added! Please New Category Added", "Information", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    String insertQuery = "INSERT INTO `event_category` (`name`,`description`)"
-                            + "VALUES ('" + name + "', '" + description + "')";
-
-                    MYSQL.executeIUD(insertQuery);
-
-                    JOptionPane.showMessageDialog(this, "New Category Added Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    loadJobRole("id", "ASC", jTextField2.getText());
-                    reset();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Uncomment for logging if needed
-                // logger.log(Level.WARNING, "Exception in Employee Management in create button", e);
-            }
-        }
+//        String name = jTextField2.getText();
+//        String description = jTextArea1.getText();
+//
+//        if (name.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Please Enter Category Name", "Information", JOptionPane.INFORMATION_MESSAGE);
+//        } else if (description.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Please Enter Description(Qualification)", "Information", JOptionPane.INFORMATION_MESSAGE);
+//        } else {
+//            try {
+//                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_category` WHERE `name` = '" + name + "'");
+//                if (resultSet.next()) {
+//                    JOptionPane.showMessageDialog(this, "This Category Is Alredy Added! Please New Category Added", "Information", JOptionPane.INFORMATION_MESSAGE);
+//                } else {
+//                    String insertQuery = "INSERT INTO `event_category` (`name`,`description`)"
+//                            + "VALUES ('" + name + "', '" + description + "')";
+//
+//                    MYSQL.executeIUD(insertQuery);
+//
+//                    JOptionPane.showMessageDialog(this, "New Category Added Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+//                    loadJobRole("id", "ASC", jTextField2.getText());
+//                    reset();
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                // Uncomment for logging if needed
+//                // logger.log(Level.WARNING, "Exception in Employee Management in create button", e);
+//            }
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        int row = jTable1.getSelectedRow();
-        String id = String.valueOf(jTable1.getValueAt(row, 0));
-        String name = jTextField2.getText();
-        String description = jTextArea1.getText();
-
-        if (name.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Category Name", "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else if (description.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Description(Qualification)", "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            try {
-                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_category` WHERE `name` = '" + name + "'");
-                if (resultSet.next()) {
-                    JOptionPane.showMessageDialog(this, "This Category Is Alredy updated", "Information", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    String updateQuery = "UPDATE `event_category` SET name = '" + name + "',description = '" + description + "' WHERE `id` = '" + id + "'";
-
-                    MYSQL.executeIUD(updateQuery);
-
-                    JOptionPane.showMessageDialog(this, "Category Updated Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    loadJobRole("id", "ASC", jTextField2.getText());
-                    reset();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Uncomment for logging if needed
-                // logger.log(Level.WARNING, "Exception in Employee Management in create button", e);
-            }
-        }
+//        int row = jTable1.getSelectedRow();
+//        String id = String.valueOf(jTable1.getValueAt(row, 0));
+//        String name = jTextField2.getText();
+//        String description = jTextArea1.getText();
+//
+//        if (name.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Please Enter Category Name", "Information", JOptionPane.INFORMATION_MESSAGE);
+//        } else if (description.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Please Enter Description(Qualification)", "Information", JOptionPane.INFORMATION_MESSAGE);
+//        } else {
+//            try {
+//                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_category` WHERE `name` = '" + name + "'");
+//                if (resultSet.next()) {
+//                    JOptionPane.showMessageDialog(this, "This Category Is Alredy updated", "Information", JOptionPane.INFORMATION_MESSAGE);
+//                } else {
+//                    String updateQuery = "UPDATE `event_category` SET name = '" + name + "',description = '" + description + "' WHERE `id` = '" + id + "'";
+//
+//                    MYSQL.executeIUD(updateQuery);
+//
+//                    JOptionPane.showMessageDialog(this, "Category Updated Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+//                    loadJobRole("id", "ASC", jTextField2.getText());
+//                    reset();
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                // Uncomment for logging if needed
+//                // logger.log(Level.WARNING, "Exception in Employee Management in create button", e);
+//            }
+//        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -481,12 +481,12 @@ public class Add_Event_Offer extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void reset() {
-        jTable1.clearSelection();
-        jTextArea1.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        loadJobRole("id", "ASC", jTextField1.getText());
-        jButton1.setEnabled(true);
-        jTextArea1.setEditable(false);
+//        jTable1.clearSelection();
+//        jTextArea1.setText("");
+//        jTextField1.setText("");
+//        jTextField2.setText("");
+//        loadJobRole("id", "ASC", jTextField1.getText());
+//        jButton1.setEnabled(true);
+//        jTextArea1.setEditable(false);
     }
 }
