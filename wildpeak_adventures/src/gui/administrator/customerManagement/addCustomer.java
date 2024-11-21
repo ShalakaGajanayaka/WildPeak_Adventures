@@ -266,6 +266,7 @@ public class addCustomer extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel3.setText("Search");
@@ -376,6 +377,14 @@ public class addCustomer extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Password");
 
+        jButton5.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
+        jButton5.setText("Clear");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -417,6 +426,7 @@ public class addCustomer extends javax.swing.JPanel {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                                 .addComponent(jPasswordField1)))))
                 .addGap(0, 20, Short.MAX_VALUE))
+            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox1, jComboBox2, jTextField1, jTextField5, jTextField6, jTextField7, jTextField8});
@@ -461,12 +471,14 @@ public class addCustomer extends javax.swing.JPanel {
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23))
                 .addGap(16, 16, 16)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox2, jLabel1, jLabel19, jLabel20, jLabel21, jLabel22, jLabel23, jLabel24, jTextField1, jTextField5, jTextField6, jTextField7, jTextField8});
@@ -649,7 +661,27 @@ public class addCustomer extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        reset();
+        String mobile = jTextField7.getText();  
+    
+    if (mobile.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please Enter Customer's Mobile to Delete", "Information", JOptionPane.INFORMATION_MESSAGE);
+    } else if (!mobile.matches("^07[01245678]{1}[0-9]{7}$")) {
+        JOptionPane.showMessageDialog(this, "Please Enter a Valid Mobile Number", "Information", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        try {
+            
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` WHERE `mobile` = '" + mobile + "'");               
+            MYSQL.executeIUD("DELETE FROM `customer` WHERE `mobile` = '" + mobile + "'");
+            JOptionPane.showMessageDialog(this, "Customer Deleted Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            reset();  
+            loadCustomer(); 
+                
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
@@ -661,44 +693,69 @@ public class addCustomer extends javax.swing.JPanel {
         loadCustomer("id", "ASC", searchtext, searchtext, searchtext, searchtext);
     }//GEN-LAST:event_jTextField2KeyReleased
 
+    private int clickCount = 0;
+    
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-
-        try {
-            jButton1.setEnabled(false);
-            int row = jTable2.getSelectedRow();
-            String email = String.valueOf(jTable2.getValueAt(row, 2));  // assuming column 0 is the user ID
-
-            // Query database using UserId to retrieve additional details
-            String query = "SELECT * FROM `customer` "
-                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
-                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`"
-                    + "WHERE customer.email = ?";
-
-            // Assuming you have a method for database connection (connection)
-            PreparedStatement pst = MYSQL.getConnection().prepareStatement(query);
-            pst.setString(1, email);  // Sets the 'email' as a parameter in the WHERE clause
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                // Set text fields with database values
-                jTextField5.setText(rs.getString("fname"));
-                jTextField6.setText(rs.getString("lname"));
-                jTextField8.setText(rs.getString("email"));
-                jTextField8.setEditable(false);
-                jTextField7.setText(rs.getString("mobile"));
-                jTextField7.setEditable(false);
-                jTextField1.setText(rs.getString("age"));               
-                jPasswordField1.setText(rs.getString("password"));
-                jComboBox1.setSelectedItem(rs.getString("gender.name"));
-                jComboBox2.setSelectedItem(rs.getString("customer_type.name"));
-            }
-            rs.close();
-            pst.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+    try {
+        clickCount++;
+       
+        if (clickCount == 1 ) {
+            jButton1.setEnabled(false);  
+            jButton2.setEnabled(false); 
+            jButton3.setEnabled(true);  
+        } else if (clickCount == 3) {
+            jButton1.setEnabled(false);  
+            jButton2.setEnabled(true);  
+            jButton3.setEnabled(false); 
+            clickCount = 0; 
         }
+
+        int row = jTable2.getSelectedRow();
+        String email = String.valueOf(jTable2.getValueAt(row, 2)); 
+
+    
+        String query = "SELECT * FROM `customer` "
+                + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
+                + "WHERE customer.email = ?";
+
+        PreparedStatement pst = MYSQL.getConnection().prepareStatement(query);
+        pst.setString(1, email);  
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            
+            jTextField5.setText(rs.getString("fname"));
+            jTextField6.setText(rs.getString("lname"));
+            jTextField8.setText(rs.getString("email"));
+            jTextField8.setEditable(false);
+            jTextField7.setText(rs.getString("mobile"));
+            jTextField7.setEditable(false);
+            jTextField1.setText(rs.getString("age"));
+            jPasswordField1.setText(rs.getString("password"));
+            jComboBox1.setSelectedItem(rs.getString("gender.name"));
+            jComboBox2.setSelectedItem(rs.getString("customer_type.name"));
+        }
+
+        rs.close();
+        pst.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+     reset();
+    // Enable Add button
+    jButton1.setEnabled(true); // Add button
+    
+    // Disable Update and Delete buttons
+    jButton2.setEnabled(false); // Update button
+    jButton3.setEnabled(false); // Delete button
+
+    
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     public void reset() {
         jTextField5.setText("");
@@ -717,6 +774,7 @@ public class addCustomer extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
