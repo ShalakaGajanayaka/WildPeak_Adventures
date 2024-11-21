@@ -6,17 +6,19 @@
 package gui.administrator;
 
 import gui.administrator.event_management.Add_Event;
+import gui.administrator.event_management.Add_Event_Category;
+import gui.administrator.event_management.Add_Event_Offer;
 import gui.administrator.event_management.All_Event;
 
-
 public class EventManagement extends javax.swing.JPanel {
-
 
     public EventManagement() {
         initComponents();
 
         AllEvent.add(new All_Event());
         AddEvent.add(new Add_Event());
+        EventCategory.add(new Add_Event_Category());
+        EventOffer.add(new Add_Event_Offer());
     }
 
     /**
@@ -33,6 +35,8 @@ public class EventManagement extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         AllEvent = new javax.swing.JPanel();
         AddEvent = new javax.swing.JPanel();
+        EventCategory = new javax.swing.JPanel();
+        EventOffer = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1122, 505));
 
@@ -44,6 +48,12 @@ public class EventManagement extends javax.swing.JPanel {
 
         AddEvent.setLayout(new java.awt.CardLayout());
         jTabbedPane1.addTab("AddEvent", AddEvent);
+
+        EventCategory.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Add Event Category", EventCategory);
+
+        EventOffer.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Add Event Offer", EventOffer);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,6 +90,8 @@ public class EventManagement extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AddEvent;
     private javax.swing.JPanel AllEvent;
+    private javax.swing.JPanel EventCategory;
+    private javax.swing.JPanel EventOffer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;

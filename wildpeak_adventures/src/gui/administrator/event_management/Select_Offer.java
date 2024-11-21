@@ -4,38 +4,28 @@
  */
 package gui.administrator.event_management;
 
-import gui.administrator.EventManagement;
-import gui.administrator.employeeManagement.*;
-import java.awt.Frame;
-import java.awt.Window;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.sql.PreparedStatement;
-import javax.swing.JDialog;
 
-public class Selcet_Category extends javax.swing.JDialog {
+public class Select_Offer extends javax.swing.JDialog {
 
     private HashMap<String, String> cityMap = new HashMap<>();
 
-    private Add_Event event;
+    private Add_Event eventoffer;
 
-
-
-    public void setevent(Add_Event event) {
-        this.event = event;
+    public void setevent(Add_Event eventoffer) {
+        this.eventoffer = eventoffer;
     }
 
-    public Selcet_Category() {
+    public Select_Offer() {
 
         initComponents();
-        loadDistrict();
+        loadevent_offer();
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable3.setDefaultRenderer(Object.class, renderer);
@@ -52,11 +42,11 @@ public class Selcet_Category extends javax.swing.JDialog {
 
     }
 
-    private void loadDistrict() {
+    private void loadevent_offer() {
 
         try {
 
-            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_category`");
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_offer`");
 
             DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
             model.setRowCount(0);
@@ -66,6 +56,9 @@ public class Selcet_Category extends javax.swing.JDialog {
                 Vector<String> vector = new Vector<>();
                 vector.add(resultSet.getString("id"));
                 vector.add(resultSet.getString("name"));
+                vector.add(resultSet.getString("start_date"));
+                vector.add(resultSet.getString("end_date"));
+                vector.add(resultSet.getString("discount_price"));
 
                 model.addRow(vector);
             }
@@ -79,7 +72,7 @@ public class Selcet_Category extends javax.swing.JDialog {
 
     private void loadDescription(String descId) {
         try {
-            ResultSet resultSet = MYSQL.executeSearch("SELECT description FROM event_category WHERE id = '" + descId + "'");
+            ResultSet resultSet = MYSQL.executeSearch("SELECT description FROM event_offer WHERE id = '" + descId + "'");
             if (resultSet.next()) {
                 jTextArea1.setText(resultSet.getString("description"));
             } else {
@@ -159,8 +152,8 @@ public class Selcet_Category extends javax.swing.JDialog {
         setAlwaysOnTop(true);
 
         jLabel8.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Event Category VIEW");
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Event Offer VIEW");
 
         jTable3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
@@ -168,11 +161,11 @@ public class Selcet_Category extends javax.swing.JDialog {
 
             },
             new String [] {
-                "#", "Category"
+                "#", "Offer", "Start date", "End date", "Discount Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -191,14 +184,13 @@ public class Selcet_Category extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jLabel8)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,7 +242,7 @@ public class Selcet_Category extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,13 +264,10 @@ public class Selcet_Category extends javax.swing.JDialog {
 
         if (evt.getClickCount() == 2) {
 
-            if (event != null) {
-                event.getjTextField2().setText(String.valueOf(jTable3.getValueAt(row, 1)));
-//                grn.getjLabel22().setText(String.valueOf(jTable1.getValueAt(row, 1)));
-//                grn.getjLabel23().setText(String.valueOf(jTable1.getValueAt(row, 2)));
-//                grn.getjLabel24().setText(String.valueOf(jTable1.getValueAt(row, 5)));
-//                grn.getjLabel22().setText(String.valueOf(jTable1.getValueAt(row, 1)));
+            if (eventoffer != null) {
+                eventoffer.getjTextField3().setText(String.valueOf(jTable3.getValueAt(row, 1)));
                 this.dispose();
+                eventoffer.setofferid(String.valueOf(jTable3.getValueAt(row, 0)));
             }
         }
 
