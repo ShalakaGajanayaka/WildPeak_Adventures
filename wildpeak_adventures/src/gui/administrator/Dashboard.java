@@ -27,7 +27,7 @@ public class Dashboard extends javax.swing.JPanel {
 
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);
-    private int cornerRadius = 20; 
+    private int cornerRadius = 20;
 
     /**
      * Creates new form Dashboard
@@ -55,24 +55,24 @@ public class Dashboard extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        
+
         // Enable antialiasing for smoother corners
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-                            RenderingHints.VALUE_ANTIALIAS_ON);
-        
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
         // Create the rounded rectangle shape
         RoundRectangle2D.Float roundRect = new RoundRectangle2D.Float(
-            0, 0, getWidth()-1, getHeight()-1, cornerRadius, cornerRadius);
-        
+                0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+
         // Create the gradient
         GradientPaint gradient = new GradientPaint(
-            0, 0, color1,
-            getWidth(), getHeight(), color2);
-        
+                0, 0, color1,
+                getWidth(), getHeight(), color2);
+
         // Fill the rounded rectangle with the gradient
         g2d.setPaint(gradient);
         g2d.fill(roundRect);
-        
+
         // Optional: Add a border
         g2d.setColor(new Color(0, 0, 0, 50));  // Semi-transparent black
         g2d.setStroke(new BasicStroke(1f));
@@ -429,7 +429,12 @@ public class Dashboard extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-
+        Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
+        JPanel panel5 = admin.getJPanel5();
+        panel5.removeAll();
+        panel5.add(new Invoice());
+        panel5.revalidate();
+        panel5.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
