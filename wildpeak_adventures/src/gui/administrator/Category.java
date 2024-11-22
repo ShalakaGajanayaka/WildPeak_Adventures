@@ -118,6 +118,11 @@ public class Category extends javax.swing.JPanel {
         jLabel17.setText("Search");
 
         jTextField7.setPreferredSize(new java.awt.Dimension(68, 22));
+        jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField7KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -263,6 +268,10 @@ public class Category extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jTextField7KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField7KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
