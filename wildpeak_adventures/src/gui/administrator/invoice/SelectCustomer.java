@@ -24,10 +24,12 @@ public class SelectCustomer extends javax.swing.JDialog {
     public SelectCustomer(Invoice parent, boolean modal) {
 //        super(parent, modal);
 //        this.br = parent;
-//        initComponents();
+        initComponents();
+        setLocationRelativeTo(null);
 
-//        loadcompanies();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
