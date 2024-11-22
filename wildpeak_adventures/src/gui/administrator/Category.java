@@ -5,6 +5,12 @@
  */
 package gui.administrator;
 
+import model.MYSQL;
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author shalaka
@@ -16,6 +22,26 @@ public class Category extends javax.swing.JPanel {
      */
     public Category() {
         initComponents();
+        loadTable();
+    }
+
+    private void loadTable() {
+        try {
+            ResultSet rs = MYSQL.executeSearch("SELECT * FROM `category`");
+
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+            dtm.setRowCount(0);
+
+            while (rs.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(rs.getString("category.id"));
+                vector.add(rs.getString("category.name"));
+                dtm.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -41,6 +67,7 @@ public class Category extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel1.setText("Category Management");
@@ -55,9 +82,19 @@ public class Category extends javax.swing.JPanel {
 
         jButton10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton10.setText("Add Category");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton11.setText("Delete Category");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,9 +168,11 @@ public class Category extends javax.swing.JPanel {
                             .addComponent(jLabel17)
                             .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE)))
                 .addGap(22, 22, 22))
         );
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/reset.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,14 +181,18 @@ public class Category extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(36, 36, 36))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -170,9 +213,61 @@ public class Category extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+
+        try {
+            String name = jTextField1.getText();
+            if (name.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please Enter Categroy Name", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+
+                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `category` WHERE `name` = '" + name + "' ");
+
+                if (resultSet.next()) {
+                    JOptionPane.showMessageDialog(this, "This user already registered", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else {
+
+                    MYSQL.executeIUD("INSERT INTO `category`(`name`)"
+                            + "VALUES('" + name + "' )");
+                                JOptionPane.showMessageDialog(this, "Sucessfully Added Category.!", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+                    loadTable();
+                    reset();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+            int row = jTable1.getSelectedRow();
+
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please Select a Category to Delete", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+
+            try {
+
+                String name = String.valueOf(jTable1.getValueAt(row, 1));
+
+                MYSQL.executeIUD("DELETE FROM `category` WHERE `name` ='" + name + "' ");
+
+                loadTable();
+                reset();
+
+                JOptionPane.showMessageDialog(this, "Category Deleted Successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup genderGroup;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JLabel jLabel1;
@@ -187,4 +282,8 @@ public class Category extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField7;
     private javax.swing.ButtonGroup typeGroup;
     // End of variables declaration//GEN-END:variables
+
+    private void reset() {
+        jTextField1.setText("");
+    }
 }
