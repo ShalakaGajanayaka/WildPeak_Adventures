@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -22,23 +23,33 @@ public class Category extends javax.swing.JPanel {
      */
     public Category() {
         initComponents();
-        loadTable();
+        loadTable("id", "ASC", jTextField7.getText());
     }
 
-    private void loadTable() {
+    private void loadTable(String column, String orderby, String text) {
         try {
-            ResultSet rs = MYSQL.executeSearch("SELECT * FROM `category`");
+            String query = "SELECT * FROM `category` WHERE  `category`.`name` LIKE ? "
+                    + "ORDER BY `category`." + column + " " + orderby;
 
-            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-            dtm.setRowCount(0);
+            try (PreparedStatement statement = MYSQL.getConnection().prepareStatement(query)) {
+                String searchPattern = "%" + text + "%";
+                for (int i = 1; i <= 1; i++) {
+                    statement.setString(i, searchPattern);
+                }
 
-            while (rs.next()) {
-                Vector<String> vector = new Vector<>();
-                vector.add(rs.getString("category.id"));
-                vector.add(rs.getString("category.name"));
-                dtm.addRow(vector);
+                ResultSet rs = statement.executeQuery();
+                DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+                dtm.setRowCount(0);
+
+                while (rs.next()) {
+                    Vector<String> vector = new Vector<>();
+                    vector.add(rs.getString("category.id"));
+                    vector.add(rs.getString("category.name"));
+                    dtm.addRow(vector);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -239,9 +250,9 @@ public class Category extends javax.swing.JPanel {
 
                     MYSQL.executeIUD("INSERT INTO `category`(`name`)"
                             + "VALUES('" + name + "' )");
-                                JOptionPane.showMessageDialog(this, "Sucessfully Added Category.!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sucessfully Added Category.!", "Information", JOptionPane.INFORMATION_MESSAGE);
 
-                    loadTable();
+                    loadTable("id", "ASC", jTextField7.getText());
                     reset();
                 }
             }
@@ -252,7 +263,7 @@ public class Category extends javax.swing.JPanel {
     }//GEN-LAST:event_addbtnActionPerformed
 
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
-            int row = jTable1.getSelectedRow();
+        int row = jTable1.getSelectedRow();
 
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Please Select a Category to Delete", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -264,7 +275,7 @@ public class Category extends javax.swing.JPanel {
 
                 MYSQL.executeIUD("DELETE FROM `category` WHERE `name` ='" + name + "' ");
 
-                loadTable();
+                loadTable("id", "ASC", jTextField7.getText());
                 reset();
 
                 JOptionPane.showMessageDialog(this, "Category Deleted Successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -275,12 +286,13 @@ public class Category extends javax.swing.JPanel {
     }//GEN-LAST:event_deletebtnActionPerformed
 
     private void jTextField7KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyReleased
-        // TODO add your handling code here:
+        String searchText = jTextField7.getText();
+        loadTable("id", "ASC", searchText);
     }//GEN-LAST:event_jTextField7KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      reset();
-      loadTable();
+        reset();
+        loadTable("id", "ASC", jTextField7.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -304,5 +316,8 @@ public class Category extends javax.swing.JPanel {
 
     private void reset() {
         jTextField1.setText("");
+        jTextField7.setText("");
+        jTable1.clearSelection();
+        loadTable("name", "ASC", jTextField7.getText());
     }
 }
