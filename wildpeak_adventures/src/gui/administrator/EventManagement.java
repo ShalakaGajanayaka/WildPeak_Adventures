@@ -7,6 +7,7 @@ package gui.administrator;
 
 import gui.administrator.event_management.Add_Event;
 import gui.administrator.event_management.Add_Event_Category;
+import gui.administrator.event_management.Add_Event_Location;
 import gui.administrator.event_management.Add_Event_Offer;
 import gui.administrator.event_management.All_Event;
 
@@ -19,6 +20,7 @@ public class EventManagement extends javax.swing.JPanel {
         AddEvent.add(new Add_Event());
         EventCategory.add(new Add_Event_Category());
         EventOffer.add(new Add_Event_Offer());
+        EventLocation.add(new Add_Event_Location());
     }
 
     /**
@@ -37,6 +39,7 @@ public class EventManagement extends javax.swing.JPanel {
         AddEvent = new javax.swing.JPanel();
         EventCategory = new javax.swing.JPanel();
         EventOffer = new javax.swing.JPanel();
+        EventLocation = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1122, 505));
 
@@ -54,6 +57,9 @@ public class EventManagement extends javax.swing.JPanel {
 
         EventOffer.setLayout(new java.awt.CardLayout());
         jTabbedPane1.addTab("Add Event Offer", EventOffer);
+
+        EventLocation.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Add Event Location", EventLocation);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,6 +97,7 @@ public class EventManagement extends javax.swing.JPanel {
     private javax.swing.JPanel AddEvent;
     private javax.swing.JPanel AllEvent;
     private javax.swing.JPanel EventCategory;
+    private javax.swing.JPanel EventLocation;
     private javax.swing.JPanel EventOffer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

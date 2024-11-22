@@ -1,20 +1,28 @@
 package gui.administrator.event_management;
 
+import com.toedter.calendar.JDateChooser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Add_Event_Offer extends javax.swing.JPanel {
 
     public Add_Event_Offer() {
         initComponents();
-        loadJobRole("id", "ASC", jTextField1.getText());
+        loadOffer("id", "ASC", jTextField1.getText());
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
@@ -31,7 +39,7 @@ public class Add_Event_Offer extends javax.swing.JPanel {
 
     }
 
-    private void loadJobRole(String column, String orderby, String Text) {
+    private void loadOffer(String column, String orderby, String Text) {
 
         try {
 
@@ -341,8 +349,8 @@ public class Add_Event_Offer extends javax.swing.JPanel {
             String id = String.valueOf(jTable1.getValueAt(row, 0));  // assuming column 0 is the user ID
 
             // Query database using UserId to retrieve additional details
-            String query = "SELECT * FROM event_category "
-                    + "WHERE event_category.id = ?";
+            String query = "SELECT * FROM event_offer "
+                    + "WHERE event_offer.id = ?";
 
             // Assuming you have a method for database connection (connection)
             PreparedStatement pst = MYSQL.getConnection().prepareStatement(query);
@@ -377,46 +385,95 @@ public class Add_Event_Offer extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jTable1.clearSelection();
-        jTextArea1.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        loadJobRole("id", "ASC", jTextField1.getText());
-        jButton1.setEnabled(true);
+        reset();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         String text = jTextField1.getText();
-        loadJobRole("id", "ASC", text);
+        loadOffer("id", "ASC", text);
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String name = jTextField2.getText();
-        String description = jTextArea1.getText();
+        // Get values from the fields
+        String name = jTextField2.getText().trim();
 
+        // Date formatting
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String sdate = (jDateChooser1.getDate() != null) ? sdf.format(jDateChooser1.getDate()) : "";
+        String enddate = (jDateChooser2.getDate() != null) ? sdf.format(jDateChooser2.getDate()) : "";
+
+        String price = jFormattedTextField1.getText().trim();
+        String description = jTextArea1.getText().trim();
+
+        // Validation for category name
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Category Name", "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else if (description.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Description(Qualification)", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else if (sdate.isEmpty()) {
+            // Validation for start date
+            JOptionPane.showMessageDialog(this, "Please select a start date", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else if (enddate.isEmpty()) {
+            // Validation for end date
+            JOptionPane.showMessageDialog(this, "Please select an end date", "Information", JOptionPane.INFORMATION_MESSAGE);
         } else {
             try {
-                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_category` WHERE `name` = '" + name + "'");
-                if (resultSet.next()) {
-                    JOptionPane.showMessageDialog(this, "This Category Is Alredy Added! Please New Category Added", "Information", JOptionPane.INFORMATION_MESSAGE);
+                Date startDate = sdf.parse(sdate);
+                Date endDate = sdf.parse(enddate);
+
+                // Check if the start date is before today
+                Date today = new Date(); // Get today's date
+                if (startDate.before(today)) {
+                    JOptionPane.showMessageDialog(this, "Start date must be today or in the future", "Information", JOptionPane.INFORMATION_MESSAGE);
+                } else if (endDate.before(startDate)) {
+                    // Check if the end date is before the start date
+                    JOptionPane.showMessageDialog(this, "End date must be after the start date", "Information", JOptionPane.INFORMATION_MESSAGE);
+                } else if (price.isEmpty()) {
+                    // Validation for price (must be a valid number)
+                    JOptionPane.showMessageDialog(this, "Please enter a valid price", "Information", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    String insertQuery = "INSERT INTO `event_category` (`name`,`description`)"
-                            + "VALUES ('" + name + "', '" + description + "')";
+                    try {
+                        double discountPrice = Double.parseDouble(price);
+                        if (discountPrice <= 0) {
+                            JOptionPane.showMessageDialog(this, "Please enter a valid price greater than 0", "Information", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (description.isEmpty()) {
+                            // Validation for description
+                            JOptionPane.showMessageDialog(this, "Please Enter Description (Qualification)", "Information", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            // Proceed with valid inputs
+                            // Add your code here for further processing or saving data
+                            try {
+                                // Check if the event offer already exists
+                                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_offer` WHERE `name` = '" + name + "'");
+                                if (resultSet.next()) {
+                                    JOptionPane.showMessageDialog(this, "This Offer is Already Added.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                                } else {
+                                    // Insert new event offer into the database with proper SQL syntax
+                                    String sql = "INSERT INTO `event_offer` (`name`, `description`, `start_date`, `end_date`, `discount_price`) "
+                                            + "VALUES (?, ?, ?, ?, ?)";
+                                    try (PreparedStatement stmt = MYSQL.getConnection().prepareStatement(sql)) {
+                                        stmt.setString(1, name);
+                                        stmt.setString(2, description);
+                                        stmt.setString(3, sdate);
+                                        stmt.setString(4, enddate);
+                                        stmt.setDouble(5, discountPrice);
 
-                    MYSQL.executeIUD(insertQuery);
-
-                    JOptionPane.showMessageDialog(this, "New Category Added Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    loadJobRole("id", "ASC", jTextField2.getText());
-                    reset();
+                                        stmt.executeUpdate();
+                                        loadOffer("id", "ASC", jTextField1.getText());
+                                        reset();
+                                        JOptionPane.showMessageDialog(this, "Offer added successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                                    } catch (SQLException e) {
+                                        JOptionPane.showMessageDialog(this, "Error while inserting the offer: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(this, "There was an error processing the database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(this, "Please enter a valid price", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Uncomment for logging if needed
-                // logger.log(Level.WARNING, "Exception in Employee Management in create button", e);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(this, "There was an error processing the dates", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -424,32 +481,98 @@ public class Add_Event_Offer extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         int row = jTable1.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to update.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         String id = String.valueOf(jTable1.getValueAt(row, 0));
-        String name = jTextField2.getText();
-        String description = jTextArea1.getText();
+        // Get values from the fields
+        String name = jTextField2.getText().trim();
 
+        // Date formatting
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String sdate = (jDateChooser1.getDate() != null) ? sdf.format(jDateChooser1.getDate()) : "";
+        String enddate = (jDateChooser2.getDate() != null) ? sdf.format(jDateChooser2.getDate()) : "";
+
+        String price = jFormattedTextField1.getText().trim();
+        String description = jTextArea1.getText().trim();
+
+        // Validation for category name
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Category Name", "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else if (description.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Enter Description(Qualification)", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else if (sdate.isEmpty()) {
+            // Validation for start date
+            JOptionPane.showMessageDialog(this, "Please select a start date", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else if (enddate.isEmpty()) {
+            // Validation for end date
+            JOptionPane.showMessageDialog(this, "Please select an end date", "Information", JOptionPane.INFORMATION_MESSAGE);
         } else {
             try {
-                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_category` WHERE `name` = '" + name + "'");
-                if (resultSet.next()) {
-                    JOptionPane.showMessageDialog(this, "This Category Is Alredy updated", "Information", JOptionPane.INFORMATION_MESSAGE);
+                Date startDate = sdf.parse(sdate);
+                Date endDate = sdf.parse(enddate);
+
+                // Check if the start date is before today
+                Date today = new Date(); // Get today's date
+                if (startDate.before(today)) {
+                    JOptionPane.showMessageDialog(this, "Start date must be today or in the future", "Information", JOptionPane.INFORMATION_MESSAGE);
+                } else if (endDate.before(startDate)) {
+                    // Check if the end date is before the start date
+                    JOptionPane.showMessageDialog(this, "End date must be after the start date", "Information", JOptionPane.INFORMATION_MESSAGE);
+                } else if (price.isEmpty()) {
+                    // Validation for price (must be a valid number)
+                    JOptionPane.showMessageDialog(this, "Please enter a valid price", "Information", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    String updateQuery = "UPDATE `event_category` SET name = '" + name + "',description = '" + description + "' WHERE `id` = '" + id + "'";
+                    try {
+                        double discountPrice = Double.parseDouble(price);
+                        if (discountPrice <= 0) {
+                            JOptionPane.showMessageDialog(this, "Please enter a valid price greater than 0", "Information", JOptionPane.INFORMATION_MESSAGE);
+                        } else if (description.isEmpty()) {
+                            // Validation for description
+                            JOptionPane.showMessageDialog(this, "Please Enter Description (Qualification)", "Information", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            // Proceed with valid inputs
+                            // Check if the event offer already exists
+                            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `event_offer` WHERE `name` = '" + name + "'");
+                            if (resultSet.next()) {
+                                JOptionPane.showMessageDialog(this, "This Offer is Already Added.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                try {
+                                    // Format the dates as String (yyyy-MM-dd)
+                                    String formattedStartDate = sdf.format(startDate);
+                                    String formattedEndDate = sdf.format(endDate);
 
-                    MYSQL.executeIUD(updateQuery);
+                                    // Update the event offer in the database
+                                    String sql = "UPDATE `event_offer` SET `name` = ?, `description` = ?, `start_date` = ?, `end_date` = ?, `discount_price` = ? WHERE `id` = ?";
+                                    try (PreparedStatement stmt = MYSQL.getConnection().prepareStatement(sql)) {
+                                        stmt.setString(1, name);
+                                        stmt.setString(2, description);
+                                        stmt.setString(3, formattedStartDate);  // Use formatted date
+                                        stmt.setString(4, formattedEndDate);    // Use formatted date
+                                        stmt.setDouble(5, discountPrice);
+                                        stmt.setString(6, id); // Assuming you are updating based on the existing event name
 
-                    JOptionPane.showMessageDialog(this, "Category Updated Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    loadJobRole("id", "ASC", jTextField2.getText());
-                    reset();
+                                        stmt.executeUpdate();
+                                        loadOffer("id", "ASC", jTextField1.getText());
+                                        reset();
+                                        JOptionPane.showMessageDialog(this, "Offer Updated successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                                    } catch (SQLException e) {
+                                        JOptionPane.showMessageDialog(this, "Error while updating the offer: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                } catch (Exception e) {
+                                    JOptionPane.showMessageDialog(this, "There was an error processing the database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(this, "Please enter a valid price", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Add_Event_Offer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Add_Event_Offer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Uncomment for logging if needed
-                // logger.log(Level.WARNING, "Exception in Employee Management in create button", e);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(this, "There was an error processing the dates", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -481,12 +604,43 @@ public class Add_Event_Offer extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void reset() {
-        jTable1.clearSelection();
+        // Clear table selection
+        if (jTable1.getRowCount() > 0) {
+            jTable1.clearSelection();
+        }
+
+        // Clear text fields and text area
         jTextArea1.setText("");
         jTextField1.setText("");
         jTextField2.setText("");
-        loadJobRole("id", "ASC", jTextField1.getText());
+        jFormattedTextField1.setText("0.00");
+
+        // Clear date choosers
+        clearDateChooser(jDateChooser1);
+        clearDateChooser(jDateChooser2);
+
+        // Reload job roles (ensure method handles empty input properly)
+        loadOffer("id", "ASC", jTextField1.getText());
+
+        // Enable the main button
         jButton1.setEnabled(true);
-        jTextArea1.setEditable(false);
+
+        System.out.println("Reset completed successfully!");
     }
+
+    private void clearDateChooser(JDateChooser dateChooser) {
+        if (dateChooser != null) {
+            // Set the date to null to clear the chooser
+            dateChooser.setDate(null);
+
+            // Attempt to clear the visible text (if the editor component supports it)
+            if (dateChooser.getDateEditor().getUiComponent() instanceof JTextField) {
+                ((JTextField) dateChooser.getDateEditor().getUiComponent()).setText("");
+            }
+
+            // Repaint the component to ensure the UI updates
+            dateChooser.repaint();
+        }
+    }
+
 }
