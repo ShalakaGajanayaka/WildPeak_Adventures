@@ -5,6 +5,12 @@
  */
 package gui.administrator;
 
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.MYSQL;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author shalaka
@@ -16,8 +22,26 @@ public class Brand extends javax.swing.JPanel {
      */
     public Brand() {
         initComponents();
+        loadTable();
     }
+  private void loadTable() {
+        try {
+            ResultSet rs = MYSQL.executeSearch("SELECT * FROM `brand`");
 
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+            dtm.setRowCount(0);
+
+            while (rs.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(rs.getString("brand.id"));
+                vector.add(rs.getString("brand.name"));
+                dtm.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +86,11 @@ public class Brand extends javax.swing.JPanel {
 
         jButton10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton10.setText("Add Brand");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton11.setText("Delete Brand");
@@ -136,8 +165,7 @@ public class Brand extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -187,6 +215,33 @@ public class Brand extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+       try {
+            String name = jTextField1.getText();
+            if (name.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please Enter Categroy Name", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+
+                ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `category` WHERE `name` = '" + name + "' ");
+
+                if (resultSet.next()) {
+                    JOptionPane.showMessageDialog(this, "This user already registered", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else {
+
+                    MYSQL.executeIUD("INSERT INTO `category`(`name`)"
+                            + "VALUES('" + name + "' )");
+                                JOptionPane.showMessageDialog(this, "Sucessfully Added Category.!", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+                    loadTable();
+                    reset();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
