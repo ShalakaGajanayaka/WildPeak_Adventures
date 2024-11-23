@@ -20,7 +20,7 @@ public class EmployeeManagement extends javax.swing.JPanel {
     public EmployeeManagement() {
         initComponents();
         
-//        allEmployeesPanel.add(new allEmployees());
+        allEmployeesPanel.add(new allEmployees());
         addEmployeePanel.add(new addEmployee());
     }
 
