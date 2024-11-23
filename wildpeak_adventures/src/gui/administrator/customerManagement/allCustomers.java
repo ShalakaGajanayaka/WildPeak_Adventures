@@ -56,7 +56,7 @@ public class allCustomers extends javax.swing.JPanel {
         }
     }
 
-        private void loadCustomer(String column, String orderby, String fname, String lname, String email, String mobile) {
+        private void loadCustomer(String column, String orderby, String searchText) {
         try {
 //            String query = "SELECT * FROM customer "
 //                    + "INNER JOIN gender ON customer.gender_id = gender.id "
@@ -96,16 +96,17 @@ public class allCustomers extends javax.swing.JPanel {
 //
 //            }
 
-            String searchText = jTextField1.getText().trim(); // search textfield එකේ text එක ගන්නවා
+//            String searchText = jTextField1.getText().trim(); // search textfield එකේ text එක ගන්නවා
             String query = "SELECT * FROM `customer` "
                     + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
                     + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
-                    + "WHERE `customer`.`fname` LIKE ? OR `customer`.`lname` LIKE ? OR `customer`.`email` LIKE ?";
+                    + "WHERE `customer`.`fname` LIKE ? OR `customer`.`lname` LIKE ? OR `customer`.`email` LIKE ? OR `customer`.`mobile` LIKE ?";
 
             PreparedStatement preparedStatement = MYSQL.getConnection().prepareStatement(query);
             preparedStatement.setString(1, "%" + searchText + "%"); // fname
             preparedStatement.setString(2, "%" + searchText + "%"); // lname
             preparedStatement.setString(3, "%" + searchText + "%"); // email
+            preparedStatement.setString(4, "%" + searchText + "%"); // mobile
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -273,7 +274,7 @@ public class allCustomers extends javax.swing.JPanel {
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         String searchtext = jTextField1.getText();
-        loadCustomer("id", "ASC", searchtext, searchtext, searchtext, searchtext);
+        loadCustomer("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField1KeyReleased
 
 
