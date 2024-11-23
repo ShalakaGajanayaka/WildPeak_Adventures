@@ -6,6 +6,7 @@
 package gui.administrator;
 
 import gui.administrator.invoice.SelectCustomer;
+import gui.administrator.invoice.SelectEvent;
 
 /**
  *
@@ -689,7 +690,8 @@ public class Invoice extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+       SelectEvent event = new SelectEvent(this, true);
+       event.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
