@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 
@@ -29,7 +30,7 @@ public class allCustomers extends javax.swing.JPanel {
         loadGender();
         loadAgeRange();
         loadEvent();
-        
+
     }
 
     public void loadCustomer() {
@@ -155,7 +156,7 @@ public class allCustomers extends javax.swing.JPanel {
             rs.close();
 
             // Set the Vector as the model for the JComboBox
-            jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+            cmb_type.setModel(new javax.swing.DefaultComboBoxModel<>(v));
 
             // Close the result set
             rs.close();
@@ -186,7 +187,7 @@ public class allCustomers extends javax.swing.JPanel {
             rs.close();
 
             // Set the Vector as the model for the JComboBox
-            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+            cmb_gender.setModel(new javax.swing.DefaultComboBoxModel<>(v));
 
             // Close the result set
             rs.close();
@@ -217,7 +218,7 @@ public class allCustomers extends javax.swing.JPanel {
             rs.close();
 
             // Set the Vector as the model for the JComboBox
-            jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+            cmb_age_range.setModel(new javax.swing.DefaultComboBoxModel<>(v));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -245,7 +246,7 @@ public class allCustomers extends javax.swing.JPanel {
             rs.close();
 
             // Set the Vector as the model for the JComboBox
-            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+            cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(v));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -270,8 +271,8 @@ public class allCustomers extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmb_type = new javax.swing.JComboBox<>();
+        cmb_gender = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -279,11 +280,11 @@ public class allCustomers extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmb_age_range = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cmb_event = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btn_filter = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -370,16 +371,16 @@ public class allCustomers extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jComboBox1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        cmb_type.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
+        cmb_type.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                cmb_typeItemStateChanged(evt);
             }
         });
 
-        jComboBox2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
+        cmb_gender.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
 
         jDateChooser1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
@@ -405,23 +406,23 @@ public class allCustomers extends javax.swing.JPanel {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("Age");
 
-        jComboBox3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
+        cmb_age_range.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_age_range.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
 
         jLabel13.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Event  :");
 
-        jComboBox4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
+        cmb_event.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
 
         jButton3.setText("C");
 
-        jButton4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jButton4.setText("Filter");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btn_filter.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        btn_filter.setText("Filter");
+        btn_filter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btn_filterActionPerformed(evt);
             }
         });
 
@@ -459,8 +460,8 @@ public class allCustomers extends javax.swing.JPanel {
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox2, 0, 137, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cmb_gender, 0, 137, Short.MAX_VALUE)
+                            .addComponent(cmb_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
@@ -471,16 +472,16 @@ public class allCustomers extends javax.swing.JPanel {
                             .addComponent(jLabel17))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox3, 0, 112, Short.MAX_VALUE)
+                            .addComponent(cmb_age_range, 0, 112, Short.MAX_VALUE)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox4, 0, 241, Short.MAX_VALUE))
+                                .addComponent(cmb_event, 0, 241, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -496,23 +497,23 @@ public class allCustomers extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmb_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmb_event, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmb_gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmb_age_range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -521,7 +522,7 @@ public class allCustomers extends javax.swing.JPanel {
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDateChooser1, jLabel10});
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton3, jButton4, jComboBox3});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_filter, cmb_age_range, jButton3});
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -606,24 +607,72 @@ public class allCustomers extends javax.swing.JPanel {
         loadCustomer("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField1KeyReleased
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void cmb_typeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmb_typeItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_cmb_typeItemStateChanged
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
+        try {
+            String selectedType = cmb_type.getSelectedItem().toString();
+            String selectedGender = cmb_gender.getSelectedItem().toString();
+            String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
+            String selectedEvent = cmb_event.getSelectedItem().toString();
+
+            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM customer "
+                    + "INNER JOIN  `customer_type`  ON  `customer`.`customer_type_id` = `customer_type`.`id`"
+                    + "INNER JOIN  `gender`  ON  `customer`.`gender_id` = `gender`.`id`"
+                    + " WHERE 1=1");
+
+            if (!selectedType.equals("Select")) {
+                queryBuilder.append(" AND `customer_type`.`name` = '").append(selectedType).append("'");
+            }
+            if (!selectedGender.equals("Select")) {
+                queryBuilder.append(" AND `gender`.`name` = '").append(selectedGender).append("'");
+            }
+            if (!selectedAgeRange.equals("Select")) {
+                queryBuilder.append(" AND `age_range`.`range` = '").append(selectedAgeRange).append("'");
+            }
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
+            }
+
+            System.out.println(queryBuilder);
+
+            ResultSet resultSet = MYSQL.executeSearch(queryBuilder.toString());
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+//
+            while (resultSet.next()) {
+
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
+
+                defaultTableModel.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btn_filterActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_filter;
+    private javax.swing.JComboBox<String> cmb_age_range;
+    private javax.swing.JComboBox<String> cmb_event;
+    private javax.swing.JComboBox<String> cmb_gender;
+    private javax.swing.JComboBox<String> cmb_type;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
