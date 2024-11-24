@@ -61,45 +61,6 @@ public class allCustomers extends javax.swing.JPanel {
 
     public void loadCustomer(String column, String orderby, String searchText) {
         try {
-//            String query = "SELECT * FROM customer "
-//                    + "INNER JOIN gender ON customer.gender_id = gender.id "
-//                    + "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id "
-//                    + "WHERE customer.fname LIKE ? "
-//                    + "OR customer.lname LIKE ? "
-//                    + "OR customer.email LIKE ? "
-//                    + "OR customer.mobile LIKE ? "
-//                    + "OR customer_type.name LIKE ? "
-//                    + "ORDER BY customer." + column + " " + orderby;
-//
-//            PreparedStatement statement = MYSQL.getConnection().prepareStatement(query);
-//            String searchPattern = "%" + fname + "%";
-//
-//            statement.setString(1, searchPattern);
-//            statement.setString(2, searchPattern);
-//            statement.setString(3, searchPattern);
-//            statement.setString(4, searchPattern);
-//            statement.setString(5, searchPattern);
-//
-//            ResultSet resultSet = statement.executeQuery();
-//            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
-//            defaultTableModel.setRowCount(0);
-//
-//            while (resultSet.next()) {
-//                Vector<String> vector = new Vector<>();
-//                vector.add(resultSet.getString("customer.fname"));
-//                vector.add(resultSet.getString("customer.lname"));
-//                vector.add(resultSet.getString("customer.email"));
-//                vector.add(resultSet.getString("customer.mobile"));
-//                vector.add(resultSet.getString("customer.age"));
-//                vector.add(resultSet.getString("customer.register_date"));
-//                vector.add(resultSet.getString("gender.name"));
-//                vector.add(resultSet.getString("customer_type.name"));
-//                defaultTableModel.addRow(vector);
-//
-//
-//            }
-
-//            String searchText = jTextField1.getText().trim(); // search textfield එකේ text එක ගන්නවා
             String query = "SELECT * FROM `customer` "
                     + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
                     + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
