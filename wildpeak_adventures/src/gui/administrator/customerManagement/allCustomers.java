@@ -25,7 +25,7 @@ public class allCustomers extends javax.swing.JPanel {
         initComponents();
         loadCustomer();
         getCustomerCount();
-//        loadType();
+        loadType();
         loadGender();
         loadAgeRange();
     }
@@ -173,20 +173,26 @@ public class allCustomers extends javax.swing.JPanel {
     public void loadType() {
         try {
             // Query to fetch all unique customer types
-            String query = "SELECT DISTINCT name FROM customer_type";
+            String query = "SELECT DISTINCT `name` FROM `customer_type`";
             ResultSet rs = MYSQL.executeSearch(query);
 
-            // Clear existing items in JComboBox1
-            jComboBox1.removeAllItems();
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
 
-            // Add a default item (optional)
-            jComboBox1.addItem("Select");
+            // Add the default "Select" item
+            v.add("Select");
 
-            // Add customer types to JComboBox1
+            // Add each age range from the ResultSet to the Vector
             while (rs.next()) {
-                String type = rs.getString("name");
-                jComboBox1.addItem(type); // Add each customer type to JComboBox1
+                String type = rs.getString("name"); // Ensure "range" matches the column name
+                v.add(type);
             }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(v));
 
             // Close the result set
             rs.close();
@@ -201,7 +207,7 @@ public class allCustomers extends javax.swing.JPanel {
             String query = "SELECT `name` FROM `gender`";
             ResultSet rs = MYSQL.executeSearch(query);
 
-             // Create a Vector to hold the age range values
+            // Create a Vector to hold the age range values
             Vector<String> ageRanges = new Vector<>();
 
             // Add the default "Select" item
@@ -228,10 +234,10 @@ public class allCustomers extends javax.swing.JPanel {
 
     public void loadAgeRange() {
         try {
-             // Query to fetch age ranges from the database
+            // Query to fetch age ranges from the database
             String query = "SELECT `range` FROM `age_range`";
             ResultSet rs = MYSQL.executeSearch(query);
-           
+
             // Create a Vector to hold the age range values
             Vector<String> ageRanges = new Vector<>();
 
