@@ -23,10 +23,11 @@ public class allCustomers extends javax.swing.JPanel {
     public allCustomers() {
         initComponents();
         loadCustomer();
+        getAllCustomerCount();
         getForignCustomerCount();
         getLocalCustomerCount();
     }
-    
+
     private void loadCustomer() {
 
         try {
@@ -56,7 +57,7 @@ public class allCustomers extends javax.swing.JPanel {
         }
     }
 
-        private void loadCustomer(String column, String orderby, String searchText) {
+    private void loadCustomer(String column, String orderby, String searchText) {
         try {
 //            String query = "SELECT * FROM customer "
 //                    + "INNER JOIN gender ON customer.gender_id = gender.id "
@@ -131,7 +132,26 @@ public class allCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-        
+
+    public void getAllCustomerCount() {
+        try {
+            String query = "SELECT COUNT(*) AS allCustomers FROM  customer";
+
+            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                int allCustomers = resultSet.getInt("allCustomers");
+                jLabel7.setText("All : " + allCustomers);
+            }
+            resultSet.close();
+            stmt.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void getForignCustomerCount() {
         try {
             String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 1";
@@ -150,8 +170,8 @@ public class allCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
-     public void getLocalCustomerCount() {
+
+    public void getLocalCustomerCount() {
         try {
             String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 2";
 
@@ -286,6 +306,11 @@ public class allCustomers extends javax.swing.JPanel {
 
         jComboBox1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Forign", "Local" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         jComboBox2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "male", "female" }));
@@ -479,6 +504,10 @@ public class allCustomers extends javax.swing.JPanel {
         String searchtext = jTextField1.getText();
         loadCustomer("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
