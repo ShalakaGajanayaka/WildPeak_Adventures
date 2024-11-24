@@ -24,9 +24,9 @@ public class allCustomers extends javax.swing.JPanel {
         initComponents();
         loadCustomer();
         getCustomerCount();
-
+        loadType();
     }
-    
+
     public void loadCustomer() {
 
         try {
@@ -147,7 +147,7 @@ public class allCustomers extends javax.swing.JPanel {
             ResultSet localRs = MYSQL.executeSearch(localQuery);
             if (localRs.next()) {
                 int localCustomers = localRs.getInt("localCount");
-                jLabel6.setText("Local : "+String.valueOf(localCustomers)); // Update jLabel2 with local count
+                jLabel6.setText("Local : " + String.valueOf(localCustomers)); // Update jLabel2 with local count
             }
 
             // Query to get count of 'foreign' customers
@@ -155,7 +155,7 @@ public class allCustomers extends javax.swing.JPanel {
             ResultSet foreignRs = MYSQL.executeSearch(foreignQuery);
             if (foreignRs.next()) {
                 int foreignCustomers = foreignRs.getInt("foreignCount");
-                jLabel4.setText("Forign : "+String.valueOf(foreignCustomers)); // Update jLabel3 with foreign count
+                jLabel4.setText("Forign : " + String.valueOf(foreignCustomers)); // Update jLabel3 with foreign count
             }
 
             // Close result sets
@@ -167,7 +167,30 @@ public class allCustomers extends javax.swing.JPanel {
         }
     }
 
- 
+    public void loadType() {
+        try {
+            // Query to fetch all unique customer types
+            String query = "SELECT DISTINCT name FROM customer_type";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Clear existing items in JComboBox1
+            jComboBox1.removeAllItems();
+
+            // Add a default item (optional)
+            jComboBox1.addItem("Select Type");
+
+            // Add customer types to JComboBox1
+            while (rs.next()) {
+                String type = rs.getString("name");
+                jComboBox1.addItem(type); // Add each customer type to JComboBox1
+            }
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -284,7 +307,7 @@ public class allCustomers extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jComboBox1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Forign", "Local" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
