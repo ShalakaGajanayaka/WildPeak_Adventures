@@ -8,6 +8,7 @@ package gui.administrator.customerManagement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 
@@ -24,8 +25,8 @@ public class allCustomers extends javax.swing.JPanel {
         initComponents();
         loadCustomer();
         getCustomerCount();
-        loadType();
-        loadGender();
+//        loadType();
+//        loadGender();
         loadAgeRange();
     }
 
@@ -221,23 +222,27 @@ public class allCustomers extends javax.swing.JPanel {
 
     public void loadAgeRange() {
         try {
-            String query = "SELECT `range` FROM `age_range`"; // Assuming the column name is 'range'
+            // Create a Vector to hold the age range values
+            Vector<String> ageRanges = new Vector<>();
+
+            // Add the default "Select" item
+            ageRanges.add("Select");
+
+            // Query to fetch age ranges from the database
+            String query = "SELECT `range` FROM `age_range`";
             ResultSet rs = MYSQL.executeSearch(query);
 
-            // Clear existing items in jComboBox3
-            jComboBox3.removeAllItems();
-
-            // Add a default item
-            jComboBox3.addItem("Select");
-
-            // Add age ranges to jComboBox3
+            // Add each age range from the ResultSet to the Vector
             while (rs.next()) {
-                String type = rs.getString("range"); // Use the correct column name
-                jComboBox3.addItem(type);
+                String type = rs.getString("range"); // Ensure "range" matches the column name
+                ageRanges.add(type);
             }
 
-            // Close the result set
+            // Close the ResultSet
             rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(ageRanges));
         } catch (Exception e) {
             e.printStackTrace();
         }
