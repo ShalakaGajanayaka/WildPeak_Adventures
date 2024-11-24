@@ -208,22 +208,22 @@ public class allCustomers extends javax.swing.JPanel {
             ResultSet rs = MYSQL.executeSearch(query);
 
             // Create a Vector to hold the age range values
-            Vector<String> ageRanges = new Vector<>();
+            Vector<String> v = new Vector<>();
 
             // Add the default "Select" item
-            ageRanges.add("Select");
+            v.add("Select");
 
             // Add each age range from the ResultSet to the Vector
             while (rs.next()) {
                 String type = rs.getString("name"); // Ensure "range" matches the column name
-                ageRanges.add(type);
+                v.add(type);
             }
 
             // Close the ResultSet
             rs.close();
 
             // Set the Vector as the model for the JComboBox
-            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(ageRanges));
+            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(v));
 
             // Close the result set
             rs.close();
@@ -239,22 +239,22 @@ public class allCustomers extends javax.swing.JPanel {
             ResultSet rs = MYSQL.executeSearch(query);
 
             // Create a Vector to hold the age range values
-            Vector<String> ageRanges = new Vector<>();
+            Vector<String> v = new Vector<>();
 
             // Add the default "Select" item
-            ageRanges.add("Select");
+            v.add("Select");
 
             // Add each age range from the ResultSet to the Vector
             while (rs.next()) {
                 String type = rs.getString("range"); // Ensure "range" matches the column name
-                ageRanges.add(type);
+                v.add(type);
             }
 
             // Close the ResultSet
             rs.close();
 
             // Set the Vector as the model for the JComboBox
-            jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(ageRanges));
+            jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(v));
         } catch (Exception e) {
             e.printStackTrace();
         }
