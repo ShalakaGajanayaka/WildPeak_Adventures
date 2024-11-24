@@ -747,12 +747,12 @@ public class addCustomer extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
      reset();
- 
-    jButton1.setEnabled(true); 
-    jTextField8.setEditable(true);
-    jTextField7.setEditable(true);
-    jButton2.setEnabled(false);
-    jButton3.setEnabled(false); 
+    // Enable Add button
+    jButton1.setEnabled(true); // Add button
+    
+    // Disable Update and Delete buttons
+    jButton2.setEnabled(false); // Update button
+    jButton3.setEnabled(false); // Delete button
 
     
     }//GEN-LAST:event_jButton5ActionPerformed
