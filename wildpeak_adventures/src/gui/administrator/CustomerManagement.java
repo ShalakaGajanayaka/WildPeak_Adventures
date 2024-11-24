@@ -21,11 +21,12 @@ public class CustomerManagement extends javax.swing.JPanel {
      */
     public CustomerManagement() {
         initComponents();
-        
-        allCustomersPanel.add(new allCustomers());
-        localCustomersPanel.add(new localCustomers());
-        forignCustomersPanel.add(new forignCustomers());
-        addCustomerPanel.add(new addCustomer());
+
+        jPanel2.add(new allCustomers());
+//        allCustomersPanel.add(new allCustomers());
+//        localCustomersPanel.add(new localCustomers());
+//        forignCustomersPanel.add(new forignCustomers());
+//        addCustomerPanel.add(new addCustomer());
     }
 
     /**
@@ -41,28 +42,14 @@ public class CustomerManagement extends javax.swing.JPanel {
         typeGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        allCustomersPanel = new javax.swing.JPanel();
-        localCustomersPanel = new javax.swing.JPanel();
-        forignCustomersPanel = new javax.swing.JPanel();
-        addCustomerPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel1.setText("Customer Management");
 
-        jTabbedPane1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-
-        allCustomersPanel.setLayout(new java.awt.CardLayout());
-        jTabbedPane1.addTab("All Customers", allCustomersPanel);
-
-        localCustomersPanel.setLayout(new java.awt.CardLayout());
-        jTabbedPane1.addTab("Local Customers", localCustomersPanel);
-
-        forignCustomersPanel.setLayout(new java.awt.CardLayout());
-        jTabbedPane1.addTab("Forign Customers", forignCustomersPanel);
-
-        addCustomerPanel.setLayout(new java.awt.CardLayout());
-        jTabbedPane1.addTab("Add/Edit Customer", addCustomerPanel);
+        jPanel2.setLayout(new java.awt.CardLayout());
+        jScrollPane1.setViewportView(jPanel2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -71,8 +58,8 @@ public class CustomerManagement extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -80,17 +67,16 @@ public class CustomerManagement extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,14 +86,11 @@ public class CustomerManagement extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel addCustomerPanel;
-    private javax.swing.JPanel allCustomersPanel;
-    private javax.swing.JPanel forignCustomersPanel;
     private javax.swing.ButtonGroup genderGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JPanel localCustomersPanel;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.ButtonGroup typeGroup;
     // End of variables declaration//GEN-END:variables
 }
