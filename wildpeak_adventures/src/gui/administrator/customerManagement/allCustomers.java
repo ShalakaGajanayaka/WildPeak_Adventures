@@ -178,7 +178,7 @@ public class allCustomers extends javax.swing.JPanel {
             jComboBox1.removeAllItems();
 
             // Add a default item (optional)
-            jComboBox1.addItem("Select Type");
+            jComboBox1.addItem("Select");
 
             // Add customer types to JComboBox1
             while (rs.next()) {
