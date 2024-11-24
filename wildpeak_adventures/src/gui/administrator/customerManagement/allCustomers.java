@@ -411,7 +411,7 @@ public class allCustomers extends javax.swing.JPanel {
         jButton1.setText("Add New Customer");
 
         jButton2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jButton2.setText("Get List Report");
+        jButton2.setText("Get Report");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
