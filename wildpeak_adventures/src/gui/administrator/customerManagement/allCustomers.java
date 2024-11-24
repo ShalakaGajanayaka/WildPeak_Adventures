@@ -25,6 +25,7 @@ public class allCustomers extends javax.swing.JPanel {
         loadCustomer();
         getCustomerCount();
         loadType();
+        loadGender();
     }
 
     public void loadCustomer() {
@@ -191,6 +192,31 @@ public class allCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    
+    public void loadGender() {
+        try {
+            // Query to fetch all unique customer types
+            String query = "SELECT name FROM gender";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Clear existing items in JComboBox1
+            jComboBox2.removeAllItems();
+
+            // Add a default item (optional)
+            jComboBox2.addItem("Select");
+
+            // Add customer types to JComboBox1
+            while (rs.next()) {
+                String type = rs.getString("name");
+                jComboBox2.addItem(type); // Add each customer type to JComboBox1
+            }
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -315,7 +341,7 @@ public class allCustomers extends javax.swing.JPanel {
         });
 
         jComboBox2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "male", "female" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
 
         jDateChooser1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
