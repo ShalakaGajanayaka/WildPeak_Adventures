@@ -28,6 +28,8 @@ public class allCustomers extends javax.swing.JPanel {
         loadType();
         loadGender();
         loadAgeRange();
+        loadEvent();
+        
     }
 
     public void loadCustomer() {
@@ -216,6 +218,34 @@ public class allCustomers extends javax.swing.JPanel {
 
             // Set the Vector as the model for the JComboBox
             jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadEvent() {
+        try {
+            // Query to fetch all columns from the event table
+            String query = "SELECT * FROM `event`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold event names
+            Vector<String> v = new Vector<>();
+
+            // Add a default "Select" item to the Vector
+            v.add("Select");
+
+            // Fetch each row and add the 'name' column to the Vector
+            while (rs.next()) {
+                String eventName = rs.getString("name"); // Assuming 'name' is the column storing event names
+                v.add(eventName);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(v));
         } catch (Exception e) {
             e.printStackTrace();
         }
