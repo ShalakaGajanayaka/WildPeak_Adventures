@@ -23,9 +23,8 @@ public class allCustomers extends javax.swing.JPanel {
     public allCustomers() {
         initComponents();
         loadCustomer();
-        getAllCustomerCount();
-        getForignCustomerCount();
-        getLocalCustomerCount();
+        getCustomerCount();
+
     }
 
     private void loadCustomer() {
@@ -133,62 +132,42 @@ public class allCustomers extends javax.swing.JPanel {
         }
     }
 
-    public void getAllCustomerCount() {
+    public void getCustomerCount() {
         try {
-            String query = "SELECT COUNT(*) AS allCustomers FROM  customer";
-
-            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
-            ResultSet resultSet = stmt.executeQuery();
-
-            if (resultSet.next()) {
-                int allCustomers = resultSet.getInt("allCustomers");
-                jLabel7.setText("All : " + allCustomers);
+            // Query to get total customer count
+            String totalQuery = "SELECT COUNT(*) AS total FROM customer";
+            ResultSet totalRs = MYSQL.executeSearch(totalQuery);
+            if (totalRs.next()) {
+                int totalCustomers = totalRs.getInt("total");
+                jLabel7.setText("All : " + String.valueOf(totalCustomers)); // Update jLabel1 with total count
             }
-            resultSet.close();
-            stmt.close();
 
+            // Query to get count of 'local' customers
+            String localQuery = "SELECT COUNT(*) AS localCount FROM customer WHERE customer_type_id = '2'";
+            ResultSet localRs = MYSQL.executeSearch(localQuery);
+            if (localRs.next()) {
+                int localCustomers = localRs.getInt("localCount");
+                jLabel6.setText("Local : "+String.valueOf(localCustomers)); // Update jLabel2 with local count
+            }
+
+            // Query to get count of 'foreign' customers
+            String foreignQuery = "SELECT COUNT(*) AS foreignCount FROM customer WHERE customer_type_id = '1'";
+            ResultSet foreignRs = MYSQL.executeSearch(foreignQuery);
+            if (foreignRs.next()) {
+                int foreignCustomers = foreignRs.getInt("foreignCount");
+                jLabel4.setText("Forign : "+String.valueOf(foreignCustomers)); // Update jLabel3 with foreign count
+            }
+
+            // Close result sets
+            totalRs.close();
+            localRs.close();
+            foreignRs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void getForignCustomerCount() {
-        try {
-            String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 1";
-
-            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
-            ResultSet resultSet = stmt.executeQuery();
-
-            if (resultSet.next()) {
-                int localCustomerCount = resultSet.getInt("customer_count");
-                jLabel6.setText("Forign : " + localCustomerCount);
-            }
-            resultSet.close();
-            stmt.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getLocalCustomerCount() {
-        try {
-            String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 2";
-
-            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
-            ResultSet resultSet = stmt.executeQuery();
-
-            if (resultSet.next()) {
-                int localCustomerCount = resultSet.getInt("customer_count");
-                jLabel4.setText("Local : " + localCustomerCount);
-            }
-            resultSet.close();
-            stmt.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
