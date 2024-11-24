@@ -26,8 +26,8 @@ public class allCustomers extends javax.swing.JPanel {
         getCustomerCount();
 
     }
-
-    private void loadCustomer() {
+    
+    public void loadCustomer() {
 
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` "
@@ -56,7 +56,7 @@ public class allCustomers extends javax.swing.JPanel {
         }
     }
 
-    private void loadCustomer(String column, String orderby, String searchText) {
+    public void loadCustomer(String column, String orderby, String searchText) {
         try {
 //            String query = "SELECT * FROM customer "
 //                    + "INNER JOIN gender ON customer.gender_id = gender.id "
