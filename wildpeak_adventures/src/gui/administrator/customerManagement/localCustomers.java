@@ -5,6 +5,12 @@
  */
 package gui.administrator.customerManagement;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.MYSQL;
+
 /**
  *
  * @author shalaka
@@ -16,6 +22,98 @@ public class localCustomers extends javax.swing.JPanel {
      */
     public localCustomers() {
         initComponents();
+        loadLocalCustomers();
+        getLocalCustomerCount();
+    }
+    
+    private void loadLocalCustomers() {
+        try {
+            String query = "SELECT customer.fname, customer.lname, customer.email, customer.mobile, customer.age, " +
+                           "customer.register_date, gender.name AS gender, customer_type.name AS type " +
+                           "FROM customer " +
+                           "INNER JOIN gender ON customer.gender_id = gender.id " +
+                           "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id " +
+                           "WHERE customer_type.name = 'Local'";
+
+            PreparedStatement preparedStatement = MYSQL.getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("fname"));
+                vector.add(resultSet.getString("lname"));
+                vector.add(resultSet.getString("email"));
+                vector.add(resultSet.getString("mobile"));
+                vector.add(resultSet.getString("age"));
+                vector.add(resultSet.getString("register_date"));
+                vector.add(resultSet.getString("gender"));
+                
+
+                defaultTableModel.addRow(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+     public void getLocalCustomerCount() {
+        try {
+            String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 2";
+
+            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                int localCustomerCount = resultSet.getInt("customer_count");
+                jLabel1.setText("Total Local Customers: " + localCustomerCount);
+            }
+            resultSet.close();
+            stmt.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+     private void loadLocalCustomers(String column, String orderby, String fname, String lname, String email, String mobile) {
+        try {
+      
+            String searchText = jTextField1.getText().trim(); // search textfield එකේ text එක ගන්නවා
+            String query = "SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
+                    + "WHERE `customer`.`fname` LIKE ? OR `customer`.`lname` LIKE ? OR `customer`.`email` LIKE ?";
+
+            PreparedStatement preparedStatement = MYSQL.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, "%" + searchText + "%"); // fname
+            preparedStatement.setString(2, "%" + searchText + "%"); // lname
+            preparedStatement.setString(3, "%" + searchText + "%"); // email
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+ 
+
+                defaultTableModel.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -32,23 +130,28 @@ public class localCustomers extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel2.setText("Search");
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "#", "Name", "Email", "Age", "Gender", "Mobile", "Joined Date", "Type"
+                "First Name", "Last Name", "Email", "Mobile", "Age", "Joined Date", "Gender"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -57,9 +160,8 @@ public class localCustomers extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Local : 2343");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Local Customers : count");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -70,19 +172,20 @@ public class localCustomers extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addGap(3, 3, 3))
         );
 
@@ -106,10 +209,15 @@ public class localCustomers extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        String searchtext = jTextField1.getText();
+        loadLocalCustomers("id", "ASC", searchtext, searchtext, searchtext, searchtext);
+    }//GEN-LAST:event_jTextField1KeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

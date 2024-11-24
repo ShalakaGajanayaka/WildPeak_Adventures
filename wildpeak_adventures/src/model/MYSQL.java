@@ -23,8 +23,8 @@ public class MYSQL {
             connection = DriverManager.getConnection("jdbc:mysql://wiledpeak-adventures.cfsiiq2mmc40.eu-north-1.rds.amazonaws.com:3306/wildpeak", "admin", "%qYMqW*{520{");
         }
     }
-    // Get the connection object
 
+    // Get the connection object
     public static Connection getConnection() throws SQLException, Exception {
         createConnection();  // Ensure the connection is created
         return connection;    // Return the connection
