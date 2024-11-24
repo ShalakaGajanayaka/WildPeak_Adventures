@@ -26,6 +26,7 @@ public class allCustomers extends javax.swing.JPanel {
         getCustomerCount();
         loadType();
         loadGender();
+        loadAgeRange();
     }
 
     public void loadCustomer() {
@@ -192,7 +193,7 @@ public class allCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
+
     public void loadGender() {
         try {
             // Query to fetch all unique customer types
@@ -209,6 +210,30 @@ public class allCustomers extends javax.swing.JPanel {
             while (rs.next()) {
                 String type = rs.getString("name");
                 jComboBox2.addItem(type); // Add each customer type to JComboBox1
+            }
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadAgeRange() {
+        try {
+            String query = "SELECT `range` FROM `age_range`"; // Assuming the column name is 'range'
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Clear existing items in jComboBox3
+            jComboBox3.removeAllItems();
+
+            // Add a default item
+            jComboBox3.addItem("Select");
+
+            // Add age ranges to jComboBox3
+            while (rs.next()) {
+                String type = rs.getString("range"); // Use the correct column name
+                jComboBox3.addItem(type);
             }
 
             // Close the result set
