@@ -616,7 +616,7 @@ public class allCustomers extends javax.swing.JPanel {
             String selectedType = cmb_type.getSelectedItem().toString();
             String selectedGender = cmb_gender.getSelectedItem().toString();
             String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
-            String selectedEvent = cmb_event.getSelectedItem().toString();
+//            String selectedEvent = cmb_event.getSelectedItem().toString();
 
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM customer "
                     + "INNER JOIN  `customer_type`  ON  `customer`.`customer_type_id` = `customer_type`.`id`"
@@ -630,11 +630,19 @@ public class allCustomers extends javax.swing.JPanel {
                 queryBuilder.append(" AND `gender`.`name` = '").append(selectedGender).append("'");
             }
             if (!selectedAgeRange.equals("Select")) {
-                queryBuilder.append(" AND `age_range`.`range` = '").append(selectedAgeRange).append("'");
+                // Split the selected age range into lower and upper bounds
+                String[] ageBounds = selectedAgeRange.split(" - ");
+                int lowerBound = Integer.parseInt(ageBounds[0]);
+                int upperBound = Integer.parseInt(ageBounds[1]);
+
+                queryBuilder.append(" AND `customer`.`age` BETWEEN ").append(lowerBound).append(" AND ").append(upperBound);
             }
-            if (!selectedEvent.equals("Select")) {
-                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
-            }
+//            if (!selectedAgeRange.equals("Select")) {
+//                queryBuilder.append(" AND `age_range`.`range` = '").append(selectedAgeRange).append("'");
+//            }
+//            if (!selectedEvent.equals("Select")) {
+//                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
+//            }
 
             System.out.println(queryBuilder);
 
