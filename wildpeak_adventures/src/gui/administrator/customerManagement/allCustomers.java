@@ -7,6 +7,7 @@ package gui.administrator.customerManagement;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -618,7 +619,7 @@ public class allCustomers extends javax.swing.JPanel {
             String selectedGender = cmb_gender.getSelectedItem().toString();
             String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
 //            String selectedEvent = cmb_event.getSelectedItem().toString();
-
+            java.util.Date selectedDate = jDateChooser1.getDate();
 
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM customer "
                     + "INNER JOIN  `customer_type`  ON  `customer`.`customer_type_id` = `customer_type`.`id`"
@@ -639,9 +640,13 @@ public class allCustomers extends javax.swing.JPanel {
 
                 queryBuilder.append(" AND `customer`.`age` BETWEEN ").append(lowerBound).append(" AND ").append(upperBound);
             }
-//            if (!selectedAgeRange.equals("Select")) {
-//                queryBuilder.append(" AND `age_range`.`range` = '").append(selectedAgeRange).append("'");
-//            }
+            // Filter by date
+            if (selectedDate != null) {
+                // Format date to SQL-compatible string
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = sdf.format(selectedDate);
+                queryBuilder.append(" AND DATE(`customer`.`register_date`) = '").append(formattedDate).append("'");
+            }
 //            if (!selectedEvent.equals("Select")) {
 //                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
 //            }
