@@ -419,6 +419,11 @@ public class allCustomers extends javax.swing.JPanel {
         cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
 
         jButton3.setText("C");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         btn_filter.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btn_filter.setText("Filter");
@@ -666,8 +671,7 @@ public class allCustomers extends javax.swing.JPanel {
                 queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
             }
 
-            System.out.println(queryBuilder);
-
+//            System.out.println(queryBuilder);
             ResultSet resultSet = MYSQL.executeSearch(queryBuilder.toString());
 
             DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
@@ -692,6 +696,17 @@ public class allCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btn_filterActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Reset all filters to default
+        cmb_type.setSelectedIndex(0); // Reset customer type combo box to the first item
+        cmb_gender.setSelectedIndex(0); // Reset gender combo box to the first item
+        cmb_age_range.setSelectedIndex(0); // Reset age range combo box to the first item
+        cmb_event.setSelectedIndex(0); // Reset event combo box to the first item
+        jDateChooser1.setDate(null); // Clear the date chooser
+
+        loadCustomer();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
