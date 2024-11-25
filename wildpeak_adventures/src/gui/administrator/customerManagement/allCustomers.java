@@ -42,15 +42,13 @@ public class allCustomers extends javax.swing.JPanel {
 //        setBackground(new Color(255, 255, 255, 0));
         panelColor();
 
-//        UIManager.put("Panel.background", new Color(173, 216, 230));
-//        setBackground(new Color(173, 216, 230));
-//        loadCustomer();
-//        getCustomerCount();
-//        loadType();
-//        loadGender();
-//        loadAgeRange();
-//        loadEvent();
-//        jDateChooser1.getDateEditor().getUiComponent().setEnabled(false);
+        loadCustomer();
+        getCustomerCount();
+        loadType();
+        loadGender();
+        loadAgeRange();
+        loadEvent();
+
     }
 
     public void panelColor() {
