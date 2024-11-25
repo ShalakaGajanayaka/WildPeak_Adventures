@@ -60,6 +60,7 @@ public class allCustomers extends javax.swing.JPanel {
 
         // Set the background to the midpoint color
         setBackground(midpointColor);
+        filterPanel.setBackground(midpointColor);
     }
 
     public void loadCustomer() {
@@ -263,7 +264,6 @@ public class allCustomers extends javax.swing.JPanel {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel4, jLabel6});
 
-        filterPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         filterPanel.setLayout(new java.awt.CardLayout());
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N

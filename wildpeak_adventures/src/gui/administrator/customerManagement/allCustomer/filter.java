@@ -6,6 +6,13 @@
 package gui.administrator.customerManagement.allCustomer;
 
 import gui.administrator.customerManagement.allCustomers;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
@@ -20,13 +27,19 @@ public class filter extends javax.swing.JPanel {
 
     private allCustomers parent; // Field to store the parent panel
 
+    private Color color1 = new Color(46, 125, 50);    // Forest green
+    private Color color2 = new Color(129, 199, 132);
+    private Color midpointColor;
+    private int cornerRadius = 20;
+
     /**
      * Creates new form filter
      */
-
     public filter(allCustomers parent) {
         this.parent = parent; // Store the parent reference
         initComponents();
+
+        panelColor();
 
         loadType();
         loadGender();
@@ -34,9 +47,48 @@ public class filter extends javax.swing.JPanel {
         loadEvent();
     }
 
+    public void panelColor() {
+        // Calculate the midpoint color
+        int red = (color1.getRed() + color2.getRed()) / 2;
+        int green = (color1.getGreen() + color2.getGreen()) / 2;
+        int blue = (color1.getBlue() + color2.getBlue()) / 2;
+        midpointColor = new Color(red, green, blue);
+
+        // Set the background to the midpoint color
+        setBackground(midpointColor);
+    }
+
     // Getter for the parent panel (optional)
     public allCustomers getParentPanel() {
         return parent;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
+        // Enable antialiasing for smoother corners
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Create the rounded rectangle shape
+        RoundRectangle2D.Float roundRect = new RoundRectangle2D.Float(
+                0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+
+        // Create the gradient
+        GradientPaint gradient = new GradientPaint(
+                0, 0, color1,
+                getWidth(), getHeight(), color2);
+
+        // Fill the rounded rectangle with the gradient
+        g2d.setPaint(gradient);
+        g2d.fill(roundRect);
+
+        // Optional: Add a border
+        g2d.setColor(new Color(0, 0, 0, 50));  // Semi-transparent black
+        g2d.setStroke(new BasicStroke(1f));
+        g2d.draw(roundRect);
     }
 
     public void loadType() {
