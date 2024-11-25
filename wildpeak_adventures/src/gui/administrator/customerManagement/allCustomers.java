@@ -27,25 +27,24 @@ import model.MYSQL;
  */
 public class allCustomers extends javax.swing.JPanel {
 
-
-
     /**
      * Creates new form allCustomers
      */
     public allCustomers() {
         initComponents();
 
-        loadCustomer();
-        getCustomerCount();
-        loadType();
-        loadGender();
-        loadAgeRange();
-        loadEvent();
+      setBackground(new Color(255, 255, 255, 0));
+
+//        loadCustomer();
+//        getCustomerCount();
+//        loadType();
+//        loadGender();
+//        loadAgeRange();
+//        loadEvent();
+
 //        jDateChooser1.getDateEditor().getUiComponent().setEnabled(false);
 
     }
-
-
 
     public void loadCustomer() {
 
