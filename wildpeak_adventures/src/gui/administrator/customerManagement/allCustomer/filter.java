@@ -5,17 +5,156 @@
  */
 package gui.administrator.customerManagement.allCustomer;
 
+import gui.administrator.customerManagement.allCustomers;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import model.MYSQL;
+
 /**
  *
  * @author shalaka
  */
 public class filter extends javax.swing.JPanel {
 
+    private allCustomers parent; // Field to store the parent panel
+
     /**
      * Creates new form filter
      */
-    public filter() {
+
+    public filter(allCustomers parent) {
+        this.parent = parent; // Store the parent reference
         initComponents();
+
+        loadType();
+        loadGender();
+        loadAgeRange();
+        loadEvent();
+    }
+
+    // Getter for the parent panel (optional)
+    public allCustomers getParentPanel() {
+        return parent;
+    }
+
+    public void loadType() {
+        try {
+            // Query to fetch all unique customer types
+            String query = "SELECT DISTINCT `name` FROM `customer_type`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
+
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("name"); // Ensure "range" matches the column name
+                v.add(type);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_type.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGender() {
+        try {
+            // Query to fetch all unique customer types
+            String query = "SELECT `name` FROM `gender`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
+
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("name"); // Ensure "range" matches the column name
+                v.add(type);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_gender.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadAgeRange() {
+        try {
+            // Query to fetch age ranges from the database
+            String query = "SELECT `range` FROM `age_range`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
+
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("range"); // Ensure "range" matches the column name
+                v.add(type);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_age_range.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadEvent() {
+        try {
+            // Query to fetch all columns from the event table
+            String query = "SELECT * FROM `event`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold event names
+            Vector<String> v = new Vector<>();
+
+            // Add a default "Select" item to the Vector
+            v.add("Select");
+
+            // Fetch each row and add the 'name' column to the Vector
+            while (rs.next()) {
+                String eventName = rs.getString("name"); // Assuming 'name' is the column storing event names
+                v.add(eventName);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -139,8 +278,8 @@ public class filter extends javax.swing.JPanel {
                             .addComponent(jLabel15)
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmb_gender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmb_gender, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmb_type, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -213,86 +352,86 @@ public class filter extends javax.swing.JPanel {
         cmb_event.setSelectedIndex(0); // Reset event combo box to the first item
         jDateChooser1.setDate(null); // Clear the date chooser
 
-//        loadCustomer();
+        parent.loadCustomer();
     }//GEN-LAST:event_btn_clear_filterActionPerformed
 
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
-//        try {
-//            String selectedType = cmb_type.getSelectedItem().toString();
-//            String selectedGender = cmb_gender.getSelectedItem().toString();
-//            String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
-//            String selectedEvent = cmb_event.getSelectedItem().toString();
-//            java.util.Date selectedDate = jDateChooser1.getDate();
-//
-//            StringBuilder queryBuilder = new StringBuilder("SELECT `customer`.`fname`, `customer`.`lname`, `customer`.`email`, "
-//                + "`customer`.`mobile`, `customer`.`age`, `customer`.`register_date`, "
-//                + "`gender`.`name`, "
-//                + "`customer_type`.`name`  ");
-//
-//            // Start building FROM and JOINs before WHERE
-//            queryBuilder.append("FROM `customer` ")
-//            .append("INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` ")
-//            .append("INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` ");
-//
-//            // Add joins for booking_event and event if an event is selected
-//            if (!selectedEvent.equals("Select")) {
-//                queryBuilder.append("INNER JOIN `booking_event` ON `customer`.`mobile` = `booking_event`.`customer_mobile` ")
-//                .append("INNER JOIN `event` ON `event`.`id` = `booking_event`.`event_id` ");
-//            }
-//
-//            // Start WHERE clause
-//            queryBuilder.append("WHERE 1=1");
-//
-//            if (!selectedType.equals("Select")) {
-//                queryBuilder.append(" AND `customer_type`.`name` = '").append(selectedType).append("'");
-//            }
-//            if (!selectedGender.equals("Select")) {
-//                queryBuilder.append(" AND `gender`.`name` = '").append(selectedGender).append("'");
-//            }
-//            if (!selectedAgeRange.equals("Select")) {
-//                // Split the selected age range into lower and upper bounds
-//                String[] ageBounds = selectedAgeRange.split(" - ");
-//                int lowerBound = Integer.parseInt(ageBounds[0]);
-//                int upperBound = Integer.parseInt(ageBounds[1]);
-//
-//                queryBuilder.append(" AND `age` BETWEEN ").append(lowerBound).append(" AND ").append(upperBound);
-//            }
-//            // Filter by date
-//            if (selectedDate != null) {
-//                // Format date to SQL-compatible string
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                String formattedDate = sdf.format(selectedDate);
-//                queryBuilder.append(" AND DATE(`register_date`) = '").append(formattedDate).append("'");
-//            }
-//
-//            if (!selectedEvent.equals("Select")) {
-//                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
-//            }
-//
-//            //            System.out.println(queryBuilder);
-//            ResultSet resultSet = MYSQL.executeSearch(queryBuilder.toString());
-//
-//            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
-//            defaultTableModel.setRowCount(0);
-//            //
-//            while (resultSet.next()) {
-//
-//                Vector<String> vector = new Vector<>();
-//                vector.add(resultSet.getString("customer.fname"));
-//                vector.add(resultSet.getString("customer.lname"));
-//                vector.add(resultSet.getString("customer.email"));
-//                vector.add(resultSet.getString("customer.mobile"));
-//                vector.add(resultSet.getString("customer.age"));
-//                vector.add(resultSet.getString("customer.register_date"));
-//                vector.add(resultSet.getString("gender.name"));
-//                vector.add(resultSet.getString("customer_type.name"));
-//
-//                defaultTableModel.addRow(vector);
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            String selectedType = cmb_type.getSelectedItem().toString();
+            String selectedGender = cmb_gender.getSelectedItem().toString();
+            String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
+            String selectedEvent = cmb_event.getSelectedItem().toString();
+            java.util.Date selectedDate = jDateChooser1.getDate();
+
+            StringBuilder queryBuilder = new StringBuilder("SELECT `customer`.`fname`, `customer`.`lname`, `customer`.`email`, "
+                    + "`customer`.`mobile`, `customer`.`age`, `customer`.`register_date`, "
+                    + "`gender`.`name`, "
+                    + "`customer_type`.`name`  ");
+
+            // Start building FROM and JOINs before WHERE
+            queryBuilder.append("FROM `customer` ")
+                    .append("INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` ")
+                    .append("INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` ");
+
+            // Add joins for booking_event and event if an event is selected
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append("INNER JOIN `booking_event` ON `customer`.`mobile` = `booking_event`.`customer_mobile` ")
+                        .append("INNER JOIN `event` ON `event`.`id` = `booking_event`.`event_id` ");
+            }
+
+            // Start WHERE clause
+            queryBuilder.append("WHERE 1=1");
+
+            if (!selectedType.equals("Select")) {
+                queryBuilder.append(" AND `customer_type`.`name` = '").append(selectedType).append("'");
+            }
+            if (!selectedGender.equals("Select")) {
+                queryBuilder.append(" AND `gender`.`name` = '").append(selectedGender).append("'");
+            }
+            if (!selectedAgeRange.equals("Select")) {
+                // Split the selected age range into lower and upper bounds
+                String[] ageBounds = selectedAgeRange.split(" - ");
+                int lowerBound = Integer.parseInt(ageBounds[0]);
+                int upperBound = Integer.parseInt(ageBounds[1]);
+
+                queryBuilder.append(" AND `age` BETWEEN ").append(lowerBound).append(" AND ").append(upperBound);
+            }
+            // Filter by date
+            if (selectedDate != null) {
+                // Format date to SQL-compatible string
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = sdf.format(selectedDate);
+                queryBuilder.append(" AND DATE(`register_date`) = '").append(formattedDate).append("'");
+            }
+
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
+            }
+
+//                        System.out.println(queryBuilder);
+            ResultSet resultSet = MYSQL.executeSearch(queryBuilder.toString());
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) parent.jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
+
+                defaultTableModel.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_filterActionPerformed
 
 
