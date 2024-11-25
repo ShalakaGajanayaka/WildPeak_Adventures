@@ -618,13 +618,27 @@ public class allCustomers extends javax.swing.JPanel {
             String selectedType = cmb_type.getSelectedItem().toString();
             String selectedGender = cmb_gender.getSelectedItem().toString();
             String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
-//            String selectedEvent = cmb_event.getSelectedItem().toString();
+            String selectedEvent = cmb_event.getSelectedItem().toString();
             java.util.Date selectedDate = jDateChooser1.getDate();
 
-            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM customer "
-                    + "INNER JOIN  `customer_type`  ON  `customer`.`customer_type_id` = `customer_type`.`id`"
-                    + "INNER JOIN  `gender`  ON  `customer`.`gender_id` = `gender`.`id`"
-                    + " WHERE 1=1");
+            StringBuilder queryBuilder = new StringBuilder("SELECT `customer`.`fname`, `customer`.`lname`, `customer`.`email`, "
+                    + "`customer`.`mobile`, `customer`.`age`, `customer`.`register_date`, "
+                    + "`gender`.`name`, "
+                    + "`customer_type`.`name`  ");
+
+            // Start building FROM and JOINs before WHERE
+            queryBuilder.append("FROM `customer` ")
+                    .append("INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` ")
+                    .append("INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` ");
+
+            // Add joins for booking_event and event if an event is selected
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append("INNER JOIN `booking_event` ON `customer`.`mobile` = `booking_event`.`customer_mobile` ")
+                        .append("INNER JOIN `event` ON `event`.`id` = `booking_event`.`event_id` ");
+            }
+
+            // Start WHERE clause
+            queryBuilder.append("WHERE 1=1");
 
             if (!selectedType.equals("Select")) {
                 queryBuilder.append(" AND `customer_type`.`name` = '").append(selectedType).append("'");
@@ -638,18 +652,19 @@ public class allCustomers extends javax.swing.JPanel {
                 int lowerBound = Integer.parseInt(ageBounds[0]);
                 int upperBound = Integer.parseInt(ageBounds[1]);
 
-                queryBuilder.append(" AND `customer`.`age` BETWEEN ").append(lowerBound).append(" AND ").append(upperBound);
+                queryBuilder.append(" AND `age` BETWEEN ").append(lowerBound).append(" AND ").append(upperBound);
             }
             // Filter by date
             if (selectedDate != null) {
                 // Format date to SQL-compatible string
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = sdf.format(selectedDate);
-                queryBuilder.append(" AND DATE(`customer`.`register_date`) = '").append(formattedDate).append("'");
+                queryBuilder.append(" AND DATE(`register_date`) = '").append(formattedDate).append("'");
             }
-//            if (!selectedEvent.equals("Select")) {
-//                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
-//            }
+
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
+            }
 
             System.out.println(queryBuilder);
 
