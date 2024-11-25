@@ -35,12 +35,12 @@ public class allCustomers extends javax.swing.JPanel {
     public allCustomers() {
         initComponents();
 
-//        loadCustomer();
-//        getCustomerCount();
-//        loadType();
-//        loadGender();
-//        loadAgeRange();
-//        loadEvent();
+        loadCustomer();
+        getCustomerCount();
+        loadType();
+        loadGender();
+        loadAgeRange();
+        loadEvent();
 //        jDateChooser1.getDateEditor().getUiComponent().setEnabled(false);
 
     }
