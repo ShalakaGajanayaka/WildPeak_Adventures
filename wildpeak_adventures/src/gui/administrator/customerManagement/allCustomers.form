@@ -316,7 +316,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="btn_filter" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton3" min="-2" pref="45" max="-2" attributes="0"/>
+                                      <Component id="btn_clear_filter" min="-2" pref="45" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -359,7 +359,7 @@
                               <Component id="jLabel15" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jLabel17" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jButton3" linkSize="10" max="32767" attributes="0"/>
+                          <Component id="btn_clear_filter" linkSize="10" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -504,12 +504,12 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btn_clear_filter">
               <Properties>
                 <Property name="text" type="java.lang.String" value="C"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clear_filterActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_filter">
