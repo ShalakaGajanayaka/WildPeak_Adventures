@@ -285,7 +285,7 @@ public class allCustomers extends javax.swing.JPanel {
         cmb_age_range = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         cmb_event = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        btn_clear_filter = new javax.swing.JButton();
         btn_filter = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -418,10 +418,10 @@ public class allCustomers extends javax.swing.JPanel {
         cmb_event.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
 
-        jButton3.setText("C");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_clear_filter.setText("C");
+        btn_clear_filter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_clear_filterActionPerformed(evt);
             }
         });
 
@@ -490,7 +490,7 @@ public class allCustomers extends javax.swing.JPanel {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btn_clear_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -523,13 +523,13 @@ public class allCustomers extends javax.swing.JPanel {
                         .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_clear_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDateChooser1, jLabel10});
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_filter, cmb_age_range, jButton3});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_clear_filter, btn_filter, cmb_age_range});
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -697,7 +697,7 @@ public class allCustomers extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_filterActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_clear_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clear_filterActionPerformed
         // Reset all filters to default
         cmb_type.setSelectedIndex(0); // Reset customer type combo box to the first item
         cmb_gender.setSelectedIndex(0); // Reset gender combo box to the first item
@@ -706,10 +706,11 @@ public class allCustomers extends javax.swing.JPanel {
         jDateChooser1.setDate(null); // Clear the date chooser
 
         loadCustomer();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_clear_filterActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_clear_filter;
     private javax.swing.JButton btn_filter;
     private javax.swing.JComboBox<String> cmb_age_range;
     private javax.swing.JComboBox<String> cmb_event;
@@ -717,7 +718,6 @@ public class allCustomers extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmb_type;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
