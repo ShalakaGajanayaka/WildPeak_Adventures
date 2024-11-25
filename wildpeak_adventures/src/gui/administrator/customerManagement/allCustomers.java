@@ -7,7 +7,10 @@ package gui.administrator.customerManagement;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 
@@ -23,11 +26,16 @@ public class allCustomers extends javax.swing.JPanel {
     public allCustomers() {
         initComponents();
         loadCustomer();
-        getForignCustomerCount();
-        getLocalCustomerCount();
+        getCustomerCount();
+        loadType();
+        loadGender();
+        loadAgeRange();
+        loadEvent();
+//        jDateChooser1.getDateEditor().getUiComponent().setEnabled(false);
+
     }
-    
-    private void loadCustomer() {
+
+    public void loadCustomer() {
 
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` "
@@ -56,47 +64,8 @@ public class allCustomers extends javax.swing.JPanel {
         }
     }
 
-        private void loadCustomer(String column, String orderby, String searchText) {
+    public void loadCustomer(String column, String orderby, String searchText) {
         try {
-//            String query = "SELECT * FROM customer "
-//                    + "INNER JOIN gender ON customer.gender_id = gender.id "
-//                    + "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id "
-//                    + "WHERE customer.fname LIKE ? "
-//                    + "OR customer.lname LIKE ? "
-//                    + "OR customer.email LIKE ? "
-//                    + "OR customer.mobile LIKE ? "
-//                    + "OR customer_type.name LIKE ? "
-//                    + "ORDER BY customer." + column + " " + orderby;
-//
-//            PreparedStatement statement = MYSQL.getConnection().prepareStatement(query);
-//            String searchPattern = "%" + fname + "%";
-//
-//            statement.setString(1, searchPattern);
-//            statement.setString(2, searchPattern);
-//            statement.setString(3, searchPattern);
-//            statement.setString(4, searchPattern);
-//            statement.setString(5, searchPattern);
-//
-//            ResultSet resultSet = statement.executeQuery();
-//            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable2.getModel();
-//            defaultTableModel.setRowCount(0);
-//
-//            while (resultSet.next()) {
-//                Vector<String> vector = new Vector<>();
-//                vector.add(resultSet.getString("customer.fname"));
-//                vector.add(resultSet.getString("customer.lname"));
-//                vector.add(resultSet.getString("customer.email"));
-//                vector.add(resultSet.getString("customer.mobile"));
-//                vector.add(resultSet.getString("customer.age"));
-//                vector.add(resultSet.getString("customer.register_date"));
-//                vector.add(resultSet.getString("gender.name"));
-//                vector.add(resultSet.getString("customer_type.name"));
-//                defaultTableModel.addRow(vector);
-//
-//
-//            }
-
-//            String searchText = jTextField1.getText().trim(); // search textfield එකේ text එක ගන්නවා
             String query = "SELECT * FROM `customer` "
                     + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
                     + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
@@ -131,40 +100,155 @@ public class allCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-        
-    public void getForignCustomerCount() {
+
+    public void getCustomerCount() {
         try {
-            String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 1";
-
-            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
-            ResultSet resultSet = stmt.executeQuery();
-
-            if (resultSet.next()) {
-                int localCustomerCount = resultSet.getInt("customer_count");
-                jLabel6.setText("Forign : " + localCustomerCount);
+            // Query to get total customer count
+            String totalQuery = "SELECT COUNT(*) AS total FROM customer";
+            ResultSet totalRs = MYSQL.executeSearch(totalQuery);
+            if (totalRs.next()) {
+                int totalCustomers = totalRs.getInt("total");
+                jLabel7.setText("All : " + String.valueOf(totalCustomers)); // Update jLabel1 with total count
             }
-            resultSet.close();
-            stmt.close();
 
+            // Query to get count of 'local' customers
+            String localQuery = "SELECT COUNT(*) AS localCount FROM customer WHERE customer_type_id = '2'";
+            ResultSet localRs = MYSQL.executeSearch(localQuery);
+            if (localRs.next()) {
+                int localCustomers = localRs.getInt("localCount");
+                jLabel6.setText("Local : " + String.valueOf(localCustomers)); // Update jLabel2 with local count
+            }
+
+            // Query to get count of 'foreign' customers
+            String foreignQuery = "SELECT COUNT(*) AS foreignCount FROM customer WHERE customer_type_id = '1'";
+            ResultSet foreignRs = MYSQL.executeSearch(foreignQuery);
+            if (foreignRs.next()) {
+                int foreignCustomers = foreignRs.getInt("foreignCount");
+                jLabel4.setText("Forign : " + String.valueOf(foreignCustomers)); // Update jLabel3 with foreign count
+            }
+
+            // Close result sets
+            totalRs.close();
+            localRs.close();
+            foreignRs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-     public void getLocalCustomerCount() {
+
+    public void loadType() {
         try {
-            String query = "SELECT COUNT(*) AS customer_count FROM  customer WHERE customer_type_id = 2";
+            // Query to fetch all unique customer types
+            String query = "SELECT DISTINCT `name` FROM `customer_type`";
+            ResultSet rs = MYSQL.executeSearch(query);
 
-            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(query);
-            ResultSet resultSet = stmt.executeQuery();
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
 
-            if (resultSet.next()) {
-                int localCustomerCount = resultSet.getInt("customer_count");
-                jLabel4.setText("Local : " + localCustomerCount);
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("name"); // Ensure "range" matches the column name
+                v.add(type);
             }
-            resultSet.close();
-            stmt.close();
 
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_type.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGender() {
+        try {
+            // Query to fetch all unique customer types
+            String query = "SELECT `name` FROM `gender`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
+
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("name"); // Ensure "range" matches the column name
+                v.add(type);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_gender.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadAgeRange() {
+        try {
+            // Query to fetch age ranges from the database
+            String query = "SELECT `range` FROM `age_range`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
+
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("range"); // Ensure "range" matches the column name
+                v.add(type);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_age_range.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadEvent() {
+        try {
+            // Query to fetch all columns from the event table
+            String query = "SELECT * FROM `event`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold event names
+            Vector<String> v = new Vector<>();
+
+            // Add a default "Select" item to the Vector
+            v.add("Select");
+
+            // Fetch each row and add the 'name' column to the Vector
+            while (rs.next()) {
+                String eventName = rs.getString("name"); // Assuming 'name' is the column storing event names
+                v.add(eventName);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(v));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -189,8 +273,8 @@ public class allCustomers extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmb_type = new javax.swing.JComboBox<>();
+        cmb_gender = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -198,10 +282,15 @@ public class allCustomers extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmb_age_range = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cmb_event = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
+        btn_filter = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -284,25 +373,30 @@ public class allCustomers extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jComboBox1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Forign", "Local" }));
+        cmb_type.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
+        cmb_type.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmb_typeItemStateChanged(evt);
+            }
+        });
 
-        jComboBox2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "male", "female" }));
+        cmb_gender.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
 
         jDateChooser1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Type  :");
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel8.setText("Type");
 
         jLabel9.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel9.setText("Gender  :");
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("Gender");
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel10.setText("Date  :");
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setText("Date");
 
         jSeparator3.setForeground(new java.awt.Color(153, 153, 153));
 
@@ -311,20 +405,49 @@ public class allCustomers extends javax.swing.JPanel {
         jLabel11.setText("Filter");
 
         jLabel12.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel12.setText("Age  :");
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("Age");
 
-        jComboBox3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
+        cmb_age_range.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_age_range.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
 
         jLabel13.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Event  :");
 
-        jComboBox4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
+        cmb_event.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "20 -30", "30 - 40", "40 - 60" }));
 
-        jButton3.setText("Clear");
+        jButton3.setText("C");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        btn_filter.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        btn_filter.setText("Filter");
+        btn_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filterActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText(":");
+
+        jLabel15.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText(":");
+
+        jLabel16.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText(":");
+
+        jLabel17.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText(":");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -338,35 +461,39 @@ public class allCustomers extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmb_gender, 0, 137, Short.MAX_VALUE)
+                            .addComponent(cmb_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmb_age_range, 0, 112, Short.MAX_VALUE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmb_event, 0, 241, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton3))))
+                                .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel12, jLabel8, jLabel9});
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox1, jComboBox2, jComboBox3, jDateChooser1});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -377,25 +504,32 @@ public class allCustomers extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmb_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmb_event, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmb_gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmb_age_range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDateChooser1, jLabel10});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_filter, cmb_age_range, jButton3});
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -411,7 +545,7 @@ public class allCustomers extends javax.swing.JPanel {
         jButton1.setText("Add New Customer");
 
         jButton2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jButton2.setText("Get Report");
+        jButton2.setText("Get Summery");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -467,7 +601,7 @@ public class allCustomers extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
+            .addGap(0, 761, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -480,20 +614,119 @@ public class allCustomers extends javax.swing.JPanel {
         loadCustomer("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField1KeyReleased
 
+    private void cmb_typeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmb_typeItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_typeItemStateChanged
+
+    private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
+        try {
+            String selectedType = cmb_type.getSelectedItem().toString();
+            String selectedGender = cmb_gender.getSelectedItem().toString();
+            String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
+            String selectedEvent = cmb_event.getSelectedItem().toString();
+            java.util.Date selectedDate = jDateChooser1.getDate();
+
+            StringBuilder queryBuilder = new StringBuilder("SELECT `customer`.`fname`, `customer`.`lname`, `customer`.`email`, "
+                    + "`customer`.`mobile`, `customer`.`age`, `customer`.`register_date`, "
+                    + "`gender`.`name`, "
+                    + "`customer_type`.`name`  ");
+
+            // Start building FROM and JOINs before WHERE
+            queryBuilder.append("FROM `customer` ")
+                    .append("INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` ")
+                    .append("INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` ");
+
+            // Add joins for booking_event and event if an event is selected
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append("INNER JOIN `booking_event` ON `customer`.`mobile` = `booking_event`.`customer_mobile` ")
+                        .append("INNER JOIN `event` ON `event`.`id` = `booking_event`.`event_id` ");
+            }
+
+            // Start WHERE clause
+            queryBuilder.append("WHERE 1=1");
+
+            if (!selectedType.equals("Select")) {
+                queryBuilder.append(" AND `customer_type`.`name` = '").append(selectedType).append("'");
+            }
+            if (!selectedGender.equals("Select")) {
+                queryBuilder.append(" AND `gender`.`name` = '").append(selectedGender).append("'");
+            }
+            if (!selectedAgeRange.equals("Select")) {
+                // Split the selected age range into lower and upper bounds
+                String[] ageBounds = selectedAgeRange.split(" - ");
+                int lowerBound = Integer.parseInt(ageBounds[0]);
+                int upperBound = Integer.parseInt(ageBounds[1]);
+
+                queryBuilder.append(" AND `age` BETWEEN ").append(lowerBound).append(" AND ").append(upperBound);
+            }
+            // Filter by date
+            if (selectedDate != null) {
+                // Format date to SQL-compatible string
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = sdf.format(selectedDate);
+                queryBuilder.append(" AND DATE(`register_date`) = '").append(formattedDate).append("'");
+            }
+
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
+            }
+
+//            System.out.println(queryBuilder);
+            ResultSet resultSet = MYSQL.executeSearch(queryBuilder.toString());
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+//
+            while (resultSet.next()) {
+
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
+
+                defaultTableModel.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btn_filterActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Reset all filters to default
+        cmb_type.setSelectedIndex(0); // Reset customer type combo box to the first item
+        cmb_gender.setSelectedIndex(0); // Reset gender combo box to the first item
+        cmb_age_range.setSelectedIndex(0); // Reset age range combo box to the first item
+        cmb_event.setSelectedIndex(0); // Reset event combo box to the first item
+        jDateChooser1.setDate(null); // Clear the date chooser
+
+        loadCustomer();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_filter;
+    private javax.swing.JComboBox<String> cmb_age_range;
+    private javax.swing.JComboBox<String> cmb_event;
+    private javax.swing.JComboBox<String> cmb_gender;
+    private javax.swing.JComboBox<String> cmb_type;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
