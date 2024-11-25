@@ -30,6 +30,7 @@ public class allCustomers extends javax.swing.JPanel {
         loadGender();
         loadAgeRange();
         loadEvent();
+//        jDateChooser1.getDateEditor().getUiComponent().setEnabled(false);
 
     }
 
@@ -617,6 +618,7 @@ public class allCustomers extends javax.swing.JPanel {
             String selectedGender = cmb_gender.getSelectedItem().toString();
             String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
 //            String selectedEvent = cmb_event.getSelectedItem().toString();
+
 
             StringBuilder queryBuilder = new StringBuilder("SELECT * FROM customer "
                     + "INNER JOIN  `customer_type`  ON  `customer`.`customer_type_id` = `customer_type`.`id`"
