@@ -33,6 +33,7 @@ public class CustomerManagement extends javax.swing.JPanel {
     public CustomerManagement() {
         initComponents();
         setOpaque(false);
+        setBackground(new Color(173, 216, 230));
 
         jPanel2.add(new allCustomers());
 //        allCustomersPanel.add(new allCustomers());
@@ -54,13 +55,14 @@ public class CustomerManagement extends javax.swing.JPanel {
         RoundRectangle2D.Float roundRect = new RoundRectangle2D.Float(
                 0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
 
-        // Create the gradient
-        GradientPaint gradient = new GradientPaint(
-                0, 0, color1,
-                getWidth(), getHeight(), color2);
+        // Calculate the midpoint color
+        int red = (color1.getRed() + color2.getRed()) / 2;
+        int green = (color1.getGreen() + color2.getGreen()) / 2;
+        int blue = (color1.getBlue() + color2.getBlue()) / 2;
+        Color midpointColor = new Color(red, green, blue);
 
-        // Fill the rounded rectangle with the gradient
-        g2d.setPaint(gradient);
+        // Fill the rounded rectangle with the midpoint color
+        g2d.setPaint(midpointColor);
         g2d.fill(roundRect);
 
         // Optional: Add a border

@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 
@@ -27,23 +28,40 @@ import model.MYSQL;
  */
 public class allCustomers extends javax.swing.JPanel {
 
+    private Color color1 = new Color(46, 125, 50);    // Forest green
+    private Color color2 = new Color(129, 199, 132);  // Light green
+    private Color midpointColor;                     // Midpoint color
+    private int cornerRadius = 20;
+
     /**
      * Creates new form allCustomers
      */
     public allCustomers() {
         initComponents();
+//        setOpaque(false);
+//        setBackground(new Color(255, 255, 255, 0));
+        panelColor();
 
-      setBackground(new Color(255, 255, 255, 0));
-
+//        UIManager.put("Panel.background", new Color(173, 216, 230));
+//        setBackground(new Color(173, 216, 230));
 //        loadCustomer();
 //        getCustomerCount();
 //        loadType();
 //        loadGender();
 //        loadAgeRange();
 //        loadEvent();
-
 //        jDateChooser1.getDateEditor().getUiComponent().setEnabled(false);
+    }
 
+    public void panelColor() {
+        // Calculate the midpoint color
+        int red = (color1.getRed() + color2.getRed()) / 2;
+        int green = (color1.getGreen() + color2.getGreen()) / 2;
+        int blue = (color1.getBlue() + color2.getBlue()) / 2;
+        midpointColor = new Color(red, green, blue);
+
+        // Set the background to the midpoint color
+        setBackground(midpointColor);
     }
 
     public void loadCustomer() {
@@ -593,17 +611,20 @@ public class allCustomers extends javax.swing.JPanel {
                                 .addComponent(jLabel2)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                     .addContainerGap()))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2});
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
