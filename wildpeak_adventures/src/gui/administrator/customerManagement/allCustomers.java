@@ -40,8 +40,7 @@ public class allCustomers extends javax.swing.JPanel {
      */
     public allCustomers() {
         initComponents();
-//        setOpaque(false);
-//        setBackground(new Color(255, 255, 255, 0));
+
         panelColor();
         
         filterPanel.add(new filter(this));
@@ -49,18 +48,9 @@ public class allCustomers extends javax.swing.JPanel {
 
         loadCustomer();
       
-//       
 
-//<<<<<<< HEAD
         loadCustomer();
-        getCustomerCount();
-//        loadType();
-//        loadGender();
-//        loadAgeRange();
-//        loadEvent();
 
-//=======
-//>>>>>>> customer-update
     }
 
     public void panelColor() {
