@@ -38,7 +38,7 @@ public class filter extends javax.swing.JPanel {
     public filter(allCustomers parent) {
         this.parent = parent; // Store the parent reference
         initComponents();
-
+ 
         panelColor();
 
         loadType();
