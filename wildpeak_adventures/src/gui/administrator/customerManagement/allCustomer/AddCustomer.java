@@ -11,19 +11,13 @@ import gui.administrator.customerManagement.AllCustomers;
  *
  * @author shalaka
  */
-public class AddCustomer extends javax.swing.JFrame {
+public class AddCustomer extends javax.swing.JDialog {
 
-    AllCustomers allCustomers;
-    
-    public AddCustomer() {
-        initComponents();
-        setLocationRelativeTo(null);
 
-    }
-    
-     public AddCustomer(AllCustomers allCustomers) {
+    public AddCustomer(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+
         initComponents();
-        this.allCustomers = allCustomers;
         setLocationRelativeTo(null);
 
     }
@@ -63,7 +57,7 @@ public class AddCustomer extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btn_add = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -135,13 +129,8 @@ public class AddCustomer extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton1.setText("Upload Image");
 
-        btn_add.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        btn_add.setText("Add");
-        btn_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_addActionPerformed(evt);
-            }
-        });
+        jButton2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jButton2.setText("Add");
 
         jButton3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton3.setText("Cancel");
@@ -201,7 +190,7 @@ public class AddCustomer extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btn_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -249,7 +238,7 @@ public class AddCustomer extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btn_add)
+                .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -294,10 +283,6 @@ public class AddCustomer extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
-        allCustomers.loadCustomer();
-    }//GEN-LAST:event_btn_addActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -327,15 +312,22 @@ public class AddCustomer extends javax.swing.JFrame {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
-              public void run() {
-                new AddCustomer().setVisible(true);
+            public void run() {
+                AddCustomer dialog = new AddCustomer(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_add;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;

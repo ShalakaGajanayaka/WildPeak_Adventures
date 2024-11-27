@@ -65,8 +65,6 @@ public class AllCustomers extends javax.swing.JPanel {
         setBackground(midpointColor);
         filterPanel.setBackground(midpointColor);
     }
-    
-    
 
     public void loadCustomer() {
 
@@ -250,8 +248,14 @@ public class AllCustomers extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void btn_add_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_customerActionPerformed
-       AddCustomer addCustomer = new AddCustomer(this);
-        addCustomer.setVisible(true);
+//       AddCustomer addCustomer = new AddCustomer(this, true);
+//       addCustomer.setVisible(true);
+
+        java.awt.Window parentWindow = SwingUtilities.getWindowAncestor(this);
+        if (parentWindow instanceof java.awt.Frame) {
+            AddCustomer addCustomer = new AddCustomer((java.awt.Frame) parentWindow, true);
+            addCustomer.setVisible(true);
+        }
     }//GEN-LAST:event_btn_add_customerActionPerformed
 
 
