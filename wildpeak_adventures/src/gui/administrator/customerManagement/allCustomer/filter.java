@@ -5,7 +5,7 @@
  */
 package gui.administrator.customerManagement.allCustomer;
 
-import gui.administrator.customerManagement.allCustomers;
+import gui.administrator.customerManagement.AllCustomers;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -25,7 +25,7 @@ import model.MYSQL;
  */
 public class filter extends javax.swing.JPanel {
 
-    private allCustomers parent; // Field to store the parent panel
+    private AllCustomers parent; // Field to store the parent panel
 
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);
@@ -35,7 +35,7 @@ public class filter extends javax.swing.JPanel {
     /**
      * Creates new form filter
      */
-    public filter(allCustomers parent) {
+    public filter(AllCustomers parent) {
         this.parent = parent; // Store the parent reference
         initComponents();
  
@@ -59,7 +59,7 @@ public class filter extends javax.swing.JPanel {
     }
 
     // Getter for the parent panel (optional)
-    public allCustomers getParentPanel() {
+    public AllCustomers getParentPanel() {
         return parent;
     }
 
