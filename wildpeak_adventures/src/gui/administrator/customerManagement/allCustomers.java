@@ -28,7 +28,7 @@ import model.MYSQL;
  *
  * @author shalaka
  */
-public class AllCustomers extends javax.swing.JPanel {
+public class allCustomers extends javax.swing.JPanel {
 
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);  // Light green
@@ -38,7 +38,7 @@ public class AllCustomers extends javax.swing.JPanel {
     /**
      * Creates new form allCustomers
      */
-    public AllCustomers() {
+    public allCustomers() {
         initComponents();
 //        setOpaque(false);
 //        setBackground(new Color(255, 255, 255, 0));
@@ -251,7 +251,9 @@ public class AllCustomers extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+//         sr = new SupplierRegistration(this);
+ 
+//        sr.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
