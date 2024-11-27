@@ -13,11 +13,10 @@ import gui.administrator.customerManagement.AllCustomers;
  */
 public class AddCustomer extends javax.swing.JDialog {
 
-    AllCustomers allCustomers;
 
     public AddCustomer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-//        this.allCustomers = (AllCustomers) parent;
+
         initComponents();
         setLocationRelativeTo(null);
 
