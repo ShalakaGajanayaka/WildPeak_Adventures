@@ -187,6 +187,11 @@ public class allCustomers extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton1.setText("Add New Customer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton2.setText("Get Summery");
@@ -244,6 +249,12 @@ public class allCustomers extends javax.swing.JPanel {
         String searchtext = jTextField1.getText();
         loadCustomer("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//         sr = new SupplierRegistration(this);
+ 
+//        sr.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
