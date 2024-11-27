@@ -5,19 +5,22 @@
  */
 package gui.administrator.customerManagement.allCustomer;
 
+import gui.administrator.customerManagement.AllCustomers;
+
 /**
  *
  * @author shalaka
  */
 public class AddCustomer extends javax.swing.JDialog {
 
-    /**
-     * Creates new form AddCustomer
-     */
+    AllCustomers allCustomers;
+
     public AddCustomer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+//        this.allCustomers = (AllCustomers) parent;
         initComponents();
         setLocationRelativeTo(null);
+
     }
 
     /**
