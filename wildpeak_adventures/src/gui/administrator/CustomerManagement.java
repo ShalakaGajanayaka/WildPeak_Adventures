@@ -5,7 +5,7 @@
  */
 package gui.administrator;
 
-
+import gui.administrator.customerManagement.addCustomer;
 import gui.administrator.customerManagement.AllCustomers;
 import gui.administrator.customerManagement.forignCustomers;
 import gui.administrator.customerManagement.localCustomers;

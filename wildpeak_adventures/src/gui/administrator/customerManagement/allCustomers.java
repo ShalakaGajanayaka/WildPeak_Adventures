@@ -5,7 +5,6 @@
  */
 package gui.administrator.customerManagement;
 
-import gui.administrator.customerManagement.allCustomer.AddCustomer;
 import gui.administrator.customerManagement.allCustomer.customersCount;
 import gui.administrator.customerManagement.allCustomer.filter;
 import java.awt.BasicStroke;
@@ -21,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
@@ -45,13 +43,14 @@ public class AllCustomers extends javax.swing.JPanel {
 //        setOpaque(false);
 //        setBackground(new Color(255, 255, 255, 0));
         panelColor();
-
+        
         filterPanel.add(new filter(this));
         customersCountPanel.add(new customersCount(this));
 
         loadCustomer();
-
+      
 //       
+
     }
 
     public void panelColor() {
@@ -132,6 +131,10 @@ public class AllCustomers extends javax.swing.JPanel {
         }
     }
 
+  
+
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,7 +150,7 @@ public class AllCustomers extends javax.swing.JPanel {
         filterPanel = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        btn_add_customer = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -182,11 +185,11 @@ public class AllCustomers extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel2.setText("Search");
 
-        btn_add_customer.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        btn_add_customer.setText("Add New Customer");
-        btn_add_customer.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jButton1.setText("Add New Customer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_add_customerActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -212,7 +215,7 @@ public class AllCustomers extends javax.swing.JPanel {
                                 .addComponent(filterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btn_add_customer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(customersCountPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addContainerGap()))
@@ -231,7 +234,7 @@ public class AllCustomers extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(filterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(btn_add_customer)
+                            .addComponent(jButton1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(40, 40, 40)
@@ -247,22 +250,15 @@ public class AllCustomers extends javax.swing.JPanel {
         loadCustomer("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField1KeyReleased
 
-    private void btn_add_customerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_customerActionPerformed
-//       AddCustomer addCustomer = new AddCustomer(this, true);
-//       addCustomer.setVisible(true);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        java.awt.Window parentWindow = SwingUtilities.getWindowAncestor(this);
-        if (parentWindow instanceof java.awt.Frame) {
-            AddCustomer addCustomer = new AddCustomer((java.awt.Frame) parentWindow, true);
-            addCustomer.setVisible(true);
-        }
-    }//GEN-LAST:event_btn_add_customerActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_add_customer;
     private javax.swing.JPanel customersCountPanel;
     private javax.swing.JPanel filterPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
