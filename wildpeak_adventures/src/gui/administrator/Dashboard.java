@@ -344,7 +344,7 @@ public class Dashboard extends javax.swing.JPanel {
         Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
-        panel5.add(new BookingManagement());
+//        panel5.add(new BookingManagement());
         panel5.revalidate();
         panel5.repaint();
     }//GEN-LAST:event_jButton6ActionPerformed
