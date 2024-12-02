@@ -168,8 +168,10 @@ public class allCustomers extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        customersCountPanel.setBackground(new java.awt.Color(153, 153, 153));
         customersCountPanel.setLayout(new java.awt.CardLayout());
 
+        filterPanel.setBackground(new java.awt.Color(204, 204, 204));
         filterPanel.setLayout(new java.awt.CardLayout());
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
