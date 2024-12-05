@@ -5,7 +5,7 @@
  */
 package gui.administrator.customerManagement.allCustomer;
 
-import gui.administrator.customerManagement.allCustomers;
+import gui.administrator.customerManagement.AllCustomers;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -22,7 +22,7 @@ import model.MYSQL;
  */
 public class customersCount extends javax.swing.JPanel {
 
-    private allCustomers parent;
+    private AllCustomers parent;
 
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);
@@ -32,7 +32,7 @@ public class customersCount extends javax.swing.JPanel {
     /**
      * Creates new form customersCount
      */
-    public customersCount(allCustomers parent) {
+    public customersCount(AllCustomers parent) {
         this.parent = parent;
         initComponents();
         panelColor();

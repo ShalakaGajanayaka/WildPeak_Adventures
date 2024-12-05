@@ -5,6 +5,7 @@
  */
 package gui.administrator.customerManagement;
 
+import gui.administrator.customerManagement.allCustomer.AddCustomer;
 import gui.administrator.customerManagement.allCustomer.customersCount;
 import gui.administrator.customerManagement.allCustomer.filter;
 import java.awt.BasicStroke;
@@ -19,7 +20,9 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
@@ -28,7 +31,7 @@ import model.MYSQL;
  *
  * @author shalaka
  */
-public class allCustomers extends javax.swing.JPanel {
+public class AllCustomers extends javax.swing.JPanel {
 
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);  // Light green
@@ -38,7 +41,7 @@ public class allCustomers extends javax.swing.JPanel {
     /**
      * Creates new form allCustomers
      */
-    public allCustomers() {
+    public AllCustomers() {
         initComponents();
 
         panelColor();
@@ -186,6 +189,11 @@ public class allCustomers extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton1.setText("Add New Customer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton2.setText("Get Summery");
@@ -216,7 +224,7 @@ public class allCustomers extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addGap(0, 347, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -232,9 +240,9 @@ public class allCustomers extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(customersCountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+                            .addComponent(customersCountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGap(11, 11, 11)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                     .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -243,6 +251,12 @@ public class allCustomers extends javax.swing.JPanel {
         String searchtext = jTextField1.getText();
         loadCustomer("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        AddCustomer addCustomer = new AddCustomer(this, true);
+        addCustomer.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
