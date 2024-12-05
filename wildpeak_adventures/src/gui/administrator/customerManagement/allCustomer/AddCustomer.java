@@ -6,9 +6,13 @@
 package gui.administrator.customerManagement.allCustomer;
 
 import gui.administrator.customerManagement.AllCustomers;
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import model.MYSQL;
 
 /**
  *
@@ -29,6 +33,8 @@ public class AddCustomer extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
     }
+    
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
