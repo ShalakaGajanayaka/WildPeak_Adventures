@@ -7,6 +7,7 @@ package gui.administrator.customerManagement.allCustomer;
 
 import gui.administrator.customerManagement.AllCustomers;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -22,7 +23,6 @@ public class AddCustomer extends javax.swing.JDialog {
 //        super(parent, modal);
 //        initComponents();
 //    }
-    
     public AddCustomer(AllCustomers parent, boolean modal) {
 //        super(parent, modal);
         super((JFrame) SwingUtilities.getWindowAncestor(parent), modal);
@@ -303,7 +303,40 @@ public class AddCustomer extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
-        
+        String fname = txt_fname.getText();
+        String lname = txt_lname.getText();
+        String mobile = txt_mobile.getText();
+        String email = txt_email.getText();
+        String age = txt_age.getText();
+//        String gender = cmb_gender.getSelectedItem().toString();
+//        String type = cmb_type.getSelectedItem().toString();
+
+        String gender = cmb_gender.getSelectedItem() != null ? cmb_gender.getSelectedItem().toString() : "";
+        String type = cmb_type.getSelectedItem() != null ? cmb_type.getSelectedItem().toString() : "";
+
+        // Check for empty fields
+        if (fname.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "First Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else if (lname.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Last Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else if (mobile.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mobile Number cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Email cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else if (age.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Age cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else if (gender.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Gender must be selected.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else if (type.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Type must be selected.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Proceed with adding data if all fields are valid
+            JOptionPane.showMessageDialog(this, "All inputs are valid. Proceeding with the action.", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // Add your logic to handle the input data here
+        }
+
+
     }//GEN-LAST:event_btn_addActionPerformed
 
     /**
