@@ -33,8 +33,6 @@ public class AddCustomer extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -320,6 +318,11 @@ public class AddCustomer extends javax.swing.JDialog {
         String gender = cmb_gender.getSelectedItem() != null ? cmb_gender.getSelectedItem().toString() : "";
         String type = cmb_type.getSelectedItem() != null ? cmb_type.getSelectedItem().toString() : "";
 
+        // Regular expressions for validation
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+//        String mobileRegex = "^(\\+\\d{1,3}[- ]?)?\\d{10}$";
+        String mobileRegex = "^(\\+94|0)(7[0-9]{8})$";           // Sri Lankan Mobile number
+
         // Check for empty fields
         if (fname.isEmpty()) {
             JOptionPane.showMessageDialog(this, "First Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -327,8 +330,12 @@ public class AddCustomer extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Last Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
         } else if (mobile.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mobile Number cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!mobile.matches(mobileRegex)) {
+            JOptionPane.showMessageDialog(this, "Invalid Mobile Number format.", "Input Error", JOptionPane.ERROR_MESSAGE);
         } else if (email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Email cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!email.matches(emailRegex)) {
+            JOptionPane.showMessageDialog(this, "Invalid Email format.", "Input Error", JOptionPane.ERROR_MESSAGE);
         } else if (age.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Age cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
         } else if (gender.isEmpty()) {
