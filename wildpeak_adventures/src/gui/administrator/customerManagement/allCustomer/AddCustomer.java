@@ -7,6 +7,9 @@ package gui.administrator.customerManagement.allCustomer;
 
 import gui.administrator.customerManagement.AllCustomers;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -20,6 +23,9 @@ import model.MYSQL;
  */
 public class AddCustomer extends javax.swing.JDialog {
 
+    private static HashMap<String, Integer> LoadTypeMap = new HashMap<>();
+    private static HashMap<String, Integer> LoadGenderMap = new HashMap<>();
+
     /**
      * Creates new form AddCustomer
      */
@@ -32,12 +38,12 @@ public class AddCustomer extends javax.swing.JDialog {
         super((JFrame) SwingUtilities.getWindowAncestor(parent), modal);
         initComponents();
         setLocationRelativeTo(null);
-        
+
         loadGender();
         loadType();
     }
-    
-    public void loadGender(){
+
+    public void loadGender() {
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `gender`");
 
@@ -46,7 +52,7 @@ public class AddCustomer extends javax.swing.JDialog {
 
             while (resultSet.next()) {
                 vector.add(resultSet.getString("name"));
-//                LoadPositionMap.put(resultSet.getString("name"), resultSet.getInt("id"));
+                LoadGenderMap.put(resultSet.getString("name"), resultSet.getInt("id"));
 
             }
 
@@ -58,8 +64,8 @@ public class AddCustomer extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-    
-    public void loadType(){
+
+    public void loadType() {
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer_type`");
 
@@ -68,7 +74,7 @@ public class AddCustomer extends javax.swing.JDialog {
 
             while (resultSet.next()) {
                 vector.add(resultSet.getString("name"));
-//                LoadPositionMap.put(resultSet.getString("name"), resultSet.getInt("id"));
+                LoadTypeMap.put(resultSet.getString("name"), resultSet.getInt("id"));
 
             }
 
@@ -391,9 +397,31 @@ public class AddCustomer extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Type must be selected.", "Input Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // Proceed with adding data if all fields are valid
-            JOptionPane.showMessageDialog(this, "All inputs are valid. Proceeding with the action.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // Add your logic to handle the input data here
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            try {
+                ResultSet rs = MYSQL.executeSearch("SELECT * FROM `customer` WHERE `mobile` = '" + mobile + "' OR `email` = '" + email + "'");
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Customer already exists. Please verify the information.", "Duplicate Entry", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    // Insert the new customer into the database
+                    String insertQuery = "INSERT INTO `customer` (fname, lname, mobile, email, age, gender_id, customer_type_id, register_date) "
+                            + "VALUES ('" + fname + "', '" + lname + "', '" + mobile + "', '" + email + "', '" + age + "', '" + LoadGenderMap.get(gender) + "', '" + LoadTypeMap.get(type) + "', '" + sdf.format(date) + "')";
+
+                    int result = MYSQL.executeIUD(insertQuery);
+
+                    if (result > 0) {
+                        JOptionPane.showMessageDialog(this, "Customer added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                       
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Failed to add customer. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
 
