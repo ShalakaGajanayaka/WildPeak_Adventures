@@ -32,6 +32,53 @@ public class AddCustomer extends javax.swing.JDialog {
         super((JFrame) SwingUtilities.getWindowAncestor(parent), modal);
         initComponents();
         setLocationRelativeTo(null);
+        
+        loadGender();
+        loadType();
+    }
+    
+    public void loadGender(){
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `gender`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+//                LoadPositionMap.put(resultSet.getString("name"), resultSet.getInt("id"));
+
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            cmb_gender.setModel(model);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+    
+    public void loadType(){
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer_type`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+//                LoadPositionMap.put(resultSet.getString("name"), resultSet.getInt("id"));
+
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            cmb_type.setModel(model);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
     }
 
     /**
