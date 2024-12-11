@@ -43,6 +43,16 @@ public class AddCustomer extends javax.swing.JDialog {
         loadType();
     }
 
+    public void clearFeilds() {
+        txt_fname.setText("");
+        txt_lname.setText("");
+        txt_mobile.setText("");
+        txt_email.setText("");
+        txt_age.setText("");
+        cmb_gender.setSelectedIndex(0); // Assuming the first item is the default
+        cmb_type.setSelectedIndex(0);  // Assuming the first item is the default
+    }
+
     public void loadGender() {
         try {
             ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `gender`");
@@ -414,7 +424,7 @@ public class AddCustomer extends javax.swing.JDialog {
 
                     if (result > 0) {
                         JOptionPane.showMessageDialog(this, "Customer added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                       
+                        clearFeilds();
                     } else {
                         JOptionPane.showMessageDialog(this, "Failed to add customer. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
