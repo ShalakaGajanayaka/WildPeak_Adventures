@@ -18,6 +18,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -33,6 +34,8 @@ import model.MYSQL;
  */
 public class AllCustomers extends javax.swing.JPanel {
 
+//    private static HashMap<String, Integer> LoadCustomersMap = new HashMap<>();
+
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);  // Light green
     private Color midpointColor;                     // Midpoint color
@@ -45,12 +48,12 @@ public class AllCustomers extends javax.swing.JPanel {
         initComponents();
 
         panelColor();
-        
+
         filterPanel.add(new filter(this));
         customersCountPanel.add(new customersCount(this));
 
         loadCustomer();
-     
+
     }
 
     public void panelColor() {
@@ -88,6 +91,20 @@ public class AllCustomers extends javax.swing.JPanel {
                 vector.add(resultSet.getString("customer_type.name"));
 
                 defaultTableModel.addRow(vector);
+
+                // Create a Customer object and add it to the HashMap
+                int customerId = resultSet.getInt("id");
+                Customer customer = new Customer(
+                        resultSet.getString("customer.fname"),
+                        resultSet.getString("customer.lname"),
+                        resultSet.getString("customer.email"),
+                        resultSet.getString("customer.mobile"),
+                        resultSet.getString("customer.age"),
+                        resultSet.getString("customer.register_date"),
+                        resultSet.getString("gender.name"),
+                        resultSet.getString("customer_type.name")
+                );
+//                LoadCustomersMap.put(customer.toString(), customerId);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,10 +147,6 @@ public class AllCustomers extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-
-  
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -253,13 +266,14 @@ public class AllCustomers extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         AddCustomer addCustomer = new AddCustomer(this, true);
         addCustomer.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+//        System.out.println(LoadCustomersMap);
+//        System.out.println(LoadCustomersMap.get("Ruwan"));
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
