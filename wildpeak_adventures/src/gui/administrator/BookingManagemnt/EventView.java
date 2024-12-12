@@ -257,6 +257,7 @@ public class EventView extends javax.swing.JDialog {
 
             if (mevent != null) {
                 mevent.getJTextField6().setText(String.valueOf(jTable1.getValueAt(row, 1)));
+                mevent.getjLabel1().setText(String.valueOf(jTable1.getValueAt(row, 3)));
             } else {
                 System.out.println("mevent: " + (mevent != null ? "Initialized" : "null"));
             }

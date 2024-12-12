@@ -15,6 +15,7 @@ public class bookingItem {
     private String qty;
     private String price;
     private String offer;
+    private String date;
 
 
     public String getEid() {
@@ -63,6 +64,20 @@ public class bookingItem {
  
     public void setOffer(String offer) {
         this.offer = offer;
+    }
+
+    /**
+     * @return the date
+     */
+    public String getDate() {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(String date) {
+        this.date = date;
     }
 
 }

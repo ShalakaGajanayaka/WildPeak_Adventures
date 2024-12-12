@@ -1,10 +1,9 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui.administrator.BookingManagemnt;
 
-import gui.administrator.event_management.Add_Event;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
@@ -31,7 +30,7 @@ public class CustomerView extends javax.swing.JDialog {
 
     public CustomerView() {
         initComponents();
-        loadCustomer("id", "ASC", jTextField2.getText());
+        loadCustomer("mobile", "ASC", jTextField2.getText());
     }
 
     private void loadCustomer(String column, String orderby, String text) {
@@ -48,6 +47,7 @@ public class CustomerView extends javax.swing.JDialog {
             try (PreparedStatement statement = MYSQL.getConnection().prepareStatement(query)) {
                 String searchPattern = "%" + text + "%";
 
+                // Set parameters for the search
                 statement.setString(1, searchPattern);
                 statement.setString(2, searchPattern);
                 statement.setString(3, searchPattern);
@@ -58,20 +58,29 @@ public class CustomerView extends javax.swing.JDialog {
                 DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
                 defaultTableModel.setRowCount(0);
 
+                // Counter for dynamically generated item IDs
+                int itemId = 1;
+
                 while (resultSet.next()) {
                     Vector<String> vector = new Vector<>();
-                    vector.add(resultSet.getString("customer.id"));
+
+                    // Add the dynamically generated item ID
+                    vector.add(String.valueOf(itemId));
+
+                    // Add other customer details
                     vector.add(resultSet.getString("customer.fname") + " " + resultSet.getString("customer.lname"));
                     vector.add(resultSet.getString("customer.mobile"));
                     vector.add(resultSet.getString("customer.email"));
                     vector.add(resultSet.getString("customer_type.name"));
 
+                    // Add the row to the table model
                     defaultTableModel.addRow(vector);
-                }
 
+                    // Increment the item ID for the next customer
+                    itemId++;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -210,7 +219,7 @@ public class CustomerView extends javax.swing.JDialog {
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
         String searchtext = jTextField2.getText();
-        loadCustomer("id", "ASC", searchtext);
+        loadCustomer("mobile", "ASC", searchtext);
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
