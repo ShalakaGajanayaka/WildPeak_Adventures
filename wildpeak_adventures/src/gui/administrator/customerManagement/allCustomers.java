@@ -32,7 +32,7 @@ import model.MYSQL;
  *
  * @author shalaka
  */
-public class AllCustomers extends javax.swing.JPanel { 
+public class AllCustomers extends javax.swing.JPanel {  
 
 //    private static HashMap<String, Integer> LoadCustomersMap = new HashMap<>();
 
