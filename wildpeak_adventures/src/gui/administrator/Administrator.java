@@ -42,7 +42,7 @@ public class Administrator extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
 
-        jPanel5.add(new CustomerManagement()); 
+        jPanel5.add(new CustomerManagement());
         jPanel4.add(new Dashboard());
 
 //        String jobRole = SignIn_Admin.getjobrole();
