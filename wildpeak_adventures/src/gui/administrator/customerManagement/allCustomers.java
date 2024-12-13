@@ -46,7 +46,7 @@ public class AllCustomers extends javax.swing.JPanel {
 
         panelColor();
         
-        filterPanel.add(new filter(this));
+        filterPanel.add(new filter(this)); 
         customersCountPanel.add(new customersCount(this));
 
         loadCustomer();
