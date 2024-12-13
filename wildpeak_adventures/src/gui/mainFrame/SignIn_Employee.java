@@ -5,6 +5,7 @@
  */
 package gui.mainFrame;
 
+
 import java.awt.Color;
 import java.awt.Container;
 import java.sql.ResultSet;
@@ -25,6 +26,15 @@ public class SignIn_Employee extends javax.swing.JPanel {
 
     public static void setjobrole(String role) {
         SignIn_Employee.jobrole = role;
+    }
+    private static String email;
+
+    public static String getemail() {
+        return email;
+    }
+
+    public static void setemail(String email) {
+        SignIn_Employee.email = email;
     }
 
     /**
@@ -240,6 +250,7 @@ public class SignIn_Employee extends javax.swing.JPanel {
 
                     String jobTitle = jLabel5.getText();
                     setjobrole(jobTitle);
+                    setemail(email);
 
                     Container parent = SignIn_Employee.this.getParent();
                     parent.remove(SignIn_Employee.this);

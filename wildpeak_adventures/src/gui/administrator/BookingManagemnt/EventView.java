@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package gui.administrator.bookingManagement;
+package gui.administrator.BookingManagemnt;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,73 +14,90 @@ import model.MYSQL;
  *
  * @author USER
  */
-public class CustomerView extends javax.swing.JDialog {
+public class EventView extends javax.swing.JDialog {
 
-    private Booking customer;
+    private Booking event;
 
-    public void setcustomer(Booking customer) {
-        this.customer = customer;
+    public void setevent(Booking event) {
+        this.event = event;
+    }
+    private ManageBooking mevent;
+
+    public void setManageEvent(ManageBooking mevent) {
+        this.mevent = mevent;
     }
 
-    private ManageBooking mcustomer;
-
-    public void setManageCustomer(ManageBooking mcustomer) {
-        this.mcustomer = mcustomer;
-    }
-
-    public CustomerView() {
+    public EventView() {
         initComponents();
-        loadCustomer("mobile", "ASC", jTextField2.getText());
+        loadEvent("id", "ASC", jTextField2.getText());
     }
 
-    private void loadCustomer(String column, String orderby, String text) {
+    private void loadEvent(String column, String orderby, String text) {
         try {
-            String query = "SELECT * FROM customer "
-                    + "INNER JOIN customer_type ON customer.customer_type_id = customer_type.id "
-                    + "WHERE customer.fname LIKE ? "
-                    + "OR customer.lname LIKE ? "
-                    + "OR customer.email LIKE ? "
-                    + "OR customer.mobile LIKE ? "
-                    + "OR customer_type.name LIKE ? "
-                    + "ORDER BY customer." + column + " " + orderby;
+            String query = "SELECT `event`.`id` AS event_id, `event`.`name` AS event_name, `event_category`.`name` AS category_name, "
+                    + "`event_offer`.`name` AS offer_name, `event`.`max_participants`, `event`.`price`, "
+                    + "`event_location`.`line_1`, `event_location`.`line_2`, `city`.`name` AS city_name "
+                    + "FROM `event` "
+                    + "INNER JOIN `event_category` ON `event`.`event_category_id` = `event_category`.`id` "
+                    + "INNER JOIN `event_offer` ON `event`.`event_offer_id` = `event_offer`.`id` "
+                    + "INNER JOIN `event_location` ON `event`.`event_location_id` = `event_location`.`id` "
+                    + "INNER JOIN `city` ON `event_location`.`city_id` = `city`.`id` "
+                    + "WHERE `event`.`name` LIKE ? "
+                    + "OR `event`.`price` LIKE ? "
+                    + "OR `event_category`.`name` LIKE ? "
+                    + "OR `event_offer`.`name` LIKE ? "
+                    + "OR `event_location`.`line_1` LIKE ? "
+                    + "OR `event_location`.`line_2` LIKE ? "
+                    + "OR `city`.`name` LIKE ? "
+                    + "OR `event`.`max_participants` LIKE ? "
+                    + "ORDER BY `event`." + column + " " + orderby;
 
             try (PreparedStatement statement = MYSQL.getConnection().prepareStatement(query)) {
                 String searchPattern = "%" + text + "%";
 
-                // Set parameters for the search
                 statement.setString(1, searchPattern);
                 statement.setString(2, searchPattern);
                 statement.setString(3, searchPattern);
                 statement.setString(4, searchPattern);
                 statement.setString(5, searchPattern);
+                statement.setString(6, searchPattern);
+                statement.setString(7, searchPattern);
+                statement.setString(8, searchPattern);
 
                 ResultSet resultSet = statement.executeQuery();
                 DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
                 defaultTableModel.setRowCount(0);
 
-                // Counter for dynamically generated item IDs
-                int itemId = 1;
-
                 while (resultSet.next()) {
                     Vector<String> vector = new Vector<>();
 
-                    // Add the dynamically generated item ID
-                    vector.add(String.valueOf(itemId));
+                    // Add event details
+                    vector.add(resultSet.getString("event_id"));
+                    vector.add(resultSet.getString("event_name"));
+                    vector.add(resultSet.getString("category_name"));
+                    vector.add(resultSet.getString("event.max_participants"));
+                    vector.add(resultSet.getString("offer_name"));
+                    vector.add(resultSet.getString("price"));
 
-                    // Add other customer details
-                    vector.add(resultSet.getString("customer.fname") + " " + resultSet.getString("customer.lname"));
-                    vector.add(resultSet.getString("customer.mobile"));
-                    vector.add(resultSet.getString("customer.email"));
-                    vector.add(resultSet.getString("customer_type.name"));
+                    // Combine address components into a single field
+                    String value1 = resultSet.getString("line_1");
+                    String value2 = resultSet.getString("line_2");
+                    String value3 = resultSet.getString("city_name");
+                    // Handle potential null values for address fields
+                    value1 = (value1 != null) ? value1 : "";
+                    value2 = (value2 != null) ? value2 : "";
+                    value3 = (value3 != null) ? value3 : "";
+
+                    // Add address to the vector
+                    vector.add(value1 + ", " + value2 + ", " + value3);
 
                     // Add the row to the table model
                     defaultTableModel.addRow(vector);
-
-                    // Increment the item ID for the next customer
-                    itemId++;
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,11 +150,11 @@ public class CustomerView extends javax.swing.JDialog {
 
             },
             new String [] {
-                "#", "Customer Name", "Customer Mobile", "Customer Email", "Customer Type"
+                "#", "Event Name", "Event Category", "QTY", "Offer (%)", "Price (Rs)", "Location"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -219,27 +236,30 @@ public class CustomerView extends javax.swing.JDialog {
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
         String searchtext = jTextField2.getText();
-        loadCustomer("mobile", "ASC", searchtext);
+        loadEvent("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-
         int row = jTable1.getSelectedRow();
 
         if (evt.getClickCount() == 2) {
-            if (customer != null) {
-                customer.getjLabel1().setText(String.valueOf(jTable1.getValueAt(row, 1)));
-                customer.getjLabel2().setText(String.valueOf(jTable1.getValueAt(row, 2)));
-                customer.getjLabel3().setText(String.valueOf(jTable1.getValueAt(row, 4)));
-                customer.getjLabel4().setText(String.valueOf(jTable1.getValueAt(row, 3)));
+            if (event != null) {
+                event.getjLabel5().setText(String.valueOf(jTable1.getValueAt(row, 1)));
+                event.getjLabel6().setText(String.valueOf(jTable1.getValueAt(row, 2)));
+                event.getjLabel7().setText(String.valueOf(jTable1.getValueAt(row, 3)));
+                event.getjLabel8().setText(String.valueOf(jTable1.getValueAt(row, 6)));
+                event.getjLabel9().setText(String.valueOf(jTable1.getValueAt(row, 5)));
+                event.getjLabel10().setText(String.valueOf(jTable1.getValueAt(row, 4)));
+                event.getjLabel11().setText(String.valueOf(jTable1.getValueAt(row, 0)));
             } else {
-                System.out.println("customer: " + (customer != null ? "Initialized" : "null"));
+                System.out.println("event: " + (event != null ? "Initialized" : "null"));
             }
 
-            if (mcustomer != null) {
-                mcustomer.getJTextField5().setText(String.valueOf(jTable1.getValueAt(row, 1)));
+            if (mevent != null) {
+                mevent.getJTextField6().setText(String.valueOf(jTable1.getValueAt(row, 1)));
+                mevent.getjLabel1().setText(String.valueOf(jTable1.getValueAt(row, 3)));
             } else {
-                System.out.println("mcustomer: " + (mcustomer != null ? "Initialized" : "null"));
+                System.out.println("mevent: " + (mevent != null ? "Initialized" : "null"));
             }
 
             this.dispose();
