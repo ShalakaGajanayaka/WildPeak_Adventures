@@ -5,17 +5,44 @@
  */
 package gui.administrator.stockManagement;
 
+import java.awt.Frame;
+import javax.swing.JOptionPane;
+import model.MYSQL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.util.HashMap;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author shalaka
  */
 public class addStock extends javax.swing.JPanel {
 
+    HashMap<String, String> LoadCategoryMap = new HashMap<>();
+    HashMap<String, String> LoadBrandMap = new HashMap<>();
+    HashMap<String, String> LoadModelMap = new HashMap<>();
+
     /**
      * Creates new form addStock
      */
     public addStock() {
         initComponents();
+        loadCategory();
+        loadStatus();
+        loadBrand();
+        loadProduct("product`.`id", "ASC", jTextField3.getText(), jTextField3.getText(), jTextField3.getText(), jTextField3.getText(), jTextField3.getText());
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.setDefaultRenderer(Object.class, renderer);
+
     }
 
     /**
@@ -27,178 +54,611 @@ public class addStock extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
-        jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel3.setText("Search");
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jTextField2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-
-        jLabel18.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel18.setText("You can add or edit stock");
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "#", "Product Name", "Brand", "Category"
+                "Product Id", "Category", "Brand", "Name", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
-        jLabel19.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel19.setText("Product Name");
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
 
-        jLabel20.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel20.setText("Brand");
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jTextField5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("PRODUCT ID");
 
-        jLabel22.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel22.setText("Category");
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("NAME");
 
-        jButton1.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-        jButton1.setText("Add");
+        jTextField1.setBackground(new java.awt.Color(242, 242, 242));
+
+        jTextField2.setBackground(new java.awt.Color(242, 242, 242));
+
+        jComboBox1.setBackground(new java.awt.Color(242, 242, 242));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox3.setBackground(new java.awt.Color(242, 242, 242));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton1.setBackground(new java.awt.Color(242, 242, 242));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setText("ADD TO PRODUCT");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-        jButton2.setText("Update");
+        jButton2.setBackground(new java.awt.Color(242, 242, 242));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setText("UPDATE TO PRODUCT");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-        jButton3.setText("Cancel");
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton3.setText("CLEAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel18.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel18.setText("You can add or edit stock");
 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("STATUS");
+
+        jComboBox2.setBackground(new java.awt.Color(242, 242, 242));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField5)
-                            .addComponent(jComboBox1, 0, 251, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("CATEGORY");
+        jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 2, true));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setText("BRAND");
+        jLabel13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 2, true));
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(17, 17, 17)
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(17, 17, 17)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(17, 17, 17)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(17, 17, 17)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel18))))
+                .addGap(23, 23, 23))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+        jPanel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setText("SORT BY :");
+
+        jComboBox5.setBackground(new java.awt.Color(242, 242, 242));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PRODUCT ID ASENDING", "PRODUCT ID DESENDING", "PRODUCT NAME ASCENDING", "CATEGORY ASENDING", "BRAND ASENDING", "MODEL ASENDING", " ", " ", " " }));
+        jComboBox5.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox5ItemStateChanged(evt);
+            }
+        });
+
+        jTextField3.setBackground(new java.awt.Color(242, 242, 242));
+        jTextField3.setToolTipText("SEARCH PRODUCT");
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField3KeyReleased(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel11.setText("SEARCH :");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel10)
+                .addGap(12, 12, 12)
+                .addComponent(jComboBox5, 0, 206, Short.MAX_VALUE)
+                .addGap(111, 111, 111)
+                .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .addGap(60, 60, 60))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 896, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(5, 5, 5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(5, 5, 5))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadCategory() {
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `category`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+                LoadCategoryMap.put(resultSet.getString("name"), resultSet.getString("id"));
+            }
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            jComboBox1.setModel(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+//            logger.log(Level.WARNING, "Exception In Product Management in loadCategory", e);
+        }
+    }
+
+    private void loadBrand() {
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `brand`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+                LoadBrandMap.put(resultSet.getString("name"), resultSet.getString("id"));
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            jComboBox3.setModel(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+//            logger.log(Level.WARNING, "Exception In Product Management in loadBrand", e);
+        }
+    }
+
+    private void loadStatus() {
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `status`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+                LoadModelMap.put(resultSet.getString("name"), resultSet.getString("id"));
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            jComboBox2.setModel(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+//            logger.log(Level.WARNING, "Exception In Product Management in loadModel", e);
+        }
+    }
+
+    private void loadProduct(String column, String orderby, String id, String Category, String Brand, String Status, String Name) {
+        try {
+            PreparedStatement stmt = MYSQL.getConnection().prepareStatement(
+                    "SELECT `product`.`id`, `category`.`name` AS `category_name`, "
+                    + "`brand`.`name` AS `brand_name`, `product`.`name` AS `product_name`, `status`.`name` AS `status_name` "
+                    + "FROM `product` "
+                    + "INNER JOIN `category` ON `product`.`category_id` = `category`.`id` "
+                    + "INNER JOIN `brand` ON `product`.`brand_id` = `brand`.`id` "
+                    + "INNER JOIN `status` ON `product`.`status_id` = `status`.`id` "
+                    + "WHERE `product`.`id` LIKE ? OR `product`.`name` LIKE ? OR `category`.`name` LIKE ? "
+                    + "OR `brand`.`name` LIKE ? OR `status`.`name` LIKE ? "
+                    + "ORDER BY `" + column + "` " + orderby);
+
+            stmt.setString(1, id + "%");
+            stmt.setString(2, Name + "%");
+            stmt.setString(3, Category + "%");
+            stmt.setString(4, Brand + "%");
+            stmt.setString(5, Status + "%");
+
+            ResultSet resultSet = stmt.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            while (resultSet.next()) {
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("id"));
+                vector.add(resultSet.getString("category_name"));
+                vector.add(resultSet.getString("brand_name"));
+                vector.add(resultSet.getString("product_name"));
+                vector.add(resultSet.getString("status_name"));
+                model.addRow(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+        String productId = jTextField1.getText().trim();
+        String category = String.valueOf(jComboBox1.getSelectedItem());
+        String brand = String.valueOf(jComboBox3.getSelectedItem());
+        String status = String.valueOf(jComboBox2.getSelectedItem());
+        String productName = jTextField2.getText().trim();
+
+        // Input validation
+        if (productId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Product ID.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if ("Select".equals(category)) {
+            JOptionPane.showMessageDialog(this, "Please Select a Category.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if ("Select".equals(brand)) {
+            JOptionPane.showMessageDialog(this, "Please Select a Brand.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if (productName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Product Name.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if ("Select".equals(status)) {
+            JOptionPane.showMessageDialog(this, "Please Select a Status.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        try {
+            // Query to check if the product already exists
+            String checkQuery = "SELECT * FROM `product` WHERE `id` = ? OR (`name` = ? AND `brand_id` = ? AND `category_id` = ? AND `status_id` = ?)";
+            PreparedStatement checkStmt = MYSQL.getConnection().prepareStatement(checkQuery);
+            checkStmt.setString(1, productId);
+            checkStmt.setString(2, productName);
+            checkStmt.setString(3, LoadBrandMap.get(brand));
+            checkStmt.setString(4, LoadCategoryMap.get(category));
+            checkStmt.setString(5, LoadModelMap.get(status));
+
+            ResultSet resultSet = checkStmt.executeQuery();
+
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(this, "Product already added.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+                // Insert new product into the database
+                String insertQuery = "INSERT INTO `product`(`id`, `name`, `brand_id`, `category_id`, `status_id`) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement insertStmt = MYSQL.getConnection().prepareStatement(insertQuery);
+                insertStmt.setString(1, productId);
+                insertStmt.setString(2, productName);
+                insertStmt.setString(3, LoadBrandMap.get(brand));
+                insertStmt.setString(4, LoadCategoryMap.get(category));
+                insertStmt.setString(5, LoadModelMap.get(status));
+
+                int rowsInserted = insertStmt.executeUpdate();
+                if (rowsInserted > 0) {
+                    JOptionPane.showMessageDialog(this, "New product added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    reset();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to add the product. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occurred while adding the product.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(addStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String productId = jTextField1.getText().trim();
+        String category = String.valueOf(jComboBox1.getSelectedItem());
+        String brand = String.valueOf(jComboBox3.getSelectedItem());
+        String status = String.valueOf(jComboBox2.getSelectedItem());
+        String productName = jTextField2.getText().trim();
+
+        // Validation
+        if (productId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Product Id.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if ("Select".equals(category)) {
+            JOptionPane.showMessageDialog(this, "Please Select Category.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if ("Select".equals(brand)) {
+            JOptionPane.showMessageDialog(this, "Please Select Brand.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if (productName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Enter Product Name.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if ("Select".equals(status)) {
+            JOptionPane.showMessageDialog(this, "Please Select Status.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        try {
+            // Check if the product already exists
+            String checkQuery = "SELECT * FROM `product` WHERE `name` = ? AND (`brand_id` = ? AND `category_id` = ? AND `status_id` = ?)";
+            PreparedStatement checkStmt = MYSQL.getConnection().prepareStatement(checkQuery);
+            checkStmt.setString(1, productName);
+            checkStmt.setString(2, LoadBrandMap.get(brand));
+            checkStmt.setString(3, LoadCategoryMap.get(category));
+            checkStmt.setString(4, LoadModelMap.get(status));
+
+            ResultSet resultSet = checkStmt.executeQuery();
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(this, "This product is already added.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Update the product details
+                String updateQuery = "UPDATE `product` SET `brand_id` = ?, `name` = ?, `category_id` = ?, `status_id` = ? WHERE `product`.`id` = ?";
+                PreparedStatement updateStmt = MYSQL.getConnection().prepareStatement(updateQuery);
+                updateStmt.setString(1, LoadBrandMap.get(brand));
+                updateStmt.setString(2, productName);
+                updateStmt.setString(3, LoadCategoryMap.get(category));
+                updateStmt.setString(4, LoadModelMap.get(status));
+                updateStmt.setString(5, productId);
+
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    JOptionPane.showMessageDialog(this, "Product Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    reset();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No product found with the given ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occurred while updating the product.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(addStock.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        reset();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jComboBox5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox5ItemStateChanged
+
+        int sort = jComboBox5.getSelectedIndex();
+
+        if (sort == 0) {
+            loadProduct("product`.`id", "ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+        } else if (sort == 1) {
+            loadProduct("product`.`id", "DESC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+        } else if (sort == 2) {
+            loadProduct("product`.`name", "ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+        } else if (sort == 3) {
+            loadProduct("category`.`name", "ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+        } else if (sort == 4) {
+            loadProduct("brand`.`name", "ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+        } else if (sort == 5) {
+            loadProduct("status`.`name", "ASC", jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText(), jTextField2.getText());
+        }
+    }//GEN-LAST:event_jComboBox5ItemStateChanged
+
+    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+
+        String text = jTextField3.getText();
+        loadProduct("product`.`id", "ASC", text, text, text, text, text);
+    }//GEN-LAST:event_jTextField3KeyReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+        int row = jTable1.getSelectedRow();
+
+        String productid = String.valueOf(jTable1.getValueAt(row, 0));
+        jTextField1.setText(productid);
+        jComboBox1.grabFocus();
+        jTextField1.setEditable(false);
+
+        String category = String.valueOf(jTable1.getValueAt(row, 1));
+        jComboBox1.setSelectedItem(category);
+
+        String brand = String.valueOf(jTable1.getValueAt(row, 2));
+        jComboBox3.setSelectedItem(brand);
+
+        String status = String.valueOf(jTable1.getValueAt(row, 4));
+        jComboBox2.setSelectedItem(status);
+
+        String productname = String.valueOf(jTable1.getValueAt(row, 3));
+        jTextField2.setText(productname);
+
+        jButton1.setEnabled(false);
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+
+        Frame ProductManagement = null;
+
+        CategorysView categorysView = new CategorysView(ProductManagement, true);
+        categorysView.setVisible(true);
+
+        refreshCategoryComboBox();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+
+        Frame ProductManagement = null;
+
+        BrandView brandView = new BrandView(ProductManagement, true);
+        brandView.setVisible(true);
+
+        refreshBrandComboBox();
+    }//GEN-LAST:event_jLabel13MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -207,16 +667,77 @@ public class addStock extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+    private void reset() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jComboBox1.setSelectedItem("Select");
+        jComboBox2.setSelectedItem("Select");
+        jComboBox3.setSelectedItem("Select");
+        jComboBox5.setSelectedItem("Select");
+        jTable1.clearSelection();
+        jButton1.setEnabled(true);
+        jTextField1.setEditable(true);
+        jTextField1.grabFocus();
+        loadProduct("product`.`id", "ASC", jTextField3.getText(), jTextField3.getText(), jTextField3.getText(), jTextField3.getText(), jTextField3.getText());
+
+    }
+
+    private void refreshCategoryComboBox() {
+        jComboBox1.removeAllItems();  // Clear existing items
+        jComboBox1.addItem("Select");
+        try {
+            ResultSet rs = MYSQL.executeSearch("SELECT * FROM `category`");
+
+            // Add each position to the JComboBox
+            while (rs.next()) {
+                jComboBox1.addItem(rs.getString("name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+//            logger.log(Level.WARNING, "Exception In Product Management in refreshCategoryComboBox", e);
+        }
+    }
+
+    private void refreshBrandComboBox() {
+        jComboBox3.removeAllItems();  // Clear existing items
+        jComboBox3.addItem("Select");
+        try {
+            ResultSet rs = MYSQL.executeSearch("SELECT * FROM `brand`");
+
+            // Add each position to the JComboBox
+            while (rs.next()) {
+                jComboBox3.addItem(rs.getString("name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+//            logger.log(Level.WARNING, "Exception In Product Management in refreshBrandComboBox", e);
+        }
+    }
+
 }
