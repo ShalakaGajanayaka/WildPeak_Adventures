@@ -8,6 +8,7 @@ package gui.administrator.customerManagement;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import model.MYSQL;
 
 /**
@@ -74,6 +75,45 @@ public class AllCustomerPanel extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    
+     public void loadCustomer(String column, String orderby, String searchText) {
+        try {
+            String query = "SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` "
+                    + "WHERE `customer`.`fname` LIKE ? OR `customer`.`lname` LIKE ? OR `customer`.`email` LIKE ? OR `customer`.`mobile` LIKE ?";
+
+            PreparedStatement preparedStatement = MYSQL.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, "%" + searchText + "%"); // fname
+            preparedStatement.setString(2, "%" + searchText + "%"); // lname
+            preparedStatement.setString(3, "%" + searchText + "%"); // email
+            preparedStatement.setString(4, "%" + searchText + "%"); // mobile
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+                String fname = resultSet.getString("customer.fname");
+                String lname = resultSet.getString("customer.lname");
+                Vector<String> vector = new Vector<>();
+                vector.add(fname + " " + lname);
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
+
+                defaultTableModel.addRow(vector);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,6 +137,11 @@ public class AllCustomerPanel extends javax.swing.JPanel {
         jLabel1.setText("Search");
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         filter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         filter.setLayout(new java.awt.CardLayout());
@@ -172,6 +217,11 @@ public class AllCustomerPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+         String searchtext = jTextField1.getText();
+        loadCustomer("id", "ASC", searchtext);
+    }//GEN-LAST:event_jTextField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
