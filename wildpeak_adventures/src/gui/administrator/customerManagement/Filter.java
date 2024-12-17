@@ -24,6 +24,7 @@ public class Filter extends javax.swing.JPanel {
         this.parent = parent;
         initComponents();
         loadType();
+        loadGender();
     }
     
     public void loadType() {
@@ -56,6 +57,37 @@ public class Filter extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    
+    public void loadGender() {
+        try {
+            // Query to fetch all unique customer types
+            String query = "SELECT DISTINCT `name` FROM `gender`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
+
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("name"); // Ensure "range" matches the column name
+                v.add(type);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_gender.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,7 +105,7 @@ public class Filter extends javax.swing.JPanel {
         cmb_type = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmb_gender = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
@@ -104,8 +136,8 @@ public class Filter extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel5.setText(":");
 
-        jComboBox2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_gender.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel6.setText(":");
@@ -153,7 +185,7 @@ public class Filter extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, 0, 104, Short.MAX_VALUE)
+                        .addComponent(cmb_gender, 0, 104, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,7 +247,7 @@ public class Filter extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,7 +258,7 @@ public class Filter extends javax.swing.JPanel {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmb_type, jDateChooser2, jLabel2, jLabel3});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox2, jLabel4, jLabel5});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmb_gender, jLabel4, jLabel5});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel6, jLabel7});
 
@@ -236,10 +268,10 @@ public class Filter extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmb_gender;
     private javax.swing.JComboBox<String> cmb_type;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser2;
