@@ -178,7 +178,7 @@ public class Dashboard extends javax.swing.JPanel {
         });
 
         jButton11.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jButton11.setText("Brand");
+        jButton11.setText("Brand & Category");
         jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton11MouseClicked(evt);
@@ -412,7 +412,7 @@ public class Dashboard extends javax.swing.JPanel {
         Administrator admin = (Administrator) SwingUtilities.getWindowAncestor(this);
         JPanel panel5 = admin.getJPanel5();
         panel5.removeAll();
-        panel5.add(new Brand());
+        panel5.add(new BrandCategory());
         panel5.revalidate();
         panel5.repaint();
     }//GEN-LAST:event_jButton11ActionPerformed

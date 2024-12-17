@@ -48,7 +48,7 @@ public class Brand extends javax.swing.JPanel {
         jLabel1.setText("Brand Management");
 
         jLabel14.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel14.setText("You can Add, Delete Brand ");
+        jLabel14.setText("You can Add or Delete Brand ");
 
         jLabel15.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel15.setText("Brand Name");
@@ -136,8 +136,7 @@ public class Brand extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
