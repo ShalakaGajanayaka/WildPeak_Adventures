@@ -6,6 +6,7 @@
 package gui.administrator;
 
 
+import gui.administrator.customerManagement.AllCustomerPanel;
 import gui.administrator.customerManagement.forignCustomers;
 import gui.administrator.customerManagement.localCustomers;
 import java.awt.BasicStroke;
@@ -35,6 +36,7 @@ public class CustomerManagement extends javax.swing.JPanel {
         setOpaque(false);
         panelColor(); //customer management label panel color
 
+        jPanel2.add(new AllCustomerPanel());
 //        jPanel2.add(new AllCustomers());
 //        allCustomersPanel.add(new allCustomers());
 //        localCustomersPanel.add(new localCustomers());
