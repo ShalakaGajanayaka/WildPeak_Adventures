@@ -35,7 +35,13 @@ public class Administrator extends javax.swing.JFrame {
     public Administrator() {
 //        setUndecorated(true);
         initComponents();
+// <<<<<<< HEAD
 
+//         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/logo 30-30.jpeg"));
+// =======
+        
+//         ImageIcon icon = new ImageIcon("src\\resources\\logo 30-30.jpeg");
+// >>>>>>> chamod-event
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/logo 30-30.jpeg"));
         setIconImage(icon.getImage());
 

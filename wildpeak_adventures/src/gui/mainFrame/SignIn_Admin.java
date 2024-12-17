@@ -28,6 +28,16 @@ public class SignIn_Admin extends javax.swing.JPanel {
         SignIn_Admin.jobrole = role;
     }
 
+    private static String email;
+
+    public static String getemail() {
+        return email;
+    }
+
+    public static void setemail(String email) {
+        SignIn_Admin.email = email;
+    }
+
     public SignIn_Admin() {
         initComponents();
 
@@ -239,6 +249,7 @@ public class SignIn_Admin extends javax.swing.JPanel {
 
                     String jobTitle = jLabel5.getText();
                     setjobrole(jobTitle);
+                    setemail(email);
 
                     new gui.administrator.Administrator().setVisible(true);
                     Container parent = SignIn_Admin.this.getParent();
