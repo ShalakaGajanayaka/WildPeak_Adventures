@@ -25,6 +25,7 @@ public class Filter extends javax.swing.JPanel {
         initComponents();
         loadType();
         loadGender();
+        loadAgeRange();
     }
     
     public void loadType() {
@@ -88,6 +89,37 @@ public class Filter extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    
+     public void loadAgeRange() {
+        try {
+            // Query to fetch all unique customer types
+            String query = "SELECT DISTINCT `range` FROM `age_range`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
+
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("range"); // Ensure "range" matches the column name
+                v.add(type);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_age_range.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +143,7 @@ public class Filter extends javax.swing.JPanel {
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cmb_age_range = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jComboBox4 = new javax.swing.JComboBox<>();
@@ -153,8 +185,8 @@ public class Filter extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel9.setText("Age");
 
-        jComboBox3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_age_range.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_age_range.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel10.setText("Event");
@@ -191,7 +223,7 @@ public class Filter extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, 0, 104, Short.MAX_VALUE)
+                        .addComponent(cmb_age_range, 0, 104, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
@@ -250,7 +282,7 @@ public class Filter extends javax.swing.JPanel {
                     .addComponent(cmb_gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_age_range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -262,17 +294,17 @@ public class Filter extends javax.swing.JPanel {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel6, jLabel7});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jComboBox3, jLabel8, jLabel9});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmb_age_range, jButton1, jLabel8, jLabel9});
 
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmb_age_range;
     private javax.swing.JComboBox<String> cmb_gender;
     private javax.swing.JComboBox<String> cmb_type;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;

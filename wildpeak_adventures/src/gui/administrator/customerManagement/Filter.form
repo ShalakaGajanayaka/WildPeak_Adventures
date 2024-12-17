@@ -32,7 +32,7 @@
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox3" pref="104" max="32767" attributes="0"/>
+                      <Component id="cmb_age_range" pref="104" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton1" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
@@ -96,7 +96,7 @@
                   <Component id="cmb_gender" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" linkSize="9" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" linkSize="9" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox3" linkSize="9" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmb_age_range" linkSize="9" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" linkSize="9" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -221,7 +221,7 @@
         <Property name="text" type="java.lang.String" value="Age"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox3">
+    <Component class="javax.swing.JComboBox" name="cmb_age_range">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
