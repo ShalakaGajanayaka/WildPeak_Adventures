@@ -5,6 +5,11 @@
  */
 package gui.administrator.customerManagement;
 
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import model.MYSQL;
+
 /**
  *
  * @author shalaka
@@ -16,9 +21,55 @@ public class AllCustomerPanel extends javax.swing.JPanel {
      */
     public AllCustomerPanel() {
         initComponents();
-        
+
         filter.add(new Filter());
         customercount.add(new CustomersCount());
+
+        loadCustomer();
+    }
+
+    public void loadCustomer() {
+
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer` "
+                    + "INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
+                    + "INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id`");
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+                String fname = resultSet.getString("customer.fname");
+                String lname = resultSet.getString("customer.lname");
+                Vector<String> vector = new Vector<>();
+                vector.add(fname +" "+ lname);
+//                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
+
+                defaultTableModel.addRow(vector);
+
+                // Create a Customer object and add it to the HashMap
+                int customerId = resultSet.getInt("id");
+//                Customer customer = new Customer(
+//                        resultSet.getString("customer.fname"),
+//                        resultSet.getString("customer.lname"),
+//                        resultSet.getString("customer.email"),
+//                        resultSet.getString("customer.mobile"),
+//                        resultSet.getString("customer.age"),
+//                        resultSet.getString("customer.register_date"),
+//                        resultSet.getString("gender.name"),
+//                        resultSet.getString("customer_type.name")
+//                );
+//                LoadCustomersMap.put(customer.toString(), customerId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
