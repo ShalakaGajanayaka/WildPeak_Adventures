@@ -31,6 +31,17 @@ public class Filter extends javax.swing.JPanel {
         loadEvent();
     }
 
+    public void clearFeild() {
+//         Reset all filters to default
+        cmb_type.setSelectedIndex(0); // Reset customer type combo box to the first item
+        cmb_gender.setSelectedIndex(0); // Reset gender combo box to the first item
+        cmb_age_range.setSelectedIndex(0); // Reset age range combo box to the first item
+        cmb_event.setSelectedIndex(0); // Reset event combo box to the first item
+        jDateChooser2.setDate(null); // Clear the date chooser
+
+        parent.loadCustomer();
+    }
+
     public void loadType() {
         try {
             // Query to fetch all unique customer types
@@ -241,6 +252,11 @@ public class Filter extends javax.swing.JPanel {
 
         jButton2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton2.setText("c");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -414,6 +430,10 @@ public class Filter extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        clearFeild();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
