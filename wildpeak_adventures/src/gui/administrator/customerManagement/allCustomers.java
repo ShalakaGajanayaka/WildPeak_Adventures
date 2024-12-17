@@ -44,7 +44,7 @@ public class AllCustomers extends javax.swing.JPanel {
     /**
      * Creates new form allCustomers
      */
-    public AllCustomers() {
+    public AllCustomers() { 
         initComponents();
 
         panelColor();
