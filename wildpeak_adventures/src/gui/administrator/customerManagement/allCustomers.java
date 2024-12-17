@@ -39,7 +39,7 @@ public class AllCustomers extends javax.swing.JPanel {
     private Color color1 = new Color(46, 125, 50);    // Forest green
     private Color color2 = new Color(129, 199, 132);  // Light green
     private Color midpointColor;                     // Midpoint color
-    private int cornerRadius = 20;
+    private int cornerRadius = 20; 
 
     /**
      * Creates new form allCustomers
