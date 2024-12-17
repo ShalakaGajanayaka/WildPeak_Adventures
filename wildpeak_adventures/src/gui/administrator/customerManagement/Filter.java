@@ -5,7 +5,7 @@
  */
 package gui.administrator.customerManagement;
 
-import java.sql.ResultSet; 
+import java.sql.ResultSet;
 import java.util.Vector;
 import model.MYSQL;
 
@@ -26,8 +26,9 @@ public class Filter extends javax.swing.JPanel {
         loadType();
         loadGender();
         loadAgeRange();
+        loadEvent();
     }
-    
+
     public void loadType() {
         try {
             // Query to fetch all unique customer types
@@ -58,7 +59,7 @@ public class Filter extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
+
     public void loadGender() {
         try {
             // Query to fetch all unique customer types
@@ -89,8 +90,8 @@ public class Filter extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
-     public void loadAgeRange() {
+
+    public void loadAgeRange() {
         try {
             // Query to fetch all unique customer types
             String query = "SELECT DISTINCT `range` FROM `age_range`";
@@ -113,6 +114,37 @@ public class Filter extends javax.swing.JPanel {
 
             // Set the Vector as the model for the JComboBox
             cmb_age_range.setModel(new javax.swing.DefaultComboBoxModel<>(v));
+
+            // Close the result set
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadEvent() {
+        try {
+            // Query to fetch all unique customer types
+            String query = "SELECT DISTINCT `name` FROM `event`";
+            ResultSet rs = MYSQL.executeSearch(query);
+
+            // Create a Vector to hold the age range values
+            Vector<String> v = new Vector<>();
+
+            // Add the default "Select" item
+            v.add("Select");
+
+            // Add each age range from the ResultSet to the Vector
+            while (rs.next()) {
+                String type = rs.getString("name"); // Ensure "range" matches the column name
+                v.add(type);
+            }
+
+            // Close the ResultSet
+            rs.close();
+
+            // Set the Vector as the model for the JComboBox
+            cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(v));
 
             // Close the result set
             rs.close();
@@ -146,7 +178,7 @@ public class Filter extends javax.swing.JPanel {
         cmb_age_range = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cmb_event = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -194,8 +226,8 @@ public class Filter extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel11.setText(":");
 
-        jComboBox4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_event.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cmb_event.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton1.setText("Filter");
@@ -245,7 +277,7 @@ public class Filter extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox4, 0, 132, Short.MAX_VALUE)))
+                        .addComponent(cmb_event, 0, 132, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -273,7 +305,7 @@ public class Filter extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel10)
                                 .addComponent(jLabel11)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cmb_event, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -301,11 +333,11 @@ public class Filter extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmb_age_range;
+    private javax.swing.JComboBox<String> cmb_event;
     private javax.swing.JComboBox<String> cmb_gender;
     private javax.swing.JComboBox<String> cmb_type;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
