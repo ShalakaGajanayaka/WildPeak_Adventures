@@ -6,7 +6,9 @@
 package gui.administrator.customerManagement;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 import model.MYSQL;
 
 /**
@@ -231,6 +233,11 @@ public class Filter extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton1.setText("Filter");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jButton2.setText("c");
@@ -329,6 +336,84 @@ public class Filter extends javax.swing.JPanel {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmb_age_range, jButton1, jLabel8, jLabel9});
 
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            String selectedType = cmb_type.getSelectedItem().toString();
+            String selectedGender = cmb_gender.getSelectedItem().toString();
+            String selectedAgeRange = cmb_age_range.getSelectedItem().toString();
+            String selectedEvent = cmb_event.getSelectedItem().toString();
+            java.util.Date selectedDate = jDateChooser2.getDate();
+
+            StringBuilder queryBuilder = new StringBuilder("SELECT `customer`.`fname`, `customer`.`lname`, `customer`.`email`, "
+                    + "`customer`.`mobile`, `customer`.`age`, `customer`.`register_date`, "
+                    + "`gender`.`name`, "
+                    + "`customer_type`.`name`  ");
+
+            // Start building FROM and JOINs before WHERE
+            queryBuilder.append("FROM `customer` ")
+                    .append("INNER JOIN `customer_type` ON `customer`.`customer_type_id` = `customer_type`.`id` ")
+                    .append("INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` ");
+
+            // Add joins for booking_event and event if an event is selected
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append("INNER JOIN `booking_event` ON `customer`.`mobile` = `booking_event`.`customer_mobile` ")
+                        .append("INNER JOIN `event` ON `event`.`id` = `booking_event`.`event_id` ");
+            }
+
+            // Start WHERE clause
+            queryBuilder.append("WHERE 1=1");
+
+            if (!selectedType.equals("Select")) {
+                queryBuilder.append(" AND `customer_type`.`name` = '").append(selectedType).append("'");
+            }
+            if (!selectedGender.equals("Select")) {
+                queryBuilder.append(" AND `gender`.`name` = '").append(selectedGender).append("'");
+            }
+            if (!selectedAgeRange.equals("Select")) {
+                // Split the selected age range into lower and upper bounds
+                String[] ageBounds = selectedAgeRange.split(" - ");
+                int lowerBound = Integer.parseInt(ageBounds[0]);
+                int upperBound = Integer.parseInt(ageBounds[1]);
+
+                queryBuilder.append(" AND `age` BETWEEN ").append(lowerBound).append(" AND ").append(upperBound);
+            }
+            // Filter by date
+            if (selectedDate != null) {
+                // Format date to SQL-compatible string
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = sdf.format(selectedDate);
+                queryBuilder.append(" AND DATE(`register_date`) = '").append(formattedDate).append("'");
+            }
+
+            if (!selectedEvent.equals("Select")) {
+                queryBuilder.append(" AND `event`.`name` = '").append(selectedEvent).append("'");
+            }
+
+//            System.out.println(queryBuilder);
+            ResultSet resultSet = MYSQL.executeSearch(queryBuilder.toString());
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) parent.jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+//
+            while (resultSet.next()) {
+
+                Vector<String> vector = new Vector<>();
+                vector.add(resultSet.getString("customer.fname"));
+                vector.add(resultSet.getString("customer.lname"));
+                vector.add(resultSet.getString("customer.email"));
+                vector.add(resultSet.getString("customer.mobile"));
+                vector.add(resultSet.getString("customer.age"));
+                vector.add(resultSet.getString("customer.register_date"));
+                vector.add(resultSet.getString("gender.name"));
+                vector.add(resultSet.getString("customer_type.name"));
+
+                defaultTableModel.addRow(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
