@@ -22,7 +22,7 @@ public class AllCustomerPanel extends javax.swing.JPanel {
     public AllCustomerPanel() {
         initComponents();
 
-        filter.add(new Filter());
+        filter.add(new Filter(this));
         customercount.add(new CustomersCount());
 
         loadCustomer();
