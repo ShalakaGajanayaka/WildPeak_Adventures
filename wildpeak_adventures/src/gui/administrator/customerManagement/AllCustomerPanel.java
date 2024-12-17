@@ -99,7 +99,7 @@ public class AllCustomerPanel extends javax.swing.JPanel {
                 String lname = resultSet.getString("customer.lname");
                 Vector<String> vector = new Vector<>();
                 vector.add(fname + " " + lname);
-                vector.add(resultSet.getString("customer.lname"));
+//                vector.add(resultSet.getString("customer.lname"));
                 vector.add(resultSet.getString("customer.email"));
                 vector.add(resultSet.getString("customer.mobile"));
                 vector.add(resultSet.getString("customer.age"));
