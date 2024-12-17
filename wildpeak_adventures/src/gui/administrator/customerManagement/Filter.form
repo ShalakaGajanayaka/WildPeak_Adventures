@@ -43,7 +43,7 @@
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" max="32767" attributes="0"/>
+                      <Component id="cmb_type" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" linkSize="10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox1" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmb_type" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel6" linkSize="8" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -130,7 +130,7 @@
         <Property name="text" type="java.lang.String" value=":"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="cmb_type">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
