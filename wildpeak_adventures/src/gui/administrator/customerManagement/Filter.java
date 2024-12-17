@@ -11,10 +11,13 @@ package gui.administrator.customerManagement;
  */
 public class Filter extends javax.swing.JPanel {
 
+    private AllCustomerPanel parent;
+
     /**
      * Creates new form FilterPanel
      */
-    public Filter() {
+    public Filter(AllCustomerPanel parent) {
+        this.parent = parent;
         initComponents();
     }
 

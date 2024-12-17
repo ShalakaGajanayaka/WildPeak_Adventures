@@ -16,10 +16,13 @@ import model.MYSQL;
  */
 public class AllCustomerPanel extends javax.swing.JPanel {
 
+  
+
     /**
      * Creates new form AllCustomerPanel
      */
     public AllCustomerPanel() {
+        
         initComponents();
 
         filter.add(new Filter(this));
@@ -42,7 +45,7 @@ public class AllCustomerPanel extends javax.swing.JPanel {
                 String fname = resultSet.getString("customer.fname");
                 String lname = resultSet.getString("customer.lname");
                 Vector<String> vector = new Vector<>();
-                vector.add(fname +" "+ lname);
+                vector.add(fname + " " + lname);
 //                vector.add(resultSet.getString("customer.lname"));
                 vector.add(resultSet.getString("customer.email"));
                 vector.add(resultSet.getString("customer.mobile"));
