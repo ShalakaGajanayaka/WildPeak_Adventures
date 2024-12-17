@@ -98,6 +98,7 @@ public class AllCustomerPanel extends javax.swing.JPanel {
 
         jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
+        filter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         filter.setLayout(new java.awt.CardLayout());
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
