@@ -147,6 +147,11 @@ public class AllCustomerPanel extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Add New Customer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setText("Get Summary");
@@ -220,6 +225,13 @@ public class AllCustomerPanel extends javax.swing.JPanel {
          String searchtext = jTextField1.getText();
         loadCustomer("id", "ASC", searchtext);
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        AddCustomer addCustomer = new AddCustomer(this, true);
+        addCustomer.setVisible(true);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
