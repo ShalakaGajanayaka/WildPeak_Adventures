@@ -5,6 +5,7 @@
  */
 package gui.mainFrame;
 
+import static gui.mainFrame.SignIn_StockManager.setjobrole;
 import java.awt.Color;
 import java.awt.Container;
 import java.sql.ResultSet;
@@ -238,16 +239,18 @@ public class SignIn_Admin extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please enter valid email", "Information", JOptionPane.INFORMATION_MESSAGE);
         } else if (password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Your Password", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$")) {
-            JOptionPane.showMessageDialog(this, "Invalid Password");
-        } else {
+        } //        else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$")) {
+        //            JOptionPane.showMessageDialog(this, "Invalid Password");
+        //        } 
+        else {
             try {
                 ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `admin` "
                         + "INNER JOIN `admin_type` ON `admin`.`admin_type_id` = `admin_type`.`id` "
                         + "WHERE `email` = '" + email + "' AND `password` = '" + password + "' AND `status_id` = '" + 1 + "' AND `admin_type`.`name` LIKE 'Admin%'");
-                if (resultSet.next()) {
 
-                    String jobTitle = jLabel5.getText();
+                if (resultSet.next()) {
+//                    String jobTitle = jLabel5.getText();
+                    String jobTitle = resultSet.getString("admin_type.name"); 
                     setjobrole(jobTitle);
                     setemail(email);
 
@@ -255,7 +258,20 @@ public class SignIn_Admin extends javax.swing.JPanel {
                     Container parent = SignIn_Admin.this.getParent();
                     SwingUtilities.getWindowAncestor(parent).dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Invalid User Id Or Passowrd AND Inactive USER! Please Check", "Warning", JOptionPane.WARNING_MESSAGE);
+                    ResultSet resultSet2 = MYSQL.executeSearch("SELECT * FROM `employee` "
+                            + "INNER JOIN `job_position` ON `employee`.`job_position_id` = `job_position`.`id` "
+                            + "WHERE `email` = '" + email + "' AND `password` = '" + password + "' AND `employee`.`status_id` = '" + 1 + "' AND `job_position`.`name` LIKE 'Stock%Manager%'");
+                    
+                    if (resultSet2.next()) {
+                        String jobTitle =  resultSet2.getString("job_position.name");
+                        setjobrole(jobTitle);
+
+                        new gui.administrator.Administrator().setVisible(true);
+                        Container parent = SignIn_Admin.this.getParent();
+                        SwingUtilities.getWindowAncestor(parent).dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Invalid Email Or Passowrd AND Inactive USER! Please Check", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
 
             } catch (Exception ex) {
