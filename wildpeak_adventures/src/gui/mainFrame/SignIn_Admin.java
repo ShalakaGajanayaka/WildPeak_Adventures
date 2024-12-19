@@ -234,23 +234,24 @@ public class SignIn_Admin extends javax.swing.JPanel {
 
         if (email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Your Email", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+"
-                + "(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
-            JOptionPane.showMessageDialog(this, "Please enter valid email", "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else if (password.isEmpty()) {
+        } 
+//        else if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+"
+//                + "(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
+//            JOptionPane.showMessageDialog(this, "Please enter valid email", "Information", JOptionPane.INFORMATION_MESSAGE);
+//        } 
+        else if (password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Enter Your Password", "Warning", JOptionPane.WARNING_MESSAGE);
-        } //        else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$")) {
-        //            JOptionPane.showMessageDialog(this, "Invalid Password");
-        //        } 
+        } 
         else {
             try {
                 ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `admin` "
                         + "INNER JOIN `admin_type` ON `admin`.`admin_type_id` = `admin_type`.`id` "
-                        + "WHERE `email` = '" + email + "' AND `password` = '" + password + "' AND `status_id` = '" + 1 + "' AND `admin_type`.`name` LIKE 'Admin%'");
+                        + "WHERE `email` = '" + email + "' AND `password` = '" + password + "' AND `status_id` = '" + 1 + "' ");
 
                 if (resultSet.next()) {
 //                    String jobTitle = jLabel5.getText();
-                    String jobTitle = resultSet.getString("admin_type.name"); 
+                    System.out.println("admin_type.name");
+                    String jobTitle = resultSet.getString("admin_type.name");
                     setjobrole(jobTitle);
                     setemail(email);
 
@@ -260,10 +261,10 @@ public class SignIn_Admin extends javax.swing.JPanel {
                 } else {
                     ResultSet resultSet2 = MYSQL.executeSearch("SELECT * FROM `employee` "
                             + "INNER JOIN `job_position` ON `employee`.`job_position_id` = `job_position`.`id` "
-                            + "WHERE `email` = '" + email + "' AND `password` = '" + password + "' AND `employee`.`status_id` = '" + 1 + "' AND `job_position`.`name` LIKE 'Stock%Manager%'");
-                    
+                            + "WHERE `email` = '" + email + "' AND `password` = '" + password + "' AND `employee`.`status_id` = '" + 1 + "' ");
+
                     if (resultSet2.next()) {
-                        String jobTitle =  resultSet2.getString("job_position.name");
+                        String jobTitle = resultSet2.getString("job_position.name");
                         setjobrole(jobTitle);
 
                         new gui.administrator.Administrator().setVisible(true);
