@@ -41,13 +41,15 @@ public class Dashboard extends javax.swing.JPanel {
         String jobRole = SignIn_Admin.getjobrole();
         if (jobRole != null && !jobRole.isEmpty()) {
             jLabel3.setText(jobRole);
-        } else if ((jobRole = SignIn_FinanceManager.getjobrole()) != null && !jobRole.isEmpty()) {
-            jLabel3.setText(jobRole);
-        } else if ((jobRole = SignIn_StockManager.getjobrole()) != null && !jobRole.isEmpty()) {
-            jLabel3.setText(jobRole);
-        } else if ((jobRole = SignIn_SuperAdmin.getjobrole()) != null && !jobRole.isEmpty()) {
-            jLabel3.setText(jobRole);
-        } else {
+        } 
+//        else if ((jobRole = SignIn_FinanceManager.getjobrole()) != null && !jobRole.isEmpty()) {
+//            jLabel3.setText(jobRole);
+//        } else if ((jobRole = SignIn_StockManager.getjobrole()) != null && !jobRole.isEmpty()) {
+//            jLabel3.setText(jobRole);
+//        } else if ((jobRole = SignIn_SuperAdmin.getjobrole()) != null && !jobRole.isEmpty()) {
+//            jLabel3.setText(jobRole);
+//        } 
+        else {
             jLabel3.setText("Unknown Role");
         }
     }
