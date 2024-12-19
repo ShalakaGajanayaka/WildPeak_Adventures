@@ -172,7 +172,7 @@ public class Main_P extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Container parent = Main_P.this.getParent();
         parent.removeAll();
-        parent.add(new Administrator_P());
+        parent.add(new SignIn_Admin());
         parent.revalidate();
         parent.repaint();
         

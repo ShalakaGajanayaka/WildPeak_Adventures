@@ -39,7 +39,6 @@ public class Administrator extends javax.swing.JFrame {
 
 //         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/logo 30-30.jpeg"));
 // =======
-        
 //         ImageIcon icon = new ImageIcon("src\\resources\\logo 30-30.jpeg");
 // >>>>>>> chamod-event
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/logo 30-30.jpeg"));
@@ -50,6 +49,14 @@ public class Administrator extends javax.swing.JFrame {
 
         jPanel5.add(new CustomerManagement());
         jPanel4.add(new Dashboard());
+
+        // Welcome
+        String jobRole = SignIn_Admin.getjobrole();
+        if (jobRole != null && !jobRole.isEmpty()) {
+            jLabel2.setText(jobRole);
+        } else {
+            jLabel2.setText("Unknown Role");
+        }
 
 //        String jobRole = SignIn_Admin.getjobrole();
 //        if (jobRole != null && !jobRole.isEmpty()) {
