@@ -27,8 +27,16 @@ public class AddCustomer extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
 
-//        loadGender();
-//        loadType();
+        loadGender();
+        loadType();
+    }
+    
+    public void loadGender(){
+        
+    }
+    
+    public void loadType(){
+        
     }
 
     /**
