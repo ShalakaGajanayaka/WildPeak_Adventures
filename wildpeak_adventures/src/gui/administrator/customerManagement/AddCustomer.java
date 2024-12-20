@@ -211,6 +211,11 @@ public class AddCustomer extends javax.swing.JDialog {
 
         btn_clear.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btn_clear.setText("Clear");
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -426,6 +431,11 @@ public class AddCustomer extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_btn_addActionPerformed
+
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+        // TODO add your handling code here:
+        clearFeilds();
+    }//GEN-LAST:event_btn_clearActionPerformed
 
     /**
      * @param args the command line arguments
