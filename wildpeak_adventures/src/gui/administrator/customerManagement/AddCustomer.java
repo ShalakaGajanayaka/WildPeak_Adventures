@@ -7,6 +7,7 @@ package gui.administrator.customerManagement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -19,6 +20,9 @@ import model.MYSQL;
  * @author shalaka
  */
 public class AddCustomer extends javax.swing.JDialog {
+    
+    HashMap<String, String> CustomerGenderMap = new HashMap<>();
+    HashMap<String, String> CustomerTypeMap = new HashMap<>();
 
     /**
      * Creates new form AddCustomer
