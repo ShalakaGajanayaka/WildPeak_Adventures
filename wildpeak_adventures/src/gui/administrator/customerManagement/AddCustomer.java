@@ -21,8 +21,8 @@ import model.MYSQL;
  */
 public class AddCustomer extends javax.swing.JDialog {
     
-    HashMap<String, String> CustomerGenderMap = new HashMap<>();
-    HashMap<String, String> CustomerTypeMap = new HashMap<>();
+ private static HashMap<String, Integer> LoadTypeMap = new HashMap<>();
+    private static HashMap<String, Integer> LoadGenderMap = new HashMap<>();
 
     /**
      * Creates new form AddCustomer
@@ -51,7 +51,7 @@ public class AddCustomer extends javax.swing.JDialog {
             while (resultSet.next()) {
 
                 vector.add(resultSet.getString("name"));
-                CustomerGenderMap.put(resultSet.getString("name"), resultSet.getString("id"));
+                LoadGenderMap.put(resultSet.getString("name"), resultSet.getString("id"));
             }
 
             DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(vector);
@@ -71,7 +71,7 @@ public class AddCustomer extends javax.swing.JDialog {
             while (resultSet.next()) {
 
                 vector.add(resultSet.getString("name"));
-                CustomerTypeMap.put(resultSet.getString("name"), resultSet.getString("id"));
+                LoadTypeMap.put(resultSet.getString("name"), resultSet.getString("id"));
             }
 
             DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(vector);
