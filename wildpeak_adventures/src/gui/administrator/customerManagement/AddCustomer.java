@@ -21,6 +21,8 @@ import model.MYSQL;
  */
 public class AddCustomer extends javax.swing.JDialog {
     
+    private AllCustomerPanel parent;
+    
  private static HashMap<String, Integer> LoadTypeMap = new HashMap<>();
     private static HashMap<String, Integer> LoadGenderMap = new HashMap<>();
 
@@ -34,6 +36,7 @@ public class AddCustomer extends javax.swing.JDialog {
     public AddCustomer(AllCustomerPanel parent, boolean modal) {
 //        super(parent, modal);
         super((JFrame) SwingUtilities.getWindowAncestor(parent), modal);
+        this.parent = parent;
         initComponents();
         setLocationRelativeTo(null);
 
@@ -51,7 +54,7 @@ public class AddCustomer extends javax.swing.JDialog {
             while (resultSet.next()) {
 
                 vector.add(resultSet.getString("name"));
-                LoadGenderMap.put(resultSet.getString("name"), resultSet.getString("id"));
+                 LoadGenderMap.put(resultSet.getString("name"), resultSet.getInt("id"));
             }
 
             DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(vector);
@@ -71,7 +74,7 @@ public class AddCustomer extends javax.swing.JDialog {
             while (resultSet.next()) {
 
                 vector.add(resultSet.getString("name"));
-                LoadTypeMap.put(resultSet.getString("name"), resultSet.getString("id"));
+                 LoadTypeMap.put(resultSet.getString("name"), resultSet.getInt("id"));
             }
 
             DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(vector);
@@ -411,6 +414,7 @@ public class AddCustomer extends javax.swing.JDialog {
                     if (result > 0) {
                         JOptionPane.showMessageDialog(this, "Customer added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                         clearFeilds();
+                        parent.loadCustomer();
                     } else {
                         JOptionPane.showMessageDialog(this, "Failed to add customer. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
