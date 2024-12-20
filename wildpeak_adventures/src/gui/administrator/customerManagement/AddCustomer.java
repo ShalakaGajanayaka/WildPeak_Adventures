@@ -4,8 +4,12 @@
  */
 package gui.administrator.customerManagement;
 
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import model.MYSQL;
 
 /**
  *
@@ -36,7 +40,23 @@ public class AddCustomer extends javax.swing.JDialog {
     }
     
     public void loadType(){
-        
+        try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `customer_type`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+
+                vector.add(resultSet.getString("name"));
+//                CustomerTypeMap.put(resultSet.getString("name"), resultSet.getString("id"));
+            }
+
+            DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(vector);
+            jComboBox2.setModel(comboBoxModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
