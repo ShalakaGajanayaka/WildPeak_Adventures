@@ -36,7 +36,23 @@ public class AddCustomer extends javax.swing.JDialog {
     }
     
     public void loadGender(){
-        
+         try {
+            ResultSet resultSet = MYSQL.executeSearch("SELECT * FROM `gender`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+
+                vector.add(resultSet.getString("name"));
+//                CustomerTypeMap.put(resultSet.getString("name"), resultSet.getString("id"));
+            }
+
+            DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(vector);
+            jComboBox1.setModel(comboBoxModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     public void loadType(){
