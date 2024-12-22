@@ -22,6 +22,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Dashboard extends javax.swing.JFrame {
 
+    private boolean isLightTheme = true; // Track the current theme (Light by default) 
+
     int startedWidth;
     Boolean startedWidthSet = false;
 
@@ -136,7 +138,7 @@ public class Dashboard extends javax.swing.JFrame {
         if (startedWidthSet == false) {
             startedWidth = jPanel2.getWidth();
             startedWidthSet = true;
-        } 
+        }
 
         int targetWidth = (jPanel2.getWidth() == 80) ? startedWidth : 80;
         int initialWidth = jPanel2.getWidth();
@@ -174,7 +176,21 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        try {
+            if (isLightTheme) {
+                // Switch to FlatMacDarkLaf
+                UIManager.setLookAndFeel(new FlatMacDarkLaf());
+            } else {
+                // Switch to FlatMacLightLaf
+                UIManager.setLookAndFeel(new FlatMacLightLaf());
+            }
+            isLightTheme = !isLightTheme; // Toggle theme tracker
+
+            // Refresh the UI to apply the new theme
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
