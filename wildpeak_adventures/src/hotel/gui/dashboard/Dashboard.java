@@ -40,7 +40,7 @@ public class Dashboard extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
 
         jPanel2.add(new Sidbar());
-        jButton1.grabFocus();
+
 
     }
 
