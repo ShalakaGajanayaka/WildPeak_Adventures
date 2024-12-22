@@ -131,20 +131,20 @@ public class Dashboard extends javax.swing.JFrame {
         int height = jPanel2.getHeight();
 
         // Create a Timer to handle the animation
-        javax.swing.Timer timer = new javax.swing.Timer(10, new java.awt.event.ActionListener() {
+        javax.swing.Timer timer = new javax.swing.Timer(1, new java.awt.event.ActionListener() {
             int currentWidth = initialWidth;
 
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 // Adjust the width gradually
                 if (targetWidth > currentWidth) {
-                    currentWidth += 10; // Increase width
+                    currentWidth += 15; // Increase width
                     if (currentWidth >= targetWidth) {
                         currentWidth = targetWidth;
                         ((javax.swing.Timer) e.getSource()).stop(); // Stop animation
                     }
                 } else {
-                    currentWidth -= 10; // Decrease width
+                    currentWidth -= 15; // Decrease width
                     if (currentWidth <= targetWidth) {
                         currentWidth = targetWidth;
                         ((javax.swing.Timer) e.getSource()).stop(); // Stop animation
