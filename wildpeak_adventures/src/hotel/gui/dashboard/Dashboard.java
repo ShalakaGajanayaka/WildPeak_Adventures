@@ -37,6 +37,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel2.add(new Sidbar());
         jButton1.grabFocus();
+        
+        
 
     }
 
