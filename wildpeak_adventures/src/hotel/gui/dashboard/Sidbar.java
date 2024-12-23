@@ -4,6 +4,8 @@
  */
 package hotel.gui.dashboard;
 
+import hotel.gui.dashboard.sidebarminipanels.RoomBookPanel;
+import hotel.model.HoverPanel;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,44 +17,34 @@ import javax.swing.JPanel;
  */
 public class Sidbar extends javax.swing.JPanel {
 
+    private Dashboard parent;
+
     /**
      * Creates new form Sidbar
+     *
+     *
      */
-    public Sidbar() {
+    public Sidbar(Dashboard parent) {
         initComponents();
+        this.parent = parent;
 
 //        lbl_icon1.setFont(new java.awt.Font("Segoe UI Symbol", java.awt.Font.PLAIN, 25));
 ////        lbl1.setText("\u2605");
-        jPanel6.setBackground(java.awt.Color.decode("#cfe2ff"));
+        btn_dashboard.setBackground(java.awt.Color.decode("#cfe2ff"));
 
-        createHoverPanel(jPanel6);
-        createHoverPanel(jPanel7);
-        createHoverPanel(jPanel8);
+        hoverPanelStart();
+
+        pnl_roomBook.add(new RoomBookPanel());
+        pnl_roomBook.setVisible(false);
 
     }
 
-    private static JPanel createHoverPanel(JPanel panel) {
-//        JPanel panel = new JPanel();
-//        panel.setBackground(Color.BLUE); // Initial color is blue
-//        panel.setBounds(x, y, width, height); // Set position and size
-
-        // Add a MouseListener to change color on hover
-        panel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                panel.setBackground(java.awt.Color.decode("#cfe2ff")); // Change to red when mouse enters
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                panel.setBackground(null); // Revert to blue when mouse exits
-            }
-        });
-        
-      
-
-        return panel;
-    
+    private void hoverPanelStart() {
+        HoverPanel hoverPanel = new HoverPanel();
+        hoverPanel.createHoverPanel(btn_dashboard);
+        hoverPanel.createHoverPanel(btn_hotels);
+        hoverPanel.createHoverPanel(btn_transaction);
+        hoverPanel.createHoverPanel(btn_roomBook);
     }
 
     /**
@@ -73,15 +65,22 @@ public class Sidbar extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        btn_dashboard = new javax.swing.JPanel();
         lbl_icon1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        btn_hotels = new javax.swing.JPanel();
         lbl_icon2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
+        btn_transaction = new javax.swing.JPanel();
         lbl_icon3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        btn_roomBook = new javax.swing.JPanel();
+        lbl_icon4 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        pnl_roomBook = new javax.swing.JPanel();
+        btn_roomBook1 = new javax.swing.JPanel();
+        lbl_icon5 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -155,23 +154,23 @@ public class Sidbar extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel6.setText("Dashboard");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_dashboardLayout = new javax.swing.GroupLayout(btn_dashboard);
+        btn_dashboard.setLayout(btn_dashboardLayout);
+        btn_dashboardLayout.setHorizontalGroup(
+            btn_dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_dashboardLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(lbl_icon1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        btn_dashboardLayout.setVerticalGroup(
+            btn_dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_dashboardLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addGroup(btn_dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                     .addComponent(lbl_icon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -181,23 +180,23 @@ public class Sidbar extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel7.setText("Hotels");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_hotelsLayout = new javax.swing.GroupLayout(btn_hotels);
+        btn_hotels.setLayout(btn_hotelsLayout);
+        btn_hotelsLayout.setHorizontalGroup(
+            btn_hotelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_hotelsLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(lbl_icon2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        btn_hotelsLayout.setVerticalGroup(
+            btn_hotelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_hotelsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addGroup(btn_hotelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                     .addComponent(lbl_icon2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -207,24 +206,90 @@ public class Sidbar extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel8.setText("Transaction");
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_transactionLayout = new javax.swing.GroupLayout(btn_transaction);
+        btn_transaction.setLayout(btn_transactionLayout);
+        btn_transactionLayout.setHorizontalGroup(
+            btn_transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_transactionLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(lbl_icon3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        btn_transactionLayout.setVerticalGroup(
+            btn_transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_transactionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addGroup(btn_transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                     .addComponent(lbl_icon3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        btn_roomBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_roomBookMouseClicked(evt);
+            }
+        });
+
+        lbl_icon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/transaction_icon.png"))); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel9.setText("Room Book");
+
+        javax.swing.GroupLayout btn_roomBookLayout = new javax.swing.GroupLayout(btn_roomBook);
+        btn_roomBook.setLayout(btn_roomBookLayout);
+        btn_roomBookLayout.setHorizontalGroup(
+            btn_roomBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_roomBookLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lbl_icon4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addContainerGap(178, Short.MAX_VALUE))
+        );
+        btn_roomBookLayout.setVerticalGroup(
+            btn_roomBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_roomBookLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btn_roomBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                    .addComponent(lbl_icon4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        pnl_roomBook.setLayout(new java.awt.CardLayout());
+
+        btn_roomBook1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_roomBook1MouseClicked(evt);
+            }
+        });
+
+        lbl_icon5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/transaction_icon.png"))); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel10.setText("Room Facilites");
+
+        javax.swing.GroupLayout btn_roomBook1Layout = new javax.swing.GroupLayout(btn_roomBook1);
+        btn_roomBook1.setLayout(btn_roomBook1Layout);
+        btn_roomBook1Layout.setHorizontalGroup(
+            btn_roomBook1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_roomBook1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lbl_icon5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btn_roomBook1Layout.setVerticalGroup(
+            btn_roomBook1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_roomBook1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btn_roomBook1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(lbl_icon5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -236,28 +301,41 @@ public class Sidbar extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnl_roomBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_hotels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_transaction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_roomBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_roomBook1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_dashboard, btn_hotels, btn_roomBook, btn_transaction, pnl_roomBook});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_hotels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addComponent(btn_transaction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_roomBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnl_roomBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_roomBook1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(247, 247, 247))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel6, jPanel7, jPanel8});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_dashboard, btn_hotels, btn_roomBook, btn_transaction});
 
         jTabbedPane1.addTab("HOTELS", jPanel2);
 
@@ -265,11 +343,11 @@ public class Sidbar extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 321, Short.MAX_VALUE)
+            .addGap(0, 335, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGap(0, 777, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("HRMS", jPanel3);
@@ -278,11 +356,11 @@ public class Sidbar extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 321, Short.MAX_VALUE)
+            .addGap(0, 335, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGap(0, 777, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("TUNING", jPanel4);
@@ -291,11 +369,11 @@ public class Sidbar extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 321, Short.MAX_VALUE)
+            .addGap(0, 335, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGap(0, 777, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("EVENTS", jPanel5);
@@ -309,7 +387,7 @@ public class Sidbar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -319,37 +397,57 @@ public class Sidbar extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
-          this.requestFocusInWindow();
+        this.requestFocusInWindow();
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void btn_roomBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_roomBookMouseClicked
+
+        if (pnl_roomBook.isVisible()) {
+            pnl_roomBook.setVisible(false);
+        } else {
+            pnl_roomBook.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_roomBookMouseClicked
+
+    private void btn_roomBook1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_roomBook1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_roomBook1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btn_dashboard;
+    private javax.swing.JPanel btn_hotels;
+    private javax.swing.JPanel btn_roomBook;
+    private javax.swing.JPanel btn_roomBook1;
+    private javax.swing.JPanel btn_transaction;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbl_icon1;
     private javax.swing.JLabel lbl_icon2;
     private javax.swing.JLabel lbl_icon3;
+    private javax.swing.JLabel lbl_icon4;
+    private javax.swing.JLabel lbl_icon5;
+    private javax.swing.JPanel pnl_roomBook;
     // End of variables declaration//GEN-END:variables
 }

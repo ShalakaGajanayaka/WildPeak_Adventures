@@ -43,7 +43,7 @@ public class Dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
 
-        jPanel2.add(new Sidbar());
+        pnl_SidebarPanel.add(new Sidbar(this));
 
         addPlaceholderStyoe(txtSearch);
         pnl_change_panel.add(new DashboardSub());
@@ -74,7 +74,7 @@ public class Dashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pnl_SidebarPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -95,8 +95,8 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(255, 0, 204));
-        jPanel2.setLayout(new java.awt.CardLayout());
+        pnl_SidebarPanel.setBackground(new java.awt.Color(255, 0, 204));
+        pnl_SidebarPanel.setLayout(new java.awt.CardLayout());
 
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -224,7 +224,7 @@ public class Dashboard extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnl_SidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -234,7 +234,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnl_SidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -256,13 +256,13 @@ public class Dashboard extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // Define target width based on current size
         if (startedWidthSet == false) {
-            startedWidth = jPanel2.getWidth();
+            startedWidth = pnl_SidebarPanel.getWidth();
             startedWidthSet = true;
         }
 
-        int targetWidth = (jPanel2.getWidth() == 80) ? startedWidth : 80;
-        int initialWidth = jPanel2.getWidth();
-        int height = jPanel2.getHeight();
+        int targetWidth = (pnl_SidebarPanel.getWidth() == 80) ? startedWidth : 80;
+        int initialWidth = pnl_SidebarPanel.getWidth();
+        int height = pnl_SidebarPanel.getHeight();
 
         // Create a Timer to handle the animation
         javax.swing.Timer timer = new javax.swing.Timer(1, new java.awt.event.ActionListener() {
@@ -286,9 +286,9 @@ public class Dashboard extends javax.swing.JFrame {
                 }
 
                 // Update the panel size
-                jPanel2.setPreferredSize(new java.awt.Dimension(currentWidth, height));
-                jPanel2.revalidate();
-                jPanel2.repaint();
+                pnl_SidebarPanel.setPreferredSize(new java.awt.Dimension(currentWidth, height));
+                pnl_SidebarPanel.revalidate();
+                pnl_SidebarPanel.repaint();
             }
         });
 
@@ -371,11 +371,11 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPanel pnl_SidebarPanel;
     private javax.swing.JPanel pnl_change_panel;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
