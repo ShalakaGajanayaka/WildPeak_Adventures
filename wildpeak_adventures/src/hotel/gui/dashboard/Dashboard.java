@@ -272,13 +272,13 @@ public class Dashboard extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 // Adjust the width gradually
                 if (targetWidth > currentWidth) {
-                    currentWidth += 15; // Increase width
+                    currentWidth += 80; // Increase width
                     if (currentWidth >= targetWidth) {
                         currentWidth = targetWidth;
                         ((javax.swing.Timer) e.getSource()).stop(); // Stop animation
                     }
                 } else {
-                    currentWidth -= 15; // Decrease width
+                    currentWidth -= 80; // Decrease width
                     if (currentWidth <= targetWidth) {
                         currentWidth = targetWidth;
                         ((javax.swing.Timer) e.getSource()).stop(); // Stop animation
