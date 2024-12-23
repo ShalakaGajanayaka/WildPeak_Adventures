@@ -4,7 +4,12 @@
  */
 package hotel.gui.dashboard;
 
+import hotel.gui.dashboard.sidebarminipanels.CabFacilityPanel;
+import hotel.gui.dashboard.sidebarminipanels.HouseKeepingPanel;
+import hotel.gui.dashboard.sidebarminipanels.ItemsManagePanel;
+import hotel.gui.dashboard.sidebarminipanels.PersonalizedPanel;
 import hotel.gui.dashboard.sidebarminipanels.RoomBookPanel;
+import hotel.gui.dashboard.sidebarminipanels.RoomFacilitesPanel;
 import hotel.model.HoverPanel;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -37,6 +42,21 @@ public class Sidbar extends javax.swing.JPanel {
         pnl_roomBook.add(new RoomBookPanel());
         pnl_roomBook.setVisible(false);
 
+        pnl_roomFacilites.add(new RoomFacilitesPanel());
+        pnl_roomFacilites.setVisible(false);
+
+        pnl_houseKeeping.add(new HouseKeepingPanel());
+        pnl_houseKeeping.setVisible(false);
+
+        pnl_cabFacility.add(new CabFacilityPanel());
+        pnl_cabFacility.setVisible(false);
+
+        pnl_itemsManage.add(new ItemsManagePanel());
+        pnl_itemsManage.setVisible(false);
+
+        pnl_personalised.add(new PersonalizedPanel());
+        pnl_personalised.setVisible(false);
+
     }
 
     private void hoverPanelStart() {
@@ -45,6 +65,12 @@ public class Sidbar extends javax.swing.JPanel {
         hoverPanel.createHoverPanel(btn_hotels);
         hoverPanel.createHoverPanel(btn_transaction);
         hoverPanel.createHoverPanel(btn_roomBook);
+        hoverPanel.createHoverPanel(btn_roomFacilites);
+        hoverPanel.createHoverPanel(btn_houseKeeping);
+        hoverPanel.createHoverPanel(btn_cabFacility);
+        hoverPanel.createHoverPanel(btn_itemsManage);
+        hoverPanel.createHoverPanel(btn_personalised);
+
     }
 
     /**
@@ -78,9 +104,26 @@ public class Sidbar extends javax.swing.JPanel {
         lbl_icon4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         pnl_roomBook = new javax.swing.JPanel();
-        btn_roomBook1 = new javax.swing.JPanel();
+        btn_roomFacilites = new javax.swing.JPanel();
         lbl_icon5 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        pnl_roomFacilites = new javax.swing.JPanel();
+        btn_houseKeeping = new javax.swing.JPanel();
+        lbl_icon6 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        pnl_houseKeeping = new javax.swing.JPanel();
+        btn_cabFacility = new javax.swing.JPanel();
+        lbl_icon7 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        pnl_cabFacility = new javax.swing.JPanel();
+        btn_itemsManage = new javax.swing.JPanel();
+        lbl_icon8 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        pnl_itemsManage = new javax.swing.JPanel();
+        btn_personalised = new javax.swing.JPanel();
+        lbl_icon9 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        pnl_personalised = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -139,6 +182,7 @@ public class Sidbar extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
 
         jTabbedPane1.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
+        jTabbedPane1.setMaximumSize(new java.awt.Dimension(360, 32767));
 
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -163,14 +207,14 @@ public class Sidbar extends javax.swing.JPanel {
                 .addComponent(lbl_icon1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         btn_dashboardLayout.setVerticalGroup(
             btn_dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_dashboardLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(btn_dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(lbl_icon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -189,14 +233,14 @@ public class Sidbar extends javax.swing.JPanel {
                 .addComponent(lbl_icon2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
         btn_hotelsLayout.setVerticalGroup(
             btn_hotelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_hotelsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(btn_hotelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(lbl_icon2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -215,14 +259,14 @@ public class Sidbar extends javax.swing.JPanel {
                 .addComponent(lbl_icon3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         btn_transactionLayout.setVerticalGroup(
             btn_transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_transactionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(btn_transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(lbl_icon3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -247,23 +291,23 @@ public class Sidbar extends javax.swing.JPanel {
                 .addComponent(lbl_icon4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         btn_roomBookLayout.setVerticalGroup(
             btn_roomBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_roomBookLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(btn_roomBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(lbl_icon4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pnl_roomBook.setLayout(new java.awt.CardLayout());
 
-        btn_roomBook1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_roomFacilites.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_roomBook1MouseClicked(evt);
+                btn_roomFacilitesMouseClicked(evt);
             }
         });
 
@@ -272,26 +316,164 @@ public class Sidbar extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel10.setText("Room Facilites");
 
-        javax.swing.GroupLayout btn_roomBook1Layout = new javax.swing.GroupLayout(btn_roomBook1);
-        btn_roomBook1.setLayout(btn_roomBook1Layout);
-        btn_roomBook1Layout.setHorizontalGroup(
-            btn_roomBook1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_roomBook1Layout.createSequentialGroup()
+        javax.swing.GroupLayout btn_roomFacilitesLayout = new javax.swing.GroupLayout(btn_roomFacilites);
+        btn_roomFacilites.setLayout(btn_roomFacilitesLayout);
+        btn_roomFacilitesLayout.setHorizontalGroup(
+            btn_roomFacilitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_roomFacilitesLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(lbl_icon5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
-        btn_roomBook1Layout.setVerticalGroup(
-            btn_roomBook1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_roomBook1Layout.createSequentialGroup()
+        btn_roomFacilitesLayout.setVerticalGroup(
+            btn_roomFacilitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_roomFacilitesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(btn_roomBook1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addGroup(btn_roomFacilitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(lbl_icon5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        pnl_roomFacilites.setLayout(new java.awt.CardLayout());
+
+        btn_houseKeeping.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_houseKeepingMouseClicked(evt);
+            }
+        });
+
+        lbl_icon6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/transaction_icon.png"))); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel11.setText("House keeping");
+
+        javax.swing.GroupLayout btn_houseKeepingLayout = new javax.swing.GroupLayout(btn_houseKeeping);
+        btn_houseKeeping.setLayout(btn_houseKeepingLayout);
+        btn_houseKeepingLayout.setHorizontalGroup(
+            btn_houseKeepingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_houseKeepingLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lbl_icon6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addContainerGap(164, Short.MAX_VALUE))
+        );
+        btn_houseKeepingLayout.setVerticalGroup(
+            btn_houseKeepingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_houseKeepingLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btn_houseKeepingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .addComponent(lbl_icon6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        pnl_houseKeeping.setLayout(new java.awt.CardLayout());
+
+        btn_cabFacility.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cabFacilityMouseClicked(evt);
+            }
+        });
+
+        lbl_icon7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/transaction_icon.png"))); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel12.setText("Cab Facility");
+
+        javax.swing.GroupLayout btn_cabFacilityLayout = new javax.swing.GroupLayout(btn_cabFacility);
+        btn_cabFacility.setLayout(btn_cabFacilityLayout);
+        btn_cabFacilityLayout.setHorizontalGroup(
+            btn_cabFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_cabFacilityLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lbl_icon7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12)
+                .addContainerGap(192, Short.MAX_VALUE))
+        );
+        btn_cabFacilityLayout.setVerticalGroup(
+            btn_cabFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_cabFacilityLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btn_cabFacilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .addComponent(lbl_icon7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        pnl_cabFacility.setLayout(new java.awt.CardLayout());
+
+        btn_itemsManage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_itemsManageMouseClicked(evt);
+            }
+        });
+
+        lbl_icon8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/transaction_icon.png"))); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel13.setText("Items Manage");
+
+        javax.swing.GroupLayout btn_itemsManageLayout = new javax.swing.GroupLayout(btn_itemsManage);
+        btn_itemsManage.setLayout(btn_itemsManageLayout);
+        btn_itemsManageLayout.setHorizontalGroup(
+            btn_itemsManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_itemsManageLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lbl_icon8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addContainerGap(166, Short.MAX_VALUE))
+        );
+        btn_itemsManageLayout.setVerticalGroup(
+            btn_itemsManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_itemsManageLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btn_itemsManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .addComponent(lbl_icon8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        pnl_itemsManage.setLayout(new java.awt.CardLayout());
+
+        btn_personalised.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_personalisedMouseClicked(evt);
+            }
+        });
+
+        lbl_icon9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/transaction_icon.png"))); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel14.setText("Personalised");
+
+        javax.swing.GroupLayout btn_personalisedLayout = new javax.swing.GroupLayout(btn_personalised);
+        btn_personalised.setLayout(btn_personalisedLayout);
+        btn_personalisedLayout.setHorizontalGroup(
+            btn_personalisedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_personalisedLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lbl_icon9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel14)
+                .addContainerGap(183, Short.MAX_VALUE))
+        );
+        btn_personalisedLayout.setVerticalGroup(
+            btn_personalisedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_personalisedLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btn_personalisedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .addComponent(lbl_icon9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        pnl_personalised.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -300,20 +482,27 @@ public class Sidbar extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnl_roomBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_hotels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_transaction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_roomBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btn_roomBook1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pnl_personalised, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnl_itemsManage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnl_cabFacility, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnl_houseKeeping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnl_roomFacilites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnl_roomBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_itemsManage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_personalised, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_hotels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_transaction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_roomBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_houseKeeping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_roomFacilites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_cabFacility, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_dashboard, btn_hotels, btn_roomBook, btn_transaction, pnl_roomBook});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_cabFacility, btn_dashboard, btn_hotels, btn_houseKeeping, btn_itemsManage, btn_personalised, btn_roomBook, btn_roomFacilites, btn_transaction, jLabel4, pnl_cabFacility, pnl_houseKeeping, pnl_itemsManage, pnl_personalised, pnl_roomBook, pnl_roomFacilites});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,13 +518,31 @@ public class Sidbar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_roomBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_roomBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnl_roomBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_roomBook1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(247, 247, 247))
+                .addComponent(btn_roomFacilites, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnl_roomFacilites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_houseKeeping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnl_houseKeeping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_cabFacility, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnl_cabFacility, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_itemsManage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnl_itemsManage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_personalised, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnl_personalised, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(351, 351, 351))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_dashboard, btn_hotels, btn_roomBook, btn_transaction});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_cabFacility, btn_dashboard, btn_hotels, btn_houseKeeping, btn_itemsManage, btn_personalised, btn_roomBook, btn_roomFacilites, btn_transaction});
 
         jTabbedPane1.addTab("HOTELS", jPanel2);
 
@@ -343,11 +550,11 @@ public class Sidbar extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 777, Short.MAX_VALUE)
+            .addGap(0, 1531, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("HRMS", jPanel3);
@@ -356,11 +563,11 @@ public class Sidbar extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 777, Short.MAX_VALUE)
+            .addGap(0, 1531, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("TUNING", jPanel4);
@@ -369,11 +576,11 @@ public class Sidbar extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 777, Short.MAX_VALUE)
+            .addGap(0, 1531, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("EVENTS", jPanel5);
@@ -384,11 +591,11 @@ public class Sidbar extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -396,8 +603,9 @@ public class Sidbar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1296, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -415,19 +623,63 @@ public class Sidbar extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_roomBookMouseClicked
 
-    private void btn_roomBook1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_roomBook1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_roomBook1MouseClicked
+    private void btn_roomFacilitesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_roomFacilitesMouseClicked
+        if (pnl_roomFacilites.isVisible()) {
+            pnl_roomFacilites.setVisible(false);
+        } else {
+            pnl_roomFacilites.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_roomFacilitesMouseClicked
+
+    private void btn_houseKeepingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_houseKeepingMouseClicked
+        if (pnl_houseKeeping.isVisible()) {
+            pnl_houseKeeping.setVisible(false);
+        } else {
+            pnl_houseKeeping.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_houseKeepingMouseClicked
+
+    private void btn_cabFacilityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cabFacilityMouseClicked
+        if (pnl_cabFacility.isVisible()) {
+            pnl_cabFacility.setVisible(false);
+        } else {
+            pnl_cabFacility.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_cabFacilityMouseClicked
+
+    private void btn_itemsManageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_itemsManageMouseClicked
+        if (pnl_itemsManage.isVisible()) {
+            pnl_itemsManage.setVisible(false);
+        } else {
+            pnl_itemsManage.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_itemsManageMouseClicked
+
+    private void btn_personalisedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_personalisedMouseClicked
+        if (pnl_personalised.isVisible()) {
+            pnl_personalised.setVisible(false);
+        } else {
+            pnl_personalised.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_personalisedMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btn_cabFacility;
     private javax.swing.JPanel btn_dashboard;
     private javax.swing.JPanel btn_hotels;
+    private javax.swing.JPanel btn_houseKeeping;
+    private javax.swing.JPanel btn_itemsManage;
+    private javax.swing.JPanel btn_personalised;
     private javax.swing.JPanel btn_roomBook;
-    private javax.swing.JPanel btn_roomBook1;
+    private javax.swing.JPanel btn_roomFacilites;
     private javax.swing.JPanel btn_transaction;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -448,6 +700,15 @@ public class Sidbar extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_icon3;
     private javax.swing.JLabel lbl_icon4;
     private javax.swing.JLabel lbl_icon5;
+    private javax.swing.JLabel lbl_icon6;
+    private javax.swing.JLabel lbl_icon7;
+    private javax.swing.JLabel lbl_icon8;
+    private javax.swing.JLabel lbl_icon9;
+    private javax.swing.JPanel pnl_cabFacility;
+    private javax.swing.JPanel pnl_houseKeeping;
+    private javax.swing.JPanel pnl_itemsManage;
+    private javax.swing.JPanel pnl_personalised;
     private javax.swing.JPanel pnl_roomBook;
+    private javax.swing.JPanel pnl_roomFacilites;
     // End of variables declaration//GEN-END:variables
 }
