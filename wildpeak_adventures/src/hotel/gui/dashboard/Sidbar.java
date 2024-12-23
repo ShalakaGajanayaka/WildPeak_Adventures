@@ -193,6 +193,12 @@ public class Sidbar extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel4.setText("UNIVERSAL");
 
+        btn_dashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_dashboardMouseClicked(evt);
+            }
+        });
+
         lbl_icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/home_icon.png"))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -218,6 +224,12 @@ public class Sidbar extends javax.swing.JPanel {
                     .addComponent(lbl_icon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        btn_hotels.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_hotelsMouseClicked(evt);
+            }
+        });
 
         lbl_icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/hotels_icon.png"))); // NOI18N
 
@@ -662,6 +674,14 @@ public class Sidbar extends javax.swing.JPanel {
             pnl_personalised.setVisible(true);
         }
     }//GEN-LAST:event_btn_personalisedMouseClicked
+
+    private void btn_hotelsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_hotelsMouseClicked
+        parent.hotelsSub();
+    }//GEN-LAST:event_btn_hotelsMouseClicked
+
+    private void btn_dashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_dashboardMouseClicked
+        parent.dashboardSub();
+    }//GEN-LAST:event_btn_dashboardMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

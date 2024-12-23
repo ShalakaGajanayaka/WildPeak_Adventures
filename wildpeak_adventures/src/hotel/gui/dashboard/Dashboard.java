@@ -7,6 +7,7 @@ package hotel.gui.dashboard;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import hotel.gui.dashboard.subpanels.DashboardSub;
+import hotel.gui.dashboard.subpanels.HotelsSub;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -62,6 +63,24 @@ public class Dashboard extends javax.swing.JFrame {
         font = font.deriveFont(Font.ITALIC);
         textField.setFont(font);
         textField.setForeground(Color.BLACK);
+    }
+
+    public void dashboardSub() {
+        pnl_change_panel.removeAll();
+
+        pnl_change_panel.add(new DashboardSub());
+
+        pnl_change_panel.revalidate();
+        pnl_change_panel.repaint();
+    }
+
+    public void hotelsSub() {
+        pnl_change_panel.removeAll();
+
+        pnl_change_panel.add(new HotelsSub());
+
+        pnl_change_panel.revalidate();
+        pnl_change_panel.repaint();
     }
 
     /**

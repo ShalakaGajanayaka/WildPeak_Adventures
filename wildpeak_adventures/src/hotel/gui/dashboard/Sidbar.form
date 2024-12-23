@@ -235,6 +235,9 @@
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="btn_dashboard">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_dashboardMouseClicked"/>
+                  </Events>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -280,6 +283,9 @@
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="btn_hotels">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_hotelsMouseClicked"/>
+                  </Events>
 
                   <Layout>
                     <DimensionLayout dim="0">
