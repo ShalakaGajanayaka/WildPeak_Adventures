@@ -8,6 +8,7 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import hotel.gui.dashboard.subpanels.DashboardSub;
 import hotel.gui.dashboard.subpanels.HotelsSub;
+import hotel.gui.dashboard.subpanels.Transaction;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -78,6 +79,15 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new HotelsSub());
+
+        pnl_change_panel.revalidate();
+        pnl_change_panel.repaint();
+    }
+    
+    public void transactionSub() {
+        pnl_change_panel.removeAll();
+
+        pnl_change_panel.add(new Transaction());
 
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();

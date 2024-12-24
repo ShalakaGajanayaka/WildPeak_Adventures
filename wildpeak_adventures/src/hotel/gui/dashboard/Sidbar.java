@@ -257,6 +257,12 @@ public class Sidbar extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        btn_transaction.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_transactionMouseClicked(evt);
+            }
+        });
+
         lbl_icon3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/transaction_icon.png"))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -682,6 +688,10 @@ public class Sidbar extends javax.swing.JPanel {
     private void btn_dashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_dashboardMouseClicked
         parent.dashboardSub();
     }//GEN-LAST:event_btn_dashboardMouseClicked
+
+    private void btn_transactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_transactionMouseClicked
+       parent.transactionSub();
+    }//GEN-LAST:event_btn_transactionMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

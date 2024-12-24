@@ -331,6 +331,9 @@
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="btn_transaction">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_transactionMouseClicked"/>
+                  </Events>
 
                   <Layout>
                     <DimensionLayout dim="0">

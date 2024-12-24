@@ -645,7 +645,7 @@ public class HotelsSub extends javax.swing.JPanel {
         );
 
         jLabel46.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel46.setText("Home");
+        jLabel46.setText("Hotels");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
