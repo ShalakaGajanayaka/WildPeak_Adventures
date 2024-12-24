@@ -4,17 +4,21 @@
  */
 package hotel.gui.dashboard.subpanels;
 
+import hotel.gui.dashboard.Dashboard;
+
 /**
  *
  * @author shalaka
  */
 public class HotelsSub extends javax.swing.JPanel {
 
+    private Dashboard parent;
     /**
      * Creates new form DashboardSub
      */
-    public HotelsSub() {
+    public HotelsSub(Dashboard parent) {
         initComponents();
+        this.parent = parent;
     }
 
     /**
@@ -100,6 +104,11 @@ public class HotelsSub extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
@@ -750,6 +759,10 @@ public class HotelsSub extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        parent.fillOutBookingDetailsPanel();
+    }//GEN-LAST:event_jPanel2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
