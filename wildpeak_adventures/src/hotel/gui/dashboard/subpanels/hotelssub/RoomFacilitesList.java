@@ -8,11 +8,11 @@ import hotel.gui.dashboard.Dashboard;
 import hotel.model.MYSQL2;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +35,29 @@ public class RoomFacilitesList extends javax.swing.JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
+        reloadTable();
+    }
+
+    public void reloadTable() {
+        try {
+            String query = "SELECT * FROM Room_Facility";
+            Statement stmt = MYSQL2.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                model.addRow(new Object[]{rs.getInt("id"), rs.getString("Name")});
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(RoomFacilitesList.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void roomFacility(String column, String orderby, String searchText) {

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 //import raven.toast.Notifications;
 
 /**
@@ -150,7 +151,12 @@ public class AddRoomFacilites extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Facility is added successfully.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE
                 );
                 jTextField1.setText("");
+                // Reload the parent table
+                if (parent != null) { // Check if parent is defined
+                    parent.reloadTable(); // Call the parent's method to refresh the table
+                }
 
+                // Close ID result resources
                 // Close ID result resources
                 idResult.close();
                 idStmt.close();
@@ -168,6 +174,7 @@ public class AddRoomFacilites extends javax.swing.JDialog {
             Logger.getLogger(AddRoomFacilites.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Clear the text field
