@@ -9,6 +9,8 @@ import hotel.model.MYSQL2;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -28,6 +30,7 @@ public class RoomImages extends javax.swing.JPanel {
     public RoomImages(Dashboard parent) {
         initComponents();
         this.parent = parent;
+        roomImages("id", "ASC", jTextField2.getText());
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
@@ -35,40 +38,57 @@ public class RoomImages extends javax.swing.JPanel {
 
     public void roomImages(String column, String orderby, String searchText) {
         try {
-            String query = "SELECT * FROM room_images INNER JOIN `Room_List` ON `room_images`.`Room_List_No` = `Room_List`.`No`"
-                    + "INNER JOIN `Room_Type` ON `Room_Type`.`id` = `room_images`.`Room_Type_id`"
-                    + "WHERE id LIKE ? OR Name LIKE ?"
+            // Validate column and orderby to prevent SQL injection
+            List<String> validColumns = Arrays.asList("id", "Room_List.No", "Room_Type.name");
+            if (!validColumns.contains(column)) {
+                throw new IllegalArgumentException("Invalid column: " + column);
+            }
+
+            if (!orderby.equalsIgnoreCase("ASC") && !orderby.equalsIgnoreCase("DESC")) {
+                throw new IllegalArgumentException("Invalid orderby: " + orderby);
+            }
+
+            // Query with placeholders
+            String query = "SELECT * FROM room_images "
+                    + "INNER JOIN `Room_List` ON `room_images`.`Room_List_No` = `Room_List`.`No` "
+                    + "INNER JOIN `Room_Type` ON `Room_Type`.`id` = `Room_List`.`Room_Type_id` "
+                    + "WHERE `room_images`.`id` LIKE ? "
+                    + "OR `Room_List`.`No` LIKE ? "
+                    + "OR `Room_Type`.`name` LIKE ? "
                     + "ORDER BY " + column + " " + orderby;
 
             PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
-            String searchPattern = "%" + searchText + "%";
 
             // Bind the same search pattern to all fields
+            String searchPattern = "%" + searchText + "%";
             preparedStatement.setString(1, searchPattern);
             preparedStatement.setString(2, searchPattern);
+            preparedStatement.setString(3, searchPattern);
 
+            // Execute query
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            // Clear existing rows in the table model
             DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
             defaultTableModel.setRowCount(0);
 
+            // Populate table with query results
             while (resultSet.next()) {
                 Vector<String> row = new Vector<>();
-                row.add(resultSet.getString("id"));
-                row.add(resultSet.getString("Name"));
+                row.add(resultSet.getString("Room_List.No"));       // Room number
+                row.add(resultSet.getString("Room_Type.name"));     // Room type
+                row.add(resultSet.getString("room_images.image"));  // Image path or name
 
                 defaultTableModel.addRow(row);
             }
 
         } catch (SQLException e) {
-//            logger.log(Level.WARNING, "Exception in Employee Management while loading employees", e);
-            e.printStackTrace();
+            e.printStackTrace(); // Log SQL errors
         } catch (Exception ex) {
-//            Logger.getLogger(Employee_Management.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
+            ex.printStackTrace(); // Log unexpected errors
         }
-
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
