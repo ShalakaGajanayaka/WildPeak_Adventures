@@ -2347,9 +2347,9 @@
                                               </Group>
                                           </Group>
                                           <Component id="jLabel45" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextField23" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jLabel47" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextField24" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jLabel79" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jLabel80" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   </Group>
@@ -2377,12 +2377,12 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTextField23" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                       <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTextField24" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="15" max="32767" attributes="0"/>
+                                      <Component id="jLabel80" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="21" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2436,13 +2436,6 @@
                                 <Property name="text" type="java.lang.String" value="Identity Upload"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="jTextField23">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Poppins" size="18" style="0"/>
-                                </Property>
-                              </Properties>
-                            </Component>
                             <Component class="javax.swing.JLabel" name="jLabel45">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2451,19 +2444,38 @@
                                 <Property name="text" type="java.lang.String" value="Front Side Document"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="jTextField24">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Poppins" size="18" style="0"/>
-                                </Property>
-                              </Properties>
-                            </Component>
                             <Component class="javax.swing.JLabel" name="jLabel47">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Poppins" size="18" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Back Side Document"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel79">
+                              <Properties>
+                                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="33" green="0" red="cc" type="rgb"/>
+                                </Property>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Poppins" size="18" style="0"/>
+                                </Property>
+                                <Property name="horizontalAlignment" type="int" value="0"/>
+                                <Property name="text" type="java.lang.String" value="file chooser add"/>
+                                <Property name="opaque" type="boolean" value="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel80">
+                              <Properties>
+                                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="33" green="0" red="cc" type="rgb"/>
+                                </Property>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Poppins" size="18" style="0"/>
+                                </Property>
+                                <Property name="horizontalAlignment" type="int" value="0"/>
+                                <Property name="text" type="java.lang.String" value="file chooser add"/>
+                                <Property name="opaque" type="boolean" value="true"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -2482,12 +2494,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel81" pref="467" max="32767" attributes="0"/>
                                           <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel43" pref="467" max="32767" attributes="0"/>
-                                          <Component id="jTextField22" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jLabel43" alignment="0" pref="467" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   </Group>
@@ -2501,8 +2513,8 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTextField22" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jLabel81" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="249" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2524,11 +2536,17 @@
                                 <Property name="text" type="java.lang.String" value="Customer Image"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="jTextField22">
+                            <Component class="javax.swing.JLabel" name="jLabel81">
                               <Properties>
+                                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="33" green="0" red="cc" type="rgb"/>
+                                </Property>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Poppins" size="18" style="0"/>
                                 </Property>
+                                <Property name="horizontalAlignment" type="int" value="0"/>
+                                <Property name="text" type="java.lang.String" value="file chooser add"/>
+                                <Property name="opaque" type="boolean" value="true"/>
                               </Properties>
                             </Component>
                           </SubComponents>

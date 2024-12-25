@@ -172,14 +172,14 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jTextField21 = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel44 = new javax.swing.JLabel();
-        jTextField23 = new javax.swing.JTextField();
         jLabel45 = new javax.swing.JLabel();
-        jTextField24 = new javax.swing.JTextField();
         jLabel47 = new javax.swing.JLabel();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
-        jTextField22 = new javax.swing.JTextField();
+        jLabel81 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
         jLabel46 = new javax.swing.JLabel();
 
@@ -1364,15 +1364,23 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jLabel44.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel44.setText("Identity Upload");
 
-        jTextField23.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-
         jLabel45.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel45.setText("Front Side Document");
 
-        jTextField24.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-
         jLabel47.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel47.setText("Back Side Document");
+
+        jLabel79.setBackground(new java.awt.Color(204, 0, 51));
+        jLabel79.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel79.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel79.setText("file chooser add");
+        jLabel79.setOpaque(true);
+
+        jLabel80.setBackground(new java.awt.Color(204, 0, 51));
+        jLabel80.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel80.setText("file chooser add");
+        jLabel80.setOpaque(true);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1393,9 +1401,9 @@ public class RoomBookingPanel extends javax.swing.JPanel {
                             .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                             .addComponent(jTextField21)))
                     .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField23)
                     .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField24))
+                    .addComponent(jLabel79, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel80, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
@@ -1418,12 +1426,12 @@ public class RoomBookingPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel45)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel79)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel47)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jLabel80)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -1434,18 +1442,22 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jLabel43.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel43.setText("Customer Image");
 
-        jTextField22.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel81.setBackground(new java.awt.Color(204, 0, 51));
+        jLabel81.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel81.setText("file chooser add");
+        jLabel81.setOpaque(true);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-                    .addComponent(jTextField22))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel81, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1456,8 +1468,8 @@ public class RoomBookingPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel43)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel81)
+                .addContainerGap(249, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
@@ -1682,7 +1694,10 @@ public class RoomBookingPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1740,9 +1755,6 @@ public class RoomBookingPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
     private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField33;
