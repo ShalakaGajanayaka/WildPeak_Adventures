@@ -153,7 +153,7 @@ public class AddRoomFacilites extends javax.swing.JDialog {
                 jTextField1.setText("");
                 // Reload the parent table
                 if (parent != null) { // Check if parent is defined
-                    parent.reloadTable(); // Call the parent's method to refresh the table
+                    parent.roomFacility("id", "ASC", jTextField1.getText());// Call the parent's method to refresh the table
                 }
 
                 // Close ID result resources
