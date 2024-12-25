@@ -845,7 +845,7 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jTextField34.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
         jLabel68.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel68.setText("Country Code     ");
+        jLabel68.setText("Mobile No.     ");
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
