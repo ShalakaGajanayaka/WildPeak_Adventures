@@ -1527,7 +1527,7 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Poppins" size="18" style="0"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Country Code "/>
+                                    <Property name="text" type="java.lang.String" value="Country Code     "/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -1594,7 +1594,7 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Poppins" size="18" style="0"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="First Name"/>
+                                    <Property name="text" type="java.lang.String" value="First Name      "/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JComboBox" name="jComboBox4">
@@ -1665,7 +1665,7 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Poppins" size="18" style="0"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Last Name"/>
+                                    <Property name="text" type="java.lang.String" value="Last Name     "/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="jTextField37">
@@ -1754,7 +1754,7 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Poppins" size="18" style="0"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Occupation"/>
+                                    <Property name="text" type="java.lang.String" value="Occupation   "/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JComboBox" name="jComboBox5">
@@ -1827,7 +1827,7 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Poppins" size="18" style="0"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Anniversary"/>
+                                    <Property name="text" type="java.lang.String" value="Anniversary "/>
                                   </Properties>
                                 </Component>
                                 <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
@@ -1905,7 +1905,7 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Poppins" size="18" style="0"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Guest"/>
+                                    <Property name="text" type="java.lang.String" value="Guest         "/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JCheckBox" name="jCheckBox1">

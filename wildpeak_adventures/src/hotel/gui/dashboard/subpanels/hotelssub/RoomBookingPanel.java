@@ -844,7 +844,7 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jTextField34.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
         jLabel68.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel68.setText("Country Code ");
+        jLabel68.setText("Country Code     ");
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
@@ -883,7 +883,7 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jTextField36.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
         jLabel70.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel70.setText("First Name");
+        jLabel70.setText("First Name      ");
 
         jComboBox4.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mr", "Ms", "Mrs", "Dr", "Engineer" }));
@@ -920,7 +920,7 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         );
 
         jLabel71.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel71.setText("Last Name");
+        jLabel71.setText("Last Name     ");
 
         jTextField37.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
@@ -966,7 +966,7 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jTextField40.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
         jLabel74.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel74.setText("Occupation");
+        jLabel74.setText("Occupation   ");
 
         jComboBox5.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
@@ -1006,7 +1006,7 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jLabel75.setText("Date of Birth");
 
         jLabel76.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel76.setText("Anniversary");
+        jLabel76.setText("Anniversary ");
 
         jDateChooser2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
@@ -1047,7 +1047,7 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jTextField43.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
         jLabel78.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel78.setText("Guest");
+        jLabel78.setText("Guest         ");
 
         jCheckBox1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jCheckBox1.setText("VIP?");
