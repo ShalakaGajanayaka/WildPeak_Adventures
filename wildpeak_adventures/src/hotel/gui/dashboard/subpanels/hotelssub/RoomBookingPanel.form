@@ -1530,7 +1530,7 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Poppins" size="18" style="0"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Country Code     "/>
+                                    <Property name="text" type="java.lang.String" value="Mobile No.     "/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
