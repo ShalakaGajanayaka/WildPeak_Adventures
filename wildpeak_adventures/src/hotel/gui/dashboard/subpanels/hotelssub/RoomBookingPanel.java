@@ -1355,7 +1355,7 @@ public class RoomBookingPanel extends javax.swing.JPanel {
         jLabel41.setText("Identity Type");
 
         jLabel42.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel42.setText("Identity Type");
+        jLabel42.setText("ID");
 
         jTextField20.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
