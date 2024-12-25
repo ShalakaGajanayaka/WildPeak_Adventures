@@ -30,10 +30,39 @@ public class RoomImages extends javax.swing.JPanel {
     public RoomImages(Dashboard parent) {
         initComponents();
         this.parent = parent;
+        roomImages();
         roomImages("id", "ASC", jTextField2.getText());
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
+    }
+
+    public void roomImages() {
+
+        try {
+            String query = "SELECT * FROM `room_images` "
+                    + "INNER JOIN `Room_List` ON `room_images`.`Room_List_No` = `Room_List`.`No`"
+                    + "INNER JOIN `Room_Type` ON `Room_Type`.`id` = `Room_List`.`Room_Type_id` "
+                    + "WHERE `Room_List`.`No` LIKE 1 ";
+
+            ResultSet resultSet = MYSQL2.executeSearch(query);
+
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            // Populate table with query results
+            while (resultSet.next()) {
+                Vector<String> row = new Vector<>();
+                row.add(resultSet.getString("Room_List.No"));       // Room number
+                row.add(resultSet.getString("Room_Type.name"));     // Room type
+                row.add(resultSet.getString("room_images.image"));  // Image path or name
+
+                defaultTableModel.addRow(row);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Log SQL errors
+        }
     }
 
     public void roomImages(String column, String orderby, String searchText) {
