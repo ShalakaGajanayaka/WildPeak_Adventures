@@ -45,7 +45,7 @@ public class AddRoomImages extends javax.swing.JDialog {
         jLabel1.setText("Add Room Image");
 
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel2.setText("Room Type");
+        jLabel2.setText("Room ID");
 
         jComboBox1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VIP-Guest", "VIP", "Triple Room", "Twin Room", "Single Room" }));
