@@ -207,7 +207,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel9.setText("Room Book");
+        jLabel9.setText("Room List");
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel10.setText("Description text here....");
@@ -250,7 +250,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel12.setText("Room Book");
+        jLabel12.setText("Room Status");
 
         jLabel13.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel13.setText("Description text here....");
@@ -293,7 +293,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel15.setText("Room Book");
+        jLabel15.setText("Room Image");
 
         jLabel16.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel16.setText("Description text here....");
@@ -336,7 +336,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel18.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel18.setText("Room Book");
+        jLabel18.setText("Room Facilites");
 
         jLabel19.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel19.setText("Description text here....");
@@ -379,7 +379,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel23.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel23.setText("Room Book");
+        jLabel23.setText("House keeping");
 
         jLabel24.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel24.setText("Description text here....");
@@ -422,7 +422,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel26.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel26.setText("Room Book");
+        jLabel26.setText("Cab Booking");
 
         jLabel27.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel27.setText("Description text here....");
@@ -465,7 +465,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel29.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel29.setText("Room Book");
+        jLabel29.setText("Cab List");
 
         jLabel30.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel30.setText("Description text here....");
@@ -508,7 +508,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel32.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel32.setText("Room Book");
+        jLabel32.setText("Items Manage");
 
         jLabel33.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel33.setText("Description text here....");
@@ -551,7 +551,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel35.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel35.setText("Room Book");
+        jLabel35.setText("Personalised");
 
         jLabel36.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel36.setText("Description text here....");
@@ -594,7 +594,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel38.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel38.setText("Room Book");
+        jLabel38.setText("Promocode");
 
         jLabel39.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel39.setText("Description text here....");
@@ -637,7 +637,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel41.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel41.setText("Room Book");
+        jLabel41.setText("Booking Report");
 
         jLabel42.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel42.setText("Description text here....");
@@ -680,7 +680,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel44.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel44.setText("Room Book");
+        jLabel44.setText("Purchase Report");
 
         jLabel45.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel45.setText("Description text here....");
@@ -723,7 +723,7 @@ public class HotelsSub extends javax.swing.JPanel {
         jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
 
         jLabel48.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
-        jLabel48.setText("Room Book");
+        jLabel48.setText("Stock Report");
 
         jLabel49.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel49.setText("Description text here....");
