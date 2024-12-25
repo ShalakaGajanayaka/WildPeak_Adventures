@@ -30,7 +30,7 @@ public class RoomImages extends javax.swing.JPanel {
     public RoomImages(Dashboard parent) {
         initComponents();
         this.parent = parent;
-        roomImages("id", "ASC", jTextField2.getText());
+        roomImages("room_images.id", "ASC", jTextField2.getText());
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
@@ -38,54 +38,67 @@ public class RoomImages extends javax.swing.JPanel {
 
     public void roomImages(String column, String orderby, String searchText) {
         try {
-            // Validate column and orderby to prevent SQL injection
-            List<String> validColumns = Arrays.asList("id", "Room_List.No", "Room_Type.name");
-            if (!validColumns.contains(column)) {
-                throw new IllegalArgumentException("Invalid column: " + column);
-            }
-
-            if (!orderby.equalsIgnoreCase("ASC") && !orderby.equalsIgnoreCase("DESC")) {
-                throw new IllegalArgumentException("Invalid orderby: " + orderby);
-            }
-
-            // Query with placeholders
+            // Prepare query
             String query = "SELECT * FROM room_images "
                     + "INNER JOIN `Room_List` ON `room_images`.`Room_List_No` = `Room_List`.`No` "
                     + "INNER JOIN `Room_Type` ON `Room_Type`.`id` = `Room_List`.`Room_Type_id` "
-                    + "WHERE `room_images`.`id` LIKE ? "
-                    + "OR `Room_List`.`No` LIKE ? "
-                    + "OR `Room_Type`.`name` LIKE ? "
+                    + "WHERE LOWER(`room_images`.`id`) LIKE LOWER(?) "
+                    + "OR LOWER(`Room_List`.`No`) LIKE LOWER(?) "
+                    + "OR LOWER(`Room_Type`.`name`) LIKE LOWER(?) "
                     + "ORDER BY " + column + " " + orderby;
+
+            // Debug output
+            System.out.println("Executing query: " + query);
+            String searchPattern = "%" + searchText + "%";
+            System.out.println("Search pattern: " + searchPattern);
 
             PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
 
-            // Bind the same search pattern to all fields
-            String searchPattern = "%" + searchText + "%";
+            // Bind search pattern to the prepared statement
             preparedStatement.setString(1, searchPattern);
             preparedStatement.setString(2, searchPattern);
-            preparedStatement.setString(3, searchPattern);
+            preparedStatement.setString(3, searchPattern);  // Set the third parameter correctly
 
-            // Execute query
+            // Execute the query
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Clear existing rows in the table model
+            // Clear previous table data
             DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
             defaultTableModel.setRowCount(0);
 
-            // Populate table with query results
+            // Check if we fetched any rows
+            boolean dataFound = false;
             while (resultSet.next()) {
+                System.out.println("Data fetched: "
+                        + resultSet.getString("Room_List.No") + ", "
+                        + resultSet.getString("Room_Type.name") + ", "
+                        + resultSet.getString("room_images.image"));
+
+                // Add row data to table model
                 Vector<String> row = new Vector<>();
-                row.add(resultSet.getString("Room_List.No"));       // Room number
-                row.add(resultSet.getString("Room_Type.name"));     // Room type
-                row.add(resultSet.getString("room_images.image"));  // Image path or name
+                row.add(resultSet.getString("Room_List.No"));
+                row.add(resultSet.getString("Room_Type.name"));
+                row.add(resultSet.getString("room_images.image"));
 
                 defaultTableModel.addRow(row);
+                dataFound = true;
             }
 
+            if (!dataFound) {
+                System.out.println("No matching data found for the search query.");
+            }
+
+            // Force table refresh to update UI
+            defaultTableModel.fireTableDataChanged();
+            jTable1.revalidate();
+            jTable1.repaint();
+
         } catch (SQLException e) {
-            e.printStackTrace(); // Log SQL errors
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
         } catch (Exception ex) {
-            ex.printStackTrace(); // Log unexpected errors
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
@@ -179,6 +192,11 @@ public class RoomImages extends javax.swing.JPanel {
         jLabel3.setText("Search");
 
         jTextField2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -270,6 +288,10 @@ public class RoomImages extends javax.swing.JPanel {
         AddRoomImages addRoomImages = new AddRoomImages(this, true);
         addRoomImages.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        roomImages("room_images.id", "ASC", jTextField2.getText());
+    }//GEN-LAST:event_jTextField2KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

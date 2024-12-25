@@ -4,22 +4,15 @@
  */
 package hotel.gui.dashboard.subpanels.hotelssub;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import hotel.model.MYSQL2;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -103,9 +96,19 @@ public class AddRoomImages extends javax.swing.JDialog {
         jButton1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(245, 245, 245));
         jButton1.setText("Save changes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jButton2.setText("Close");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton3.setText("Choose");
@@ -186,6 +189,82 @@ public class AddRoomImages extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String combo = String.valueOf(jComboBox1.getSelectedItem());
+        String text = jTextField1.getText();
+
+        // Validate combo box selection
+        if (combo.equals("Select") || combo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select a valid room number.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validate the file extension
+        String[] validExtensions = {".png", ".jpg", ".jpeg", ".webp"};
+        boolean isValidFile = false;
+        for (String ext : validExtensions) {
+            if (text.toLowerCase().endsWith(ext)) {
+                isValidFile = true;
+                break;
+            }
+        }
+
+        if (!isValidFile) {
+            JOptionPane.showMessageDialog(this, "Invalid file type. Please select a .png, .jpg, .jpeg, or .webp file.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            // Check if the image already exists in the database
+            ResultSet resultSet = MYSQL2.executeSearch(
+                    "SELECT * FROM `room_images` WHERE `image` = '" + text + "' AND `Room_List_No` = '" + combo + "'"
+            );
+
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(this, "This Image Already Added", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Calculate the next ID for room_images
+                String idQuery = "SELECT COALESCE(MAX(id), 0) + 1 AS next_id FROM `room_images`";
+                Statement idStmt = MYSQL2.getConnection().createStatement();
+                ResultSet idResult = idStmt.executeQuery(idQuery);
+
+                int nextId = 1; // Default ID
+                if (idResult.next()) {
+                    nextId = idResult.getInt("next_id");
+                }
+
+                // Insert the image into the database with the calculated ID
+                String insertQuery = "INSERT INTO `room_images` (`id`, `image`, `Room_List_No`) VALUES (?, ?, ?)";
+                PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(insertQuery);
+                preparedStatement.setInt(1, nextId);
+                preparedStatement.setString(2, text);
+                preparedStatement.setString(3, combo);
+                preparedStatement.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Image Added Successfully", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Clear the text field
+        jTextField1.setText("");
+        jComboBox1.setSelectedIndex(0);
+
+        // Show confirmation dialog before closing
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to close?",
+                "Confirm Close",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose(); // Close the window
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
