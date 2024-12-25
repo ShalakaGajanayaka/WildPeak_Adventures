@@ -10,6 +10,7 @@ import hotel.gui.dashboard.subpanels.DashboardSub;
 import hotel.gui.dashboard.subpanels.HotelsSub;
 import hotel.gui.dashboard.subpanels.Transaction;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomBookingPanel;
+import hotel.gui.dashboard.subpanels.hotelssub.RoomFacilitesList;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomImages;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomList;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomStatus;
@@ -128,6 +129,15 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new RoomImages(this));
+
+        pnl_change_panel.revalidate();
+        pnl_change_panel.repaint();
+    }
+    
+    public void roomFacilitesListPanel() {
+        pnl_change_panel.removeAll();
+
+        pnl_change_panel.add(new RoomFacilitesList(this));
 
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
