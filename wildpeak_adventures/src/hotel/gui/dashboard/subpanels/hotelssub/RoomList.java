@@ -83,6 +83,11 @@ public class RoomList extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jButton1.setText("Add Room");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -197,6 +202,11 @@ public class RoomList extends javax.swing.JPanel {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1284, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AddRoom addRoom = new AddRoom(this, true);
+        addRoom.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
