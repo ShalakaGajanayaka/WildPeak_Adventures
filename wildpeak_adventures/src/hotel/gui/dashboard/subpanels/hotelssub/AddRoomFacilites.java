@@ -12,8 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import raven.toast.Notifications;
-import com.formdev.flatlaf.FlatLightLaf;
+//import raven.toast.Notifications;
 
 /**
  *
@@ -112,7 +111,7 @@ public class AddRoomFacilites extends javax.swing.JDialog {
 
         if (text.isEmpty()) {
 //            Notifications.getInstance().show(Notifications.Type.WARNING, Notifications.Location.TOP_CENTER, "Please enter a facility name.");
-            JOptionPane.showMessageDialog(this, "Please enter a facility name","INFORMATION",JOptionPane.INFORMATION_MESSAGE
+            JOptionPane.showMessageDialog(this, "Please enter a facility name", "INFORMATION", JOptionPane.INFORMATION_MESSAGE
             );
             return;
         }
@@ -127,8 +126,7 @@ public class AddRoomFacilites extends javax.swing.JDialog {
 
             if (resultSet.next()) {
 //                Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Facility is already added.");
-                JOptionPane.showMessageDialog(this, "Facility is already added.","INFORMATION",JOptionPane.INFORMATION_MESSAGE
-              
+                JOptionPane.showMessageDialog(this, "Facility is already added.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE
                 );
             } else {
                 // Find the next id manually
@@ -149,8 +147,8 @@ public class AddRoomFacilites extends javax.swing.JDialog {
                 insertStmt.executeUpdate();
 
 //                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Facility is added successfully.");
-            JOptionPane.showMessageDialog(this, "Facility is added successfully.","INFORMATION",JOptionPane.INFORMATION_MESSAGE
-            );
+                JOptionPane.showMessageDialog(this, "Facility is added successfully.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE
+                );
                 jTextField1.setText("");
 
                 // Close ID result resources
@@ -163,7 +161,9 @@ public class AddRoomFacilites extends javax.swing.JDialog {
             searchStmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "An error occurred while adding the facility.");
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "An error occurred while adding the facility.");
+            JOptionPane.showMessageDialog(this, "An error occurred while adding the facility.", "ERROR", JOptionPane.ERROR
+            );
         } catch (Exception ex) {
             Logger.getLogger(AddRoomFacilites.class.getName()).log(Level.SEVERE, null, ex);
         }
