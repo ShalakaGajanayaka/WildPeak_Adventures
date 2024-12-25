@@ -21,7 +21,7 @@ public class MYSQL2 {
     public static void createConnection() throws Exception {
         if (connection == null) {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://grandhaven-hotelmanagement.cfsiiq2mmc40.eu-north-1.rds.amazonaws.com:3306/wildpeak", "admin", "%qYMqW*{520{");
+            connection = DriverManager.getConnection("jdbc:mysql://grandhaven-hotelmanagement.cfsiiq2mmc40.eu-north-1.rds.amazonaws.com:3306/grandhavenhotelmanagementsystemdb", "superadmin", "12345678");
         }
     }
 
