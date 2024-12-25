@@ -797,7 +797,7 @@ public class HotelsSub extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        // TODO add your handling code here:
+        parent.roomListPanel();
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked

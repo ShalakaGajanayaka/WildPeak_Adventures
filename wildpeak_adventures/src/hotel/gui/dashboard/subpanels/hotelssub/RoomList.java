@@ -4,17 +4,21 @@
  */
 package hotel.gui.dashboard.subpanels.hotelssub;
 
+import hotel.gui.dashboard.Dashboard;
+
 /**
  *
  * @author shalaka
  */
 public class RoomList extends javax.swing.JPanel {
 
+    private Dashboard parent;
     /**
      * Creates new form RoomList
      */
-    public RoomList() {
+    public RoomList(Dashboard parent) {
         initComponents();
+        this.parent = parent;
     }
 
     /**
