@@ -204,8 +204,8 @@ public class RoomImages extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        AddRoom addRoom = new AddRoom(this, true);
-//        addRoom.setVisible(true);
+        AddRoomImages addRoomImages = new AddRoomImages(this, true);
+        addRoomImages.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
