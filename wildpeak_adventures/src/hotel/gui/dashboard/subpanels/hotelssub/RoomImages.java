@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -30,76 +32,109 @@ public class RoomImages extends javax.swing.JPanel {
     public RoomImages(Dashboard parent) {
         initComponents();
         this.parent = parent;
-        roomImages("room_images.id", "ASC", jTextField2.getText());
+        roomImages("ri.", "ASC", jTextField2.getText());
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
     }
 
+//    public void roomImages(String column, String orderby, String searchText) {
+//        try {
+//            // Prepare query
+////            String query = "SELECT * FROM room_images "
+////                    + "INNER JOIN `Room_List` ON `room_images`.`Room_List_No` = `Room_List`.`No` "
+////                    + "INNER JOIN `Room_Type` ON `Room_Type`.`id` = `Room_List`.`Room_Type_id` "
+////                    + "WHERE LOWER(`room_images`.`id`) LIKE LOWER(?) "
+////                    + "OR LOWER(`Room_List`.`No`) LIKE LOWER(?) "
+////                    + "OR LOWER(`Room_Type`.`name`) LIKE LOWER(?) "
+////                    + "ORDER BY " + column + " " + orderby;
+//            String query = "SELECT * FROM room_images "
+//                    + "INNER JOIN Room_List ON room_images.Room_List_No = Room_List.No "
+//                    + "INNER JOIN Room_Type ON Room_Type.id = Room_List.Room_Type_id "
+//                    + "ORDER BY " + column + " " + orderby;
+//
+//            // Debug output
+//            System.out.println("Executing query: " + query);
+//            String searchPattern = "%" + searchText + "%";
+//            System.out.println("Search pattern: " + searchPattern);
+//
+//            PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
+//
+//            // Bind search pattern to the prepared statement
+//            preparedStatement.setString(1, searchPattern); // Set the third parameter correctly
+//
+//            // Execute the query
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//
+//            // Clear previous table data
+//            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+//            defaultTableModel.setRowCount(0);
+//
+//            // Check if we fetched any rows
+//            boolean dataFound = false;
+//            while (resultSet.next()) {
+//                System.out.println("Data fetched: "
+//                        + resultSet.getString("Room_List.No") + ", "
+//                        + resultSet.getString("Room_Type.name") + ", "
+//                        + resultSet.getString("room_images.image"));
+//
+//                // Add row data to table model
+//                Vector<String> row = new Vector<>();
+//                row.add(resultSet.getString("Room_List.No"));
+//                row.add(resultSet.getString("Room_Type.name"));
+//                row.add(resultSet.getString("room_images.image"));
+//
+//                defaultTableModel.addRow(row);
+//                dataFound = true;
+//            }
+//
+//            if (!dataFound) {
+//                System.out.println("No matching data found for the search query.");
+//            }
+//
+//            // Force table refresh to update UI
+//            defaultTableModel.fireTableDataChanged();
+//            jTable1.revalidate();
+//            jTable1.repaint();
+//
+//        } catch (SQLException e) {
+//            System.out.println("SQL Error: " + e.getMessage());
+//            e.printStackTrace();
+//        } catch (Exception ex) {
+//            System.out.println("Error: " + ex.getMessage());
+//            ex.printStackTrace();
+//        }
+//    }
     public void roomImages(String column, String orderby, String searchText) {
         try {
-            // Prepare query
-            String query = "SELECT * FROM room_images "
-                    + "INNER JOIN `Room_List` ON `room_images`.`Room_List_No` = `Room_List`.`No` "
-                    + "INNER JOIN `Room_Type` ON `Room_Type`.`id` = `Room_List`.`Room_Type_id` "
-                    + "WHERE LOWER(`room_images`.`id`) LIKE LOWER(?) "
-                    + "OR LOWER(`Room_List`.`No`) LIKE LOWER(?) "
-                    + "OR LOWER(`Room_Type`.`name`) LIKE LOWER(?) "
+            String query = "SELECT DISTINCT ri.*, rl.No AS RoomNo, rt.name AS RoomTypeName "
+                    + "FROM room_images ri "
+                    + "INNER JOIN Room_List rl ON ri.Room_List_No = rl.No "
+                    + "INNER JOIN Room_Type rt ON rt.id = rl.Room_Type_id "
+                    + "WHERE LOWER(rl.No) LIKE ? OR LOWER(rt.name) LIKE ? "
                     + "ORDER BY " + column + " " + orderby;
 
-            // Debug output
-            System.out.println("Executing query: " + query);
-            String searchPattern = "%" + searchText + "%";
-            System.out.println("Search pattern: " + searchPattern);
+            PreparedStatement ps = MYSQL2.getConnection().prepareStatement(query);
+            String pattern = "%" + searchText.toLowerCase() + "%";
+            ps.setString(1, pattern);
+            ps.setString(2, pattern);
 
-            PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
 
-            // Bind search pattern to the prepared statement
-            preparedStatement.setString(1, searchPattern);
-            preparedStatement.setString(2, searchPattern);
-            preparedStatement.setString(3, searchPattern);  // Set the third parameter correctly
-
-            // Execute the query
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Clear previous table data
-            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
-            defaultTableModel.setRowCount(0);
-
-            // Check if we fetched any rows
-            boolean dataFound = false;
-            while (resultSet.next()) {
-                System.out.println("Data fetched: "
-                        + resultSet.getString("Room_List.No") + ", "
-                        + resultSet.getString("Room_Type.name") + ", "
-                        + resultSet.getString("room_images.image"));
-
-                // Add row data to table model
-                Vector<String> row = new Vector<>();
-                row.add(resultSet.getString("Room_List.No"));
-                row.add(resultSet.getString("Room_Type.name"));
-                row.add(resultSet.getString("room_images.image"));
-
-                defaultTableModel.addRow(row);
-                dataFound = true;
+            while (rs.next()) {
+                model.addRow(new String[]{
+                    rs.getString("RoomNo"),
+                    rs.getString("RoomTypeName"),
+                    rs.getString("image")
+                });
             }
 
-            if (!dataFound) {
-                System.out.println("No matching data found for the search query.");
-            }
-
-            // Force table refresh to update UI
-            defaultTableModel.fireTableDataChanged();
-            jTable1.revalidate();
-            jTable1.repaint();
-
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            ex.printStackTrace();
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -290,7 +325,7 @@ public class RoomImages extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        roomImages("room_images.id", "ASC", jTextField2.getText());
+        roomImages("rl.No", "ASC", jTextField2.getText());
     }//GEN-LAST:event_jTextField2KeyReleased
 
 

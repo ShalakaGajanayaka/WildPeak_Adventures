@@ -243,6 +243,8 @@ public class AddRoomImages extends javax.swing.JDialog {
                 preparedStatement.executeUpdate();
 
                 JOptionPane.showMessageDialog(this, "Image Added Successfully", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+                jTextField1.setText("");
+                jComboBox1.setSelectedIndex(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
