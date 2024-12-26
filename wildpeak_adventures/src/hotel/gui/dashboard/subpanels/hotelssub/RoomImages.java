@@ -6,6 +6,11 @@ package hotel.gui.dashboard.subpanels.hotelssub;
 
 import hotel.gui.dashboard.Dashboard;
 import hotel.model.MYSQL2;
+import java.awt.Component;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.io.File;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +19,10 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -42,7 +51,6 @@ public class RoomImages extends javax.swing.JPanel {
 
     public void roomImages() {
         try {
-            // SQL query to get the latest image for each room, ordered by Room_List_No in ascending order
             String query = "SELECT ri.Room_List_No, rt.name AS Room_Type, ri.image "
                     + "FROM room_images ri "
                     + "INNER JOIN Room_List rl ON ri.Room_List_No = rl.No "
@@ -52,59 +60,145 @@ public class RoomImages extends javax.swing.JPanel {
                     + ") "
                     + "ORDER BY ri.Room_List_No ASC";
 
-            // Execute the query
             ResultSet resultSet = MYSQL2.executeSearch(query);
-
-            // Get the table model and clear any previous data
             DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
             defaultTableModel.setRowCount(0);
 
-            // Populate the table with the latest images for each room
-            while (resultSet.next()) {
-                // Create a new row
-                Vector<String> row = new Vector<>();
-                row.add(resultSet.getString("Room_List_No")); // Room number
-                row.add(resultSet.getString("Room_Type"));    // Room type name
-                row.add(resultSet.getString("image"));        // Latest image
+            // Set custom renderer for the image column
+            jTable1.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    if (value instanceof ImageIcon) {
+                        JLabel label = new JLabel((ImageIcon) value);
+                        label.setHorizontalAlignment(JLabel.CENTER);
+                        return label;
+                    }
+                    return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                }
+            });
 
-                // Add the row to the table model
+            while (resultSet.next()) {
+                Vector<Object> row = new Vector<>();
+                row.add(resultSet.getString("Room_List_No"));
+                row.add(resultSet.getString("Room_Type"));
+
+                String imagePath = resultSet.getString("image");
+                if (imagePath != null && !imagePath.trim().isEmpty()) {
+                    try {
+                        ImageIcon imageIcon;
+                        URL resourceUrl = getClass().getResource("/" + imagePath);
+
+                        if (resourceUrl != null) {
+                            imageIcon = new ImageIcon(resourceUrl);
+                        } else if (new File(imagePath).exists()) {
+                            imageIcon = new ImageIcon(imagePath);
+                        } else {
+                            row.add("Image Not Found");
+                            defaultTableModel.addRow(row);
+                            continue;
+                        }
+
+                        // Resize image
+                        Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                        row.add(new ImageIcon(scaledImage));  // Add ImageIcon directly to row
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        row.add("Error Loading Image");
+                    }
+                } else {
+                    row.add("No Image Available");
+                }
+
                 defaultTableModel.addRow(row);
             }
 
+            // Set row height to accommodate images
+            jTable1.setRowHeight(100);
+
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading room images: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void roomImages(String column, String orderby, String searchText) {
         try {
-            // Adjust the query to include sorting by RoomNo explicitly
-            String query = "SELECT DISTINCT ri.*, rl.No AS RoomNo, rt.name AS RoomTypeName "
+            // Modified query to get only the latest image for each room
+            String query = "SELECT rl.No AS RoomNo, rt.name AS RoomTypeName, ri.image "
                     + "FROM room_images ri "
                     + "INNER JOIN Room_List rl ON ri.Room_List_No = rl.No "
                     + "INNER JOIN Room_Type rt ON rt.id = rl.Room_Type_id "
+                    + "INNER JOIN (SELECT Room_List_No, MAX(id) as max_id FROM room_images GROUP BY Room_List_No) latest "
+                    + "ON ri.Room_List_No = latest.Room_List_No AND ri.id = latest.max_id "
                     + "WHERE LOWER(rl.No) LIKE ? OR LOWER(rt.name) LIKE ? "
-                    + "ORDER BY rl.No ASC, " + column + " " + orderby;
+                    + "ORDER BY " + column + " " + orderby;
 
             PreparedStatement ps = MYSQL2.getConnection().prepareStatement(query);
             String pattern = "%" + searchText.toLowerCase() + "%";
             ps.setString(1, pattern);
             ps.setString(2, pattern);
-
             ResultSet rs = ps.executeQuery();
+
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
 
+            // Rest of your code remains the same
+            jTable1.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                        boolean isSelected, boolean hasFocus, int row, int column) {
+                    if (value instanceof ImageIcon) {
+                        JLabel label = new JLabel((ImageIcon) value);
+                        label.setHorizontalAlignment(JLabel.CENTER);
+                        return label;
+                    }
+                    return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                }
+            });
+
             while (rs.next()) {
-                model.addRow(new String[]{
-                    rs.getString("RoomNo"),
-                    rs.getString("RoomTypeName"),
-                    rs.getString("image")
-                });
+                Vector<Object> row = new Vector<>();
+                row.add(rs.getString("RoomNo"));
+                row.add(rs.getString("RoomTypeName"));
+
+                String imagePath = rs.getString("image");
+                if (imagePath != null && !imagePath.trim().isEmpty()) {
+                    try {
+                        ImageIcon imageIcon;
+                        URL resourceUrl = getClass().getResource("/" + imagePath);
+
+                        if (resourceUrl != null) {
+                            imageIcon = new ImageIcon(resourceUrl);
+                        } else if (new File(imagePath).exists()) {
+                            imageIcon = new ImageIcon(imagePath);
+                        } else {
+                            row.add("Image Not Found");
+                            model.addRow(row);
+                            continue;
+                        }
+
+                        Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                        row.add(new ImageIcon(scaledImage));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        row.add("Error Loading Image");
+                    }
+                } else {
+                    row.add("No Image Available");
+                }
+
+                model.addRow(row);
             }
+
+            jTable1.setRowHeight(100);
 
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading room images: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -216,7 +310,7 @@ public class RoomImages extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
