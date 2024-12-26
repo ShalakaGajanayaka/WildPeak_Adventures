@@ -204,8 +204,8 @@ public class CabList extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        AddCabBooking addCabBooking = new AddCabBooking(this, true);
-//        addCabBooking.setVisible(true);
+        AddCab addCab = new AddCab(this, true);
+        addCab.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
