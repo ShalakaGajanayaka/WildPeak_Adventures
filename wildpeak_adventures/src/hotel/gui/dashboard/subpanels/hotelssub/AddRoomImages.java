@@ -263,7 +263,7 @@ public class AddRoomImages extends javax.swing.JDialog {
                 jTextField1.setText("");
                 jComboBox1.setSelectedIndex(0);
                 if (parent != null) { // Check if parent is defined
-                    parent.roomImages(); // Call the parent's method to refresh the table
+                    parent.refreshImages();// Call the parent's method to refresh the table
                 }
             }
         } catch (Exception e) {

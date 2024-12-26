@@ -9,6 +9,7 @@ import hotel.model.MYSQL2;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -19,11 +20,14 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,13 +46,76 @@ public class RoomImages extends javax.swing.JPanel {
         initComponents();
         this.parent = parent;
 
-        roomImages();
+//        roomImages();
+        refreshImages();
 //        roomImages("ri.", "ASC", jTextField2.getText());
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
     }
 
+//    public void roomImages() {
+//        try {
+//            // SQL query to get the latest image for each room, ordered by Room_List_No in ascending order
+//            String query = "SELECT ri.Room_List_No, rt.name AS Room_Type, ri.image "
+//                    + "FROM room_images ri "
+//                    + "INNER JOIN Room_List rl ON ri.Room_List_No = rl.No "
+//                    + "INNER JOIN Room_Type rt ON rl.Room_Type_id = rt.id "
+//                    + "WHERE ri.id IN ( "
+//                    + "    SELECT MAX(id) FROM room_images GROUP BY Room_List_No "
+//                    + ") "
+//                    + "ORDER BY ri.Room_List_No ASC";
+//
+//            // Execute the query
+//            ResultSet resultSet = MYSQL2.executeSearch(query);
+//
+//            // Get the table model and clear any previous data
+//            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+//            defaultTableModel.setRowCount(0);
+//
+//            // Populate the table with the latest images for each room
+//            while (resultSet.next()) {
+//                // Create a new row
+//                Vector<Object> row = new Vector<>();
+//                row.add(resultSet.getString("Room_List_No")); // Room number
+//                row.add(resultSet.getString("Room_Type"));    // Room type name
+//                String imagePath = resultSet.getString("image"); // Image path
+//
+//                // Check if the image path is not null and exists
+//                if (imagePath != null && !imagePath.isEmpty()) {
+//                    // Load the image from the path
+//                    ImageIcon imageIcon = null;
+//
+//                    // If the path is relative, use getClass().getResource() for resources in the classpath
+//                    try {
+//                        imageIcon = new ImageIcon(getClass().getResource("/" + imagePath));
+//                        if (imageIcon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+//                            throw new Exception("Image not found or failed to load.");
+//                        }
+//                    } catch (Exception e) {
+//                        // If the image doesn't exist in resources, try using an absolute path
+//                        imageIcon = new ImageIcon(imagePath);  // Assuming the image path is absolute
+//                    }
+//
+//                    // If image was successfully loaded, create a JLabel to display the image
+//                    if (imageIcon != null && imageIcon.getImageLoadStatus() == MediaTracker.COMPLETE) {
+//                        JLabel imageLabel = new JLabel(imageIcon);
+//                        row.add(imageLabel); // Add the image label to the row
+//                    } else {
+//                        row.add("Image Not Found"); // Fallback text if image loading fails
+//                    }
+//                } else {
+//                    row.add("No Image"); // No image path available
+//                }
+//
+//                // Add the row to the table model
+//                defaultTableModel.addRow(row);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     public void roomImages() {
         try {
             String query = "SELECT ri.Room_List_No, rt.name AS Room_Type, ri.image "
@@ -59,15 +126,14 @@ public class RoomImages extends javax.swing.JPanel {
                     + "    SELECT MAX(id) FROM room_images GROUP BY Room_List_No "
                     + ") "
                     + "ORDER BY ri.Room_List_No ASC";
-
             ResultSet resultSet = MYSQL2.executeSearch(query);
             DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
             defaultTableModel.setRowCount(0);
 
-            // Set custom renderer for the image column
             jTable1.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
                 @Override
-                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                        boolean isSelected, boolean hasFocus, int row, int column) {
                     if (value instanceof ImageIcon) {
                         JLabel label = new JLabel((ImageIcon) value);
                         label.setHorizontalAlignment(JLabel.CENTER);
@@ -85,23 +151,23 @@ public class RoomImages extends javax.swing.JPanel {
                 String imagePath = resultSet.getString("image");
                 if (imagePath != null && !imagePath.trim().isEmpty()) {
                     try {
-                        ImageIcon imageIcon;
-                        URL resourceUrl = getClass().getResource("/" + imagePath);
-
-                        if (resourceUrl != null) {
-                            imageIcon = new ImageIcon(resourceUrl);
-                        } else if (new File(imagePath).exists()) {
-                            imageIcon = new ImageIcon(imagePath);
+                        File imageFile = new File(imagePath);
+                        if (imageFile.exists()) {
+                            // Load image directly from file system
+                            ImageIcon imageIcon = new ImageIcon(imageFile.getAbsolutePath());
+                            Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                            row.add(new ImageIcon(scaledImage));
                         } else {
-                            row.add("Image Not Found");
-                            defaultTableModel.addRow(row);
-                            continue;
+                            // Try loading from resources as fallback
+                            URL resourceUrl = getClass().getResource("/" + imagePath);
+                            if (resourceUrl != null) {
+                                ImageIcon imageIcon = new ImageIcon(resourceUrl);
+                                Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                                row.add(new ImageIcon(scaledImage));
+                            } else {
+                                row.add("Image Not Found");
+                            }
                         }
-
-                        // Resize image
-                        Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                        row.add(new ImageIcon(scaledImage));  // Add ImageIcon directly to row
-
                     } catch (Exception e) {
                         e.printStackTrace();
                         row.add("Error Loading Image");
@@ -109,11 +175,9 @@ public class RoomImages extends javax.swing.JPanel {
                 } else {
                     row.add("No Image Available");
                 }
-
                 defaultTableModel.addRow(row);
             }
 
-            // Set row height to accommodate images
             jTable1.setRowHeight(100);
 
         } catch (Exception e) {
@@ -122,6 +186,95 @@ public class RoomImages extends javax.swing.JPanel {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+//    public void roomImages(String column, String orderby, String searchText) {
+//        try {
+//            // SQL query setup remains unchanged...
+//            String query = "SELECT rl.No AS RoomNo, rt.name AS RoomTypeName, ri.image "
+//                    + "FROM room_images ri "
+//                    + "INNER JOIN Room_List rl ON ri.Room_List_No = rl.No "
+//                    + "INNER JOIN Room_Type rt ON rt.id = rl.Room_Type_id "
+//                    + "INNER JOIN (SELECT Room_List_No, MAX(id) as max_id FROM room_images GROUP BY Room_List_No) latest "
+//                    + "ON ri.Room_List_No = latest.Room_List_No AND ri.id = latest.max_id "
+//                    + "WHERE LOWER(rl.No) LIKE ? OR LOWER(rt.name) LIKE ? "
+//                    + "ORDER BY " + column + " " + orderby;
+//
+//            PreparedStatement ps = MYSQL2.getConnection().prepareStatement(query);
+//            String pattern = "%" + searchText.toLowerCase() + "%";
+//            ps.setString(1, pattern);
+//            ps.setString(2, pattern);
+//            ResultSet rs = ps.executeQuery();
+//
+//            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+//            if (defaultTableModel == null) {
+//                System.out.println("DefaultTableModel is null.");
+//                return; // Early exit if model is null
+//            }
+//
+//            defaultTableModel.setRowCount(0);  // Clear the table
+//
+//            // Set custom renderer for images column...
+//            while (rs.next()) {
+//                Vector<Object> row = new Vector<>();
+//                String roomNo = rs.getString("RoomNo");
+//                String roomTypeName = rs.getString("RoomTypeName");
+//                String imagePath = rs.getString("image");
+//
+//                row.add(roomNo);
+//                row.add(roomTypeName);
+//
+//                if (imagePath != null && !imagePath.trim().isEmpty()) {
+//                    File imageFile = new File(imagePath);
+//                    if (imageFile.exists()) {
+//                        // Load image directly from file system
+//                        ImageIcon imageIcon = new ImageIcon(imageFile.getAbsolutePath());
+//                        Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+//                        row.add(new ImageIcon(scaledImage));
+//                    } else {
+//                        System.out.println("Image file does not exist: " + imageFile.getAbsolutePath());
+//                        addPlaceholderImage(row);
+//                    }
+//                } else {
+//                    System.out.println("Image path is null or empty.");
+//                    addPlaceholderImage(row);
+//                }
+//
+//                defaultTableModel.addRow(row);
+//            }
+//
+//            jTable1.setRowHeight(100);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Error loading room images: " + e.getMessage(),
+//                    "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
+//
+//    private void addPlaceholderImage(Vector<Object> row) {
+//        ImageIcon placeholderIcon = loadPlaceholderImage1();
+//        if (placeholderIcon != null) {
+//            Image scaledImage = placeholderIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+//            row.add(new ImageIcon(scaledImage));
+//        } else {
+//            row.add("No Image Available");
+//        }
+//    }
+//
+//    private ImageIcon loadPlaceholderImage1() {
+//        try {
+//            System.out.println("Loading placeholder image...");
+//            URL placeholderUrl = getClass().getResource("/resources/placeholder_image.png");
+//            if (placeholderUrl != null) {
+//                return new ImageIcon(placeholderUrl);
+//            } else {
+//                System.out.println("Placeholder image not found.");
+//                return null;  // Return null if the placeholder is missing
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;  // Return null on error
+//        }
+//    }
 
     public void roomImages(String column, String orderby, String searchText) {
         try {
@@ -393,7 +546,12 @@ public class RoomImages extends javax.swing.JPanel {
         roomImages("rl.No", "ASC", jTextField2.getText());
     }//GEN-LAST:event_jTextField2KeyReleased
 
-
+    public void refreshImages() {
+        SwingUtilities.invokeLater(() -> {
+            roomImages("rl.No", "ASC", ""); // Or whatever default parameters you use
+            roomImages();
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
