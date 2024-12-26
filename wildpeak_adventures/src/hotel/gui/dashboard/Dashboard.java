@@ -14,6 +14,7 @@ import hotel.gui.dashboard.subpanels.hotelssub.CabBooking;
 import hotel.gui.dashboard.subpanels.hotelssub.CabList;
 import hotel.gui.dashboard.subpanels.hotelssub.ItemList;
 import hotel.gui.dashboard.subpanels.hotelssub.Personalised;
+import hotel.gui.dashboard.subpanels.hotelssub.PromocodeList;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomBookingPanel;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomFacilitesList;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomImages;
@@ -188,6 +189,15 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new Personalised(this));
+
+        pnl_change_panel.revalidate();
+        pnl_change_panel.repaint();
+    }
+     
+      public void promocodeListPanel() {
+        pnl_change_panel.removeAll();
+
+        pnl_change_panel.add(new PromocodeList(this));
 
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();

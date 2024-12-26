@@ -119,17 +119,17 @@ public class PromocodeList extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "CAR", "CAR NUMBER", "CAR TYPE", "FUEL TYPE", "SEAT CAPACITY", "ACTIONS"
+                "ROOM ID", "ROOM TYPE", "FROM", "TO", "DISCOUNT", "PROMOCODE", "STATUS", "ACTIONS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -204,8 +204,8 @@ public class PromocodeList extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        AddCab addCab = new AddCab(this, true);
-//        addCab.setVisible(true);
+        AddPromocode addPromoCode = new AddPromocode(this, true);
+        addPromoCode.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
