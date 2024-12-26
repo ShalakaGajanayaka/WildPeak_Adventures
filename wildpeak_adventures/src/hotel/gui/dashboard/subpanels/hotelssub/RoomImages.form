@@ -243,7 +243,7 @@
                           <Table columnCount="4" rowCount="4">
                             <Column editable="false" title="ROOM ID" type="java.lang.Object"/>
                             <Column editable="false" title="ROOM TYPE" type="java.lang.Object"/>
-                            <Column editable="true" title="ROOM IMAGES" type="java.lang.Object"/>
+                            <Column editable="false" title="ROOM IMAGES" type="java.lang.Object"/>
                             <Column editable="false" title="ACTIONS" type="java.lang.Object"/>
                           </Table>
                         </Property>
