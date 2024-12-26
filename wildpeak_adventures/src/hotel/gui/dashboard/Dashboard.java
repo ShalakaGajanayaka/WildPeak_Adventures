@@ -174,7 +174,7 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.repaint();
     }
        
-     public void itemList() {
+     public void itemListPanel() {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new ItemList(this));
