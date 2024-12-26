@@ -5,6 +5,9 @@
 package hotel.gui.dashboard.subpanels.hotelssub;
 
 import hotel.model.MYSQL2;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -216,9 +219,23 @@ public class AddRoomImages extends javax.swing.JDialog {
         }
 
         try {
+            // Define the destination directory
+            File sourceFile = new File(text);
+            File destDir = new File("src/hotel/roomImages/");
+            if (!destDir.exists()) {
+                destDir.mkdirs(); // Create the directory if it does not exist
+            }
+
+            // Copy the image file to the destination directory
+            File destFile = new File(destDir, sourceFile.getName());
+            Files.copy(sourceFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            // Save the relative path to the database
+            String relativePath = "hotel/roomImages/" + sourceFile.getName();
+
             // Check if the image already exists in the database
             ResultSet resultSet = MYSQL2.executeSearch(
-                    "SELECT * FROM `room_images` WHERE `image` = '" + text + "' AND `Room_List_No` = '" + combo + "'"
+                    "SELECT * FROM `room_images` WHERE `image` = '" + relativePath + "' AND `Room_List_No` = '" + combo + "'"
             );
 
             if (resultSet.next()) {
@@ -238,15 +255,19 @@ public class AddRoomImages extends javax.swing.JDialog {
                 String insertQuery = "INSERT INTO `room_images` (`id`, `image`, `Room_List_No`) VALUES (?, ?, ?)";
                 PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(insertQuery);
                 preparedStatement.setInt(1, nextId);
-                preparedStatement.setString(2, text);
+                preparedStatement.setString(2, relativePath);
                 preparedStatement.setString(3, combo);
                 preparedStatement.executeUpdate();
 
                 JOptionPane.showMessageDialog(this, "Image Added Successfully", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
                 jTextField1.setText("");
                 jComboBox1.setSelectedIndex(0);
+                if (parent != null) { // Check if parent is defined
+                    parent.roomImages(); // Call the parent's method to refresh the table
+                }
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Failed to copy the file. Please check the file path.", "ERROR", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed

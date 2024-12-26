@@ -42,34 +42,33 @@ public class RoomImages extends javax.swing.JPanel {
 
     public void roomImages() {
         try {
-            String query = "SELECT * FROM `room_images` "
-                    + "INNER JOIN `Room_List` ON `room_images`.`Room_List_No` = `Room_List`.`No` "
-                    + "INNER JOIN `Room_Type` ON `Room_Type`.`id` = `Room_List`.`Room_Type_id` ";
-//                    + "ORDER BY " + column + " " + orderby;
+            // SQL query to get the latest image for each room, ordered by Room_List_No in ascending order
+            String query = "SELECT ri.Room_List_No, rt.name AS Room_Type, ri.image "
+                    + "FROM room_images ri "
+                    + "INNER JOIN Room_List rl ON ri.Room_List_No = rl.No "
+                    + "INNER JOIN Room_Type rt ON rl.Room_Type_id = rt.id "
+                    + "WHERE ri.id IN ( "
+                    + "    SELECT MAX(id) FROM room_images GROUP BY Room_List_No "
+                    + ") "
+                    + "ORDER BY ri.Room_List_No ASC";
 
+            // Execute the query
             ResultSet resultSet = MYSQL2.executeSearch(query);
 
-            // Clear previous table data
+            // Get the table model and clear any previous data
             DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
             defaultTableModel.setRowCount(0);
 
-            // Check if we fetched any rows
-            boolean dataFound = false;
+            // Populate the table with the latest images for each room
             while (resultSet.next()) {
-
-                // Add row data to table model
+                // Create a new row
                 Vector<String> row = new Vector<>();
-                row.add(resultSet.getString("Room_List.No"));
-                if (resultSet.getString("Room_Type.name") == null) {
-                    row.add(null);
-                } else {
-                    row.add(resultSet.getString("Room_Type.name"));
-                }
+                row.add(resultSet.getString("Room_List_No")); // Room number
+                row.add(resultSet.getString("Room_Type"));    // Room type name
+                row.add(resultSet.getString("image"));        // Latest image
 
-                row.add(resultSet.getString("room_images.image"));
-
+                // Add the row to the table model
                 defaultTableModel.addRow(row);
-
             }
 
         } catch (Exception e) {
@@ -79,12 +78,13 @@ public class RoomImages extends javax.swing.JPanel {
 
     public void roomImages(String column, String orderby, String searchText) {
         try {
+            // Adjust the query to include sorting by RoomNo explicitly
             String query = "SELECT DISTINCT ri.*, rl.No AS RoomNo, rt.name AS RoomTypeName "
                     + "FROM room_images ri "
                     + "INNER JOIN Room_List rl ON ri.Room_List_No = rl.No "
                     + "INNER JOIN Room_Type rt ON rt.id = rl.Room_Type_id "
                     + "WHERE LOWER(rl.No) LIKE ? OR LOWER(rt.name) LIKE ? "
-                    + "ORDER BY " + column + " " + orderby;
+                    + "ORDER BY rl.No ASC, " + column + " " + orderby;
 
             PreparedStatement ps = MYSQL2.getConnection().prepareStatement(query);
             String pattern = "%" + searchText.toLowerCase() + "%";
@@ -106,7 +106,6 @@ public class RoomImages extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @SuppressWarnings("unchecked")
