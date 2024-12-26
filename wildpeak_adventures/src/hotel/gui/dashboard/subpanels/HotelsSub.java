@@ -468,6 +468,11 @@ public class HotelsSub extends javax.swing.JPanel {
 
         jLabel28.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel28MouseClicked(evt);
+            }
+        });
 
         jLabel29.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
         jLabel29.setText("Cab List");
@@ -856,6 +861,10 @@ public class HotelsSub extends javax.swing.JPanel {
     private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel25MouseClicked
         parent.cabBookingPanel();
     }//GEN-LAST:event_jLabel25MouseClicked
+
+    private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
+        parent.cabListPanel();
+    }//GEN-LAST:event_jLabel28MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
