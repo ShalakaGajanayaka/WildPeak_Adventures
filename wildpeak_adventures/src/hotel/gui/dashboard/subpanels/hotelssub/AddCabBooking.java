@@ -10,12 +10,12 @@ package hotel.gui.dashboard.subpanels.hotelssub;
  */
 public class AddCabBooking extends javax.swing.JDialog {
 
-    private RoomImages parent;
+    private CabBooking parent; 
 
     /**
      * Creates new form AddRoomImages
      */
-    public AddCabBooking(RoomImages parent, boolean modal) {
+    public AddCabBooking(CabBooking parent, boolean modal) {
 //        super(parent, modal);
         this.parent = parent;
         initComponents();
