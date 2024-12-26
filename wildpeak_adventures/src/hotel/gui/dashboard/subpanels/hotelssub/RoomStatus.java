@@ -5,6 +5,12 @@
 package hotel.gui.dashboard.subpanels.hotelssub;
 
 import hotel.gui.dashboard.Dashboard;
+import hotel.model.MYSQL2;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +19,67 @@ import hotel.gui.dashboard.Dashboard;
 public class RoomStatus extends javax.swing.JPanel {
 
     private Dashboard parent;
+
     /**
      * Creates new form RoomList
      */
     public RoomStatus(Dashboard parent) {
         initComponents();
         this.parent = parent;
+        roomStatus("Room_List.No", "ASC", "");
+    }
+
+    public void roomStatus(String column, String orderby, String searchText) {
+        try {
+            // Correct SQL query with a single WHERE clause
+            String query = "SELECT * FROM Room_List "
+                    + "INNER JOIN Room_Type ON Room_Type.id = Room_List.Room_Type_id "
+                    + "INNER JOIN Room_Floor ON Room_Floor.id = Room_List.Room_Floor_id "
+                    + "INNER JOIN room_status ON room_status.id = Room_List.room_status_id "
+                    + "WHERE Room_List.No LIKE ? "
+                    + "OR Checkout LIKE ? "
+                    + "OR room_status.name LIKE ? "
+                    + "OR Room_Type.name LIKE ? "
+                    + "OR Room_Floor.name LIKE ? "
+                    + "ORDER BY " + column + " " + orderby;
+
+            // Prepare the statement
+            PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
+
+            // Create the search pattern with wildcards
+            String searchPattern = "%" + searchText + "%";
+
+            // Bind the same search pattern to all fields
+            preparedStatement.setString(1, searchPattern);
+            preparedStatement.setString(2, searchPattern);
+            preparedStatement.setString(3, searchPattern);
+            preparedStatement.setString(4, searchPattern);
+            preparedStatement.setString(5, searchPattern);
+
+            // Execute the query
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Set the table model
+            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+            defaultTableModel.setRowCount(0);
+
+            // Process the result set
+            while (resultSet.next()) {
+                Vector<String> row = new Vector<>();
+                row.add(resultSet.getString("Room_List.No"));
+                row.add(resultSet.getString("Room_Type.name"));
+                row.add(resultSet.getString("Room_Floor.name"));
+                row.add(resultSet.getString("Checkout"));
+                row.add(resultSet.getString("room_status.name"));
+
+                defaultTableModel.addRow(row);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -103,6 +164,11 @@ public class RoomStatus extends javax.swing.JPanel {
         jLabel3.setText("Search");
 
         jTextField2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -189,6 +255,10 @@ public class RoomStatus extends javax.swing.JPanel {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1284, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        roomStatus("Room_List.No", "ASC", jTextField2.getText());
+    }//GEN-LAST:event_jTextField2KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
