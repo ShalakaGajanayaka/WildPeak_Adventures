@@ -5,6 +5,15 @@
 package hotel.gui.dashboard.subpanels.hotelssub;
 
 import hotel.gui.dashboard.Dashboard;
+import hotel.model.MYSQL2;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +22,57 @@ import hotel.gui.dashboard.Dashboard;
 public class CabList extends javax.swing.JPanel {
 
     private Dashboard parent;
+
     /**
      * Creates new form RoomList
      */
     public CabList(Dashboard parent) {
         initComponents();
         this.parent = parent;
+        cab("id", "ASC", "");
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.setDefaultRenderer(Object.class, renderer);
+    }
+
+    public void cab(String column, String orderby, String searchText) {
+
+        String query = "SELECT cab.id, cab.name AS cab_name, cab.number, cab.cab_type, "
+                + "cab.fuel_type, cab.seat_capacity "
+                + "FROM cab "
+                + "WHERE cab.id LIKE ? OR cab.name LIKE ? OR cab.number LIKE ? "
+                + "OR cab.cab_type LIKE ? OR cab.fuel_type LIKE ? OR cab.seat_capacity LIKE ? "
+                + "ORDER BY " + column + " " + orderby;
+
+        try (PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query)) {
+            String searchPattern = "%" + searchText + "%";
+            // Set all search parameters (6 placeholders in the query)
+            for (int i = 1; i <= 6; i++) {
+                preparedStatement.setString(i, searchPattern);
+            }
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+                defaultTableModel.setRowCount(0);  // Clear existing rows
+
+                while (resultSet.next()) {
+                    Vector<String> row = new Vector<>();
+                    row.add(resultSet.getString("id"));
+                    row.add(resultSet.getString("cab_name"));
+                    row.add(resultSet.getString("number"));
+                    row.add(resultSet.getString("cab_type"));
+                    row.add(resultSet.getString("fuel_type"));
+                    row.add(resultSet.getString("seat_capacity"));
+                    defaultTableModel.addRow(row);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Database error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -116,6 +170,11 @@ public class CabList extends javax.swing.JPanel {
         jLabel3.setText("Search");
 
         jTextField2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,6 +266,10 @@ public class CabList extends javax.swing.JPanel {
         AddCab addCab = new AddCab(this, true);
         addCab.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        cab("id", "ASC", jTextField2.getText());
+    }//GEN-LAST:event_jTextField2KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
