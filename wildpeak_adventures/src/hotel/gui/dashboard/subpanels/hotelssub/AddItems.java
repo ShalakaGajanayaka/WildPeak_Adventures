@@ -109,7 +109,7 @@ public class AddItems extends javax.swing.JDialog {
 
         }
     }
-    
+
     private void Status() {
         try {
             ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `status`");
@@ -289,9 +289,100 @@ public class AddItems extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Get inputs
+        String unitName = String.valueOf(jComboBox1.getSelectedItem());
+        String category = String.valueOf(jComboBox2.getSelectedItem());
+        String itemName = jTextField3.getText().trim();
+        String total = jTextField4.getText().trim();
+        String itemUsed = jTextField5.getText().trim();
+        String laundry = String.valueOf(jComboBox3.getSelectedItem()); // Updated for unique ComboBox
+        String status = String.valueOf(jComboBox4.getSelectedItem());  // Updated for unique ComboBox
 
+        // Validation
+        if (unitName.equals("Select Unit") || unitName.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please select a valid unit.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (category.equals("Select Category") || category.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please select a valid category.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (itemName.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Item name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!isNumeric(total)) {
+            JOptionPane.showMessageDialog(null, "Total must be a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!isNumeric(itemUsed)) {
+            JOptionPane.showMessageDialog(null, "Item used must be a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (laundry.equals("Select Laundry Item") || laundry.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please select a valid laundry item.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (status.equals("Select Status") || status.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please select a valid status.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Proceed with adding the item to the database
+//        try {
+//
+//            MYSQL2.executeSearch("SELECT * FROM `item` WHERE `name` = '" + itemName + "' AND `item_category_id` = '" + CategoryNameMap.get(category) + "' AND `item_used_id` = '"++
+//            "'");
+//            String query = "INSERT INTO item (item_unit_id, item_category_id, name, total_items, item_used, laundry_item_id, status_id) "
+//                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+//            PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
+//
+//            preparedStatement.setString(1, unitName);
+//            preparedStatement.setString(2, category);
+//            preparedStatement.setString(3, itemName);
+//            preparedStatement.setFloat(4, Float.parseFloat(total));
+//            preparedStatement.setFloat(5, Float.parseFloat(itemUsed));
+//            preparedStatement.setString(6, laundry);
+//            preparedStatement.setString(7, status);
+//
+//            int rowsInserted = preparedStatement.executeUpdate();
+//
+//            if (rowsInserted > 0) {
+//                JOptionPane.showMessageDialog(null, "Item successfully added!", "Success", JOptionPane.INFORMATION_MESSAGE);
+//                resetFields(); // Reset fields after successful insertion
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
+// Helper method to validate numeric input
 
+    private boolean isNumeric(String value) {
+        try {
+            Float.parseFloat(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+// Reset fields method
+
+    private void resetFields() {
+        jComboBox1.setSelectedIndex(0);
+        jComboBox2.setSelectedIndex(0);
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jComboBox3.setSelectedIndex(0);
+        jComboBox4.setSelectedIndex(0);
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
