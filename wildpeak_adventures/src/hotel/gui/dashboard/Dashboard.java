@@ -10,6 +10,7 @@ import hotel.gui.dashboard.subpanels.DashboardSub;
 import hotel.gui.dashboard.subpanels.HotelsSub;
 import hotel.gui.dashboard.subpanels.Transaction;
 import hotel.gui.dashboard.subpanels.hotelssub.AssignHouseKeeping;
+import hotel.gui.dashboard.subpanels.hotelssub.BookingReports;
 import hotel.gui.dashboard.subpanels.hotelssub.CabBooking;
 import hotel.gui.dashboard.subpanels.hotelssub.CabList;
 import hotel.gui.dashboard.subpanels.hotelssub.ItemList;
@@ -112,7 +113,7 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-    
+
     public void roomListPanel() {
         pnl_change_panel.removeAll();
 
@@ -121,7 +122,7 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-    
+
     public void roomStatusPanel() {
         pnl_change_panel.removeAll();
 
@@ -130,7 +131,7 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-    
+
     public void roomImagesPanel() {
         pnl_change_panel.removeAll();
 
@@ -139,7 +140,7 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-    
+
     public void roomFacilitesListPanel() {
         pnl_change_panel.removeAll();
 
@@ -148,8 +149,8 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-    
-     public void assignHouseKeepingPanel() {
+
+    public void assignHouseKeepingPanel() {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new AssignHouseKeeping(this));
@@ -157,8 +158,8 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-     
-     public void cabBookingPanel() {
+
+    public void cabBookingPanel() {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new CabBooking(this));
@@ -166,8 +167,8 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-     
-     public void cabListPanel() {
+
+    public void cabListPanel() {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new CabList(this));
@@ -175,8 +176,8 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-       
-     public void itemListPanel() {
+
+    public void itemListPanel() {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new ItemList(this));
@@ -184,8 +185,8 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-     
-     public void personalisedPanel() {
+
+    public void personalisedPanel() {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new Personalised(this));
@@ -193,11 +194,20 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
-     
-      public void promocodeListPanel() {
+
+    public void promocodeListPanel() {
         pnl_change_panel.removeAll();
 
         pnl_change_panel.add(new PromocodeList(this));
+
+        pnl_change_panel.revalidate();
+        pnl_change_panel.repaint();
+    }
+
+    public void bookingReportsPanel() {
+        pnl_change_panel.removeAll();
+
+        pnl_change_panel.add(new BookingReports(this));
 
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
