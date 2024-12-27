@@ -38,16 +38,22 @@ public class ItemList extends javax.swing.JPanel {
         initComponents();
         this.parent = parent;
         item("item.name", "ASC", "");
-        
+
         tableActionButtons();
-         
+
     }
-    
-    public void tableActionButtons(){
+
+    public void openEditItems() {
+        EditItems editItems = new EditItems(this, true);
+        editItems.setVisible(true);
+    }
+
+    public void tableActionButtons() {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
-                System.out.println("Edit row : " + row);
+//                System.out.println("Edit row : " + row);
+                openEditItems();
             }
 
             @Override
