@@ -41,6 +41,7 @@ public class MYSQL2 {
 //        createConnection();
 //        return connection.createStatement().executeUpdate(query);
 //    }
+
     private static Statement createConnection() throws Exception {
         if (connection == null) {
             Class.forName("com.mysql.cj.jdbc.Driver");
