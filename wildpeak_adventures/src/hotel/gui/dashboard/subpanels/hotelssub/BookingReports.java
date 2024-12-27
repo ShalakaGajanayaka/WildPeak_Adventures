@@ -188,7 +188,9 @@ public class BookingReports extends javax.swing.JPanel {
 
         jTextField3.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
 
+        jButton1.setBackground(new java.awt.Color(102, 0, 102));
         jButton1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(245, 245, 245));
         jButton1.setText("Search");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
