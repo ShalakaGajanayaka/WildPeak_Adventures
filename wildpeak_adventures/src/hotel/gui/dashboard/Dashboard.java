@@ -16,6 +16,7 @@ import hotel.gui.dashboard.subpanels.hotelssub.CabList;
 import hotel.gui.dashboard.subpanels.hotelssub.ItemList;
 import hotel.gui.dashboard.subpanels.hotelssub.Personalised;
 import hotel.gui.dashboard.subpanels.hotelssub.PromocodeList;
+import hotel.gui.dashboard.subpanels.hotelssub.PurchaseReport;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomBookingPanel;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomFacilitesList;
 import hotel.gui.dashboard.subpanels.hotelssub.RoomImages;
@@ -212,6 +213,16 @@ public class Dashboard extends javax.swing.JFrame {
         pnl_change_panel.revalidate();
         pnl_change_panel.repaint();
     }
+    
+      public void purchaseReportPanel() {
+        pnl_change_panel.removeAll();
+
+        pnl_change_panel.add(new PurchaseReport(this));
+
+        pnl_change_panel.revalidate();
+        pnl_change_panel.repaint();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
