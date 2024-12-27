@@ -145,7 +145,6 @@ public class AddItems extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -153,6 +152,7 @@ public class AddItems extends javax.swing.JDialog {
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
         jComboBox4 = new javax.swing.JComboBox<>();
+        jComboBox5 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -193,8 +193,6 @@ public class AddItems extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel5.setText("Total Item");
 
-        jTextField5.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel6.setText("Item used");
 
@@ -216,6 +214,9 @@ public class AddItems extends javax.swing.JDialog {
         jComboBox4.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jComboBox5.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,13 +237,13 @@ public class AddItems extends javax.swing.JDialog {
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField4)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField5)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
@@ -269,7 +270,7 @@ public class AddItems extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -294,7 +295,7 @@ public class AddItems extends javax.swing.JDialog {
         String category = String.valueOf(jComboBox2.getSelectedItem());
         String itemName = jTextField3.getText().trim();
         String total = jTextField4.getText().trim();
-        String itemUsed = jTextField5.getText().trim();
+//        String itemUsed = jTextField5.getText().trim();
         String laundry = String.valueOf(jComboBox3.getSelectedItem()); // Updated for unique ComboBox
         String status = String.valueOf(jComboBox4.getSelectedItem());  // Updated for unique ComboBox
 
@@ -319,10 +320,10 @@ public class AddItems extends javax.swing.JDialog {
             return;
         }
 
-        if (!isNumeric(itemUsed)) {
-            JOptionPane.showMessageDialog(null, "Item used must be a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+//        if (!isNumeric(itemUsed)) {
+//            JOptionPane.showMessageDialog(null, "Item used must be a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
 
         if (laundry.equals("Select Laundry Item") || laundry.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a valid laundry item.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -379,7 +380,7 @@ public class AddItems extends javax.swing.JDialog {
         jComboBox2.setSelectedIndex(0);
         jTextField3.setText("");
         jTextField4.setText("");
-        jTextField5.setText("");
+//        jTextField5.setText("");
         jComboBox3.setSelectedIndex(0);
         jComboBox4.setSelectedIndex(0);
     }
@@ -396,6 +397,7 @@ public class AddItems extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -406,6 +408,5 @@ public class AddItems extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
