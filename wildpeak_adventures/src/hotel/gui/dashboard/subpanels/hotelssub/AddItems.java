@@ -9,8 +9,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 //import raven.toast.Notifications;
@@ -22,6 +25,10 @@ import javax.swing.table.DefaultTableModel;
 public class AddItems extends javax.swing.JDialog {
 
     private ItemList parent;
+    private static HashMap<String, String> UnitNameMap = new HashMap<>();
+    private static HashMap<String, String> CategoryNameMap = new HashMap<>();
+    private static HashMap<String, String> LoundryItemMap = new HashMap<>();
+    private static HashMap<String, String> StatusMap = new HashMap<>();
 
     /**
      * Creates new form AddRoomImages
@@ -30,7 +37,99 @@ public class AddItems extends javax.swing.JDialog {
 //        super(parent, modal);
         this.parent = parent;
         initComponents();
+        unitName();
+        CategoryName();
+        LoundryItem();
+        Status();
         setLocationRelativeTo(null);
+    }
+
+    private void unitName() {
+        try {
+            ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `item_unit`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+                UnitNameMap.put(resultSet.getString("name"), resultSet.getString("id"));
+
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            jComboBox1.setModel(model);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    private void CategoryName() {
+        try {
+            ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `item_category`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+                CategoryNameMap.put(resultSet.getString("name"), resultSet.getString("id"));
+
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            jComboBox2.setModel(model);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    private void LoundryItem() {
+        try {
+            ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `laundry_item`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+                LoundryItemMap.put(resultSet.getString("name"), resultSet.getString("id"));
+
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            jComboBox3.setModel(model);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+    
+    private void Status() {
+        try {
+            ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `status`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+                StatusMap.put(resultSet.getString("name"), resultSet.getString("id"));
+
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            jComboBox4.setModel(model);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -190,12 +289,12 @@ public class AddItems extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

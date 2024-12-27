@@ -5,6 +5,16 @@
 package hotel.gui.dashboard.subpanels.hotelssub;
 
 import hotel.gui.dashboard.Dashboard;
+import hotel.model.MYSQL2;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +23,81 @@ import hotel.gui.dashboard.Dashboard;
 public class ItemList extends javax.swing.JPanel {
 
     private Dashboard parent;
+
     /**
      * Creates new form RoomList
      */
     public ItemList(Dashboard parent) {
         initComponents();
         this.parent = parent;
+        item("item.name", "ASC", "");
+    }
+
+    public void item(String column, String orderby, String searchText) {
+        // Validate column and orderby to prevent SQL injection
+        List<String> validColumns = Arrays.asList("item.id", "item.name", "total_items", "item_category.name", "item_unit.name", "status.name");
+        List<String> validOrders = Arrays.asList("ASC", "DESC");
+
+        if (!validColumns.contains(column)) {
+            JOptionPane.showMessageDialog(null,
+                    "Invalid column name for sorting.",
+                    "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validOrders.contains(orderby)) {
+            JOptionPane.showMessageDialog(null,
+                    "Invalid order type for sorting.",
+                    "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String query = "SELECT item.id, item.name, total_items, item_category.name AS category_name, item_unit.name AS unit_name, "
+                + "item_used.name AS used_name, status.name AS status_name, laundry_item.name AS laundry_name "
+                + "FROM item "
+                + "INNER JOIN item_unit ON item_unit.id = item.item_unit_id "
+                + "INNER JOIN item_category ON item.item_category_id = item_category.id "
+                + "INNER JOIN item_used ON item.item_used_id = item_used.id "
+                + "INNER JOIN status ON item.status_id = status.id "
+                + "INNER JOIN laundry_item ON item.laundry_item_id = laundry_item.id "
+                + "WHERE item.id LIKE ? OR item.name LIKE ? OR total_items LIKE ? OR "
+                + "item_category.name LIKE ? OR item_unit.name LIKE ? OR item_used.name LIKE ? OR "
+                + "status.name LIKE ? OR laundry_item.name LIKE ? "
+                + "ORDER BY " + column + " " + orderby;
+
+        try (PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query)) {
+            String searchPattern = "%" + searchText + "%";
+            // Set all search parameters (8 placeholders in the query)
+            for (int i = 1; i <= 8; i++) {
+                preparedStatement.setString(i, searchPattern);
+            }
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+                defaultTableModel.setRowCount(0);  // Clear existing rows
+
+                while (resultSet.next()) {
+                    Vector<String> row = new Vector<>();
+                    row.add(resultSet.getString("id"));
+                    row.add(resultSet.getString("name"));
+                    row.add(resultSet.getString("category_name"));
+                    row.add(resultSet.getString("unit_name"));
+                    row.add(resultSet.getString("total_items"));
+                    row.add(resultSet.getString("used_name"));
+                    row.add(resultSet.getString("status_name"));
+                    row.add(resultSet.getString("laundry_name"));
+                    defaultTableModel.addRow(row);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Database error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -116,6 +195,11 @@ public class ItemList extends javax.swing.JPanel {
         jLabel3.setText("Search");
 
         jTextField2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,6 +291,10 @@ public class ItemList extends javax.swing.JPanel {
         AddItems addItems = new AddItems(this, true);
         addItems.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        item("item.name", "ASC", jTextField2.getText());
+    }//GEN-LAST:event_jTextField2KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
