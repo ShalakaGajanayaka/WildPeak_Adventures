@@ -1053,7 +1053,7 @@ parent.promocodeListPanel();        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel38MouseClicked
 
     private void jLabel40MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseClicked
-parent.        // TODO add your handling code here:
+//parent.        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel40MouseClicked
 
 

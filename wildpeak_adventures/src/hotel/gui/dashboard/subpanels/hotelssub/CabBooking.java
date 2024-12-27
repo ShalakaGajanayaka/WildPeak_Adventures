@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,60 +30,79 @@ public class CabBooking extends javax.swing.JPanel {
     public CabBooking(Dashboard parent) {
         initComponents();
         this.parent = parent;
-        cabBooking("cab_booking.id", "ASC", "");
+        cabBooking("cab_booking.date", "ASC", "");
     }
 
     public void cabBooking(String column, String orderby, String searchText) {
-        try {
-            List<String> validColumns = Arrays.asList("cab_booking.id", "cab.name", "driver.name", "customer.fname", "customer.lname", "transportation_type.name");
-            List<String> validOrderBy = Arrays.asList("ASC", "DESC");
+        // Validate input parameters to prevent SQL injection
+        if (!isValidColumnName(column) || !isValidOrderBy(orderby)) {
+            JOptionPane.showMessageDialog(null,
+                    "Invalid sort parameters",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            if (!validColumns.contains(column) || !validOrderBy.contains(orderby)) {
-                throw new IllegalArgumentException("Invalid column or order by parameter");
+        String query = "SELECT cab_booking.id, cab.name AS cab_name, cab.number, "
+                + "driver.name AS driver_name, customer.fname, customer.lname, "
+                + "cab_booking.date, transportation_type.name AS transport_type, "
+                + "cab_booking.time "
+                + "FROM cab_booking "
+                + "INNER JOIN cab ON cab_booking.cab_id = cab.id "
+                + "INNER JOIN customer ON customer.customer_identity = cab_booking.customer_customer_identity "
+                + "INNER JOIN driver ON driver.id = cab_booking.driver_id "
+                + "INNER JOIN transportation_type ON transportation_type.id = cab_booking.transportation_type_id "
+                + "WHERE cab_booking.id LIKE ? OR cab.name LIKE ? OR cab.number LIKE ? "
+                + "OR driver.name LIKE ? OR customer.fname LIKE ? OR customer.lname LIKE ? "
+                + "OR transportation_type.name LIKE ? "
+                + "ORDER BY " + column + " " + orderby;
+
+        try (PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query)) {
+            String searchPattern = "%" + searchText + "%";
+            // Set all search parameters
+            for (int i = 1; i <= 7; i++) {
+                preparedStatement.setString(i, searchPattern);
             }
 
-            String query = "SELECT * FROM cab_booking "
-                    + "INNER JOIN cab ON cab_booking.id = cab.id "
-                    + "INNER JOIN customer ON customer.customer_identity = cab_booking.customer_customer_identity "
-                    + "INNER JOIN driver ON driver.id = cab_booking.driver_id "
-                    + "INNER JOIN transportation_type ON transportation_type.id = cab_booking.transportation_type_id "
-                    + "WHERE cab_booking.id LIKE ? OR cab.name LIKE ? OR cab.number LIKE ? "
-                    + "OR driver.name LIKE ? OR customer.fname LIKE ? OR customer.lname LIKE ? "
-                    + "OR transportation_type.name LIKE ? "
-                    + "ORDER BY " + column + " " + orderby;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+                defaultTableModel.setRowCount(0);  // Clear existing rows
 
-            try (PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query)) {
-                String searchPattern = "%" + searchText + "%";
-
-                for (int i = 1; i <= 7; i++) {
-                    preparedStatement.setString(i, searchPattern);
-                }
-
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
-                    defaultTableModel.setRowCount(0);
-
-                    while (resultSet.next()) {
-                        Vector<String> row = new Vector<>();
-                        row.add(resultSet.getString("cab_booking.id"));
-                        row.add(resultSet.getString("cab.name"));
-                        row.add(resultSet.getString("cab.number"));
-                        row.add(resultSet.getString("driver.name"));
-                        row.add(resultSet.getString("customer.fname") + " " + resultSet.getString("customer.lname"));
-                        row.add(resultSet.getString("cab_booking.date"));
-                        row.add(resultSet.getString("transportation_type.name"));
-                        row.add(resultSet.getString("cab_booking.time"));
-
-                        defaultTableModel.addRow(row);
-                    }
+                while (resultSet.next()) {
+                    Vector<String> row = new Vector<>();
+                    row.add(resultSet.getString("id"));
+                    row.add(resultSet.getString("cab_name"));
+                    row.add(resultSet.getString("number"));
+                    row.add(resultSet.getString("driver_name"));
+                    row.add(resultSet.getString("fname") + " " + resultSet.getString("lname"));
+                    row.add(resultSet.getString("date"));
+                    row.add(resultSet.getString("transport_type"));
+                    row.add(resultSet.getString("time"));
+                    defaultTableModel.addRow(row);
                 }
             }
         } catch (SQLException e) {
-//            logger.error("SQL Exception", e);
             e.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Database error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+// Add these helper methods to prevent SQL injection
+    private boolean isValidColumnName(String column) {
+        // Add valid table.column names to this set
+        Set<String> validColumns = Set.of(
+                "cab_booking.id", "cab.name", "cab.number", "driver.name",
+                "customer.fname", "customer.lname", "cab_booking.date",
+                "transportation_type.name", "cab_booking.time"
+        );
+        return validColumns.contains(column.toLowerCase());
+    }
+
+    private boolean isValidOrderBy(String orderBy) {
+        return "ASC".equalsIgnoreCase(orderBy) || "DESC".equalsIgnoreCase(orderBy);
     }
 
     @SuppressWarnings("unchecked")
@@ -272,7 +293,7 @@ public class CabBooking extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        cabBooking("cab_booking.id", "ASC", jTextField2.getText());
+        cabBooking("cab_booking.date", "ASC", jTextField2.getText());
     }//GEN-LAST:event_jTextField2KeyReleased
 
 
