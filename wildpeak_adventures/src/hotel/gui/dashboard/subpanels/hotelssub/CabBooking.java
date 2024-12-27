@@ -9,6 +9,8 @@ import hotel.model.MYSQL2;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,55 +28,56 @@ public class CabBooking extends javax.swing.JPanel {
     public CabBooking(Dashboard parent) {
         initComponents();
         this.parent = parent;
+        cabBooking("cab_booking.id", "ASC", "");
     }
 
-    public void roomStatus(String column, String orderby, String searchText) {
+    public void cabBooking(String column, String orderby, String searchText) {
         try {
-            // Correct SQL query with a single WHERE clause
-            String query = "SELECT * FROM cab_booking "
-                    + "INNER JOIN cab ON cab_booking.id = cab.id "
-                    + "INNER JOIN customer ON Room_Floor.id = Room_List.Room_Floor_id "
-                    + "INNER JOIN room_status ON room_status.id = Room_List.room_status_id "
-                    + "WHERE Room_List.No LIKE ? "
-                    + "OR Checkout LIKE ? "
-                    + "OR room_status.name LIKE ? "
-                    + "OR Room_Type.name LIKE ? "
-                    + "OR Room_Floor.name LIKE ? "
-                    + "ORDER BY " + column + " " + orderby;
+            List<String> validColumns = Arrays.asList("cab_booking.id", "cab.name", "driver.name", "customer.fname", "customer.lname", "transportation_type.name");
+            List<String> validOrderBy = Arrays.asList("ASC", "DESC");
 
-            // Prepare the statement
-            PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
-
-            // Create the search pattern with wildcards
-            String searchPattern = "%" + searchText + "%";
-
-            // Bind the same search pattern to all fields
-            preparedStatement.setString(1, searchPattern);
-            preparedStatement.setString(2, searchPattern);
-            preparedStatement.setString(3, searchPattern);
-            preparedStatement.setString(4, searchPattern);
-            preparedStatement.setString(5, searchPattern);
-
-            // Execute the query
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Set the table model
-            DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
-            defaultTableModel.setRowCount(0);
-
-            // Process the result set
-            while (resultSet.next()) {
-                Vector<String> row = new Vector<>();
-                row.add(resultSet.getString("Room_List.No"));
-                row.add(resultSet.getString("Room_Type.name"));
-                row.add(resultSet.getString("Room_Floor.name"));
-                row.add(resultSet.getString("Checkout"));
-                row.add(resultSet.getString("room_status.name"));
-
-                defaultTableModel.addRow(row);
+            if (!validColumns.contains(column) || !validOrderBy.contains(orderby)) {
+                throw new IllegalArgumentException("Invalid column or order by parameter");
             }
 
+            String query = "SELECT * FROM cab_booking "
+                    + "INNER JOIN cab ON cab_booking.id = cab.id "
+                    + "INNER JOIN customer ON customer.customer_identity = cab_booking.customer_customer_identity "
+                    + "INNER JOIN driver ON driver.id = cab_booking.driver_id "
+                    + "INNER JOIN transportation_type ON transportation_type.id = cab_booking.transportation_type_id "
+                    + "WHERE cab_booking.id LIKE ? OR cab.name LIKE ? OR cab.number LIKE ? "
+                    + "OR driver.name LIKE ? OR customer.fname LIKE ? OR customer.lname LIKE ? "
+                    + "OR transportation_type.name LIKE ? "
+                    + "ORDER BY " + column + " " + orderby;
+
+            try (PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query)) {
+                String searchPattern = "%" + searchText + "%";
+
+                for (int i = 1; i <= 7; i++) {
+                    preparedStatement.setString(i, searchPattern);
+                }
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+                    defaultTableModel.setRowCount(0);
+
+                    while (resultSet.next()) {
+                        Vector<String> row = new Vector<>();
+                        row.add(resultSet.getString("cab_booking.id"));
+                        row.add(resultSet.getString("cab.name"));
+                        row.add(resultSet.getString("cab.number"));
+                        row.add(resultSet.getString("driver.name"));
+                        row.add(resultSet.getString("customer.fname") + " " + resultSet.getString("customer.lname"));
+                        row.add(resultSet.getString("cab_booking.date"));
+                        row.add(resultSet.getString("transportation_type.name"));
+                        row.add(resultSet.getString("cab_booking.time"));
+
+                        defaultTableModel.addRow(row);
+                    }
+                }
+            }
         } catch (SQLException e) {
+//            logger.error("SQL Exception", e);
             e.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -171,6 +174,11 @@ public class CabBooking extends javax.swing.JPanel {
         jLabel3.setText("Search");
 
         jTextField2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -262,6 +270,10 @@ public class CabBooking extends javax.swing.JPanel {
         AddCabBooking addCabBooking = new AddCabBooking(this, true);
         addCabBooking.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        cabBooking("cab_booking.id", "ASC", jTextField2.getText());
+    }//GEN-LAST:event_jTextField2KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
