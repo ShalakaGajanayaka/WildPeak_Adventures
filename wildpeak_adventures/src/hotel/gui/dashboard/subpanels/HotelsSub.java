@@ -927,7 +927,7 @@ public class HotelsSub extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel28MouseClicked
 
     private void jLabel41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseClicked
-
+        parent.bookingReportsPanel();
     }//GEN-LAST:event_jLabel41MouseClicked
 
     private void jLabel47MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel47MouseClicked
@@ -936,7 +936,7 @@ public class HotelsSub extends javax.swing.JPanel {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         parent.roomListPanel();
-           // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -1008,7 +1008,7 @@ public class HotelsSub extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel38MouseClicked
 
     private void jLabel40MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseClicked
-
+        parent.bookingReportsPanel();
     }//GEN-LAST:event_jLabel40MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
