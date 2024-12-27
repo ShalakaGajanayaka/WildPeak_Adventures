@@ -29,6 +29,7 @@ public class AddItems extends javax.swing.JDialog {
     private static HashMap<String, String> CategoryNameMap = new HashMap<>();
     private static HashMap<String, String> LoundryItemMap = new HashMap<>();
     private static HashMap<String, String> StatusMap = new HashMap<>();
+    private static HashMap<String, String> itemUsedMap = new HashMap<>();
 
     /**
      * Creates new form AddRoomImages
@@ -40,6 +41,7 @@ public class AddItems extends javax.swing.JDialog {
         unitName();
         CategoryName();
         LoundryItem();
+        itemUsed();
         Status();
         setLocationRelativeTo(null);
     }
@@ -49,7 +51,7 @@ public class AddItems extends javax.swing.JDialog {
             ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `item_unit`");
 
             Vector<String> vector = new Vector<>();
-            vector.add("Select");
+            vector.add("Select Unit");
 
             while (resultSet.next()) {
                 vector.add(resultSet.getString("name"));
@@ -71,7 +73,7 @@ public class AddItems extends javax.swing.JDialog {
             ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `item_category`");
 
             Vector<String> vector = new Vector<>();
-            vector.add("Select");
+            vector.add("Select Category");
 
             while (resultSet.next()) {
                 vector.add(resultSet.getString("name"));
@@ -93,7 +95,7 @@ public class AddItems extends javax.swing.JDialog {
             ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `laundry_item`");
 
             Vector<String> vector = new Vector<>();
-            vector.add("Select");
+            vector.add("Select Laundry Item");
 
             while (resultSet.next()) {
                 vector.add(resultSet.getString("name"));
@@ -115,7 +117,7 @@ public class AddItems extends javax.swing.JDialog {
             ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `status`");
 
             Vector<String> vector = new Vector<>();
-            vector.add("Select");
+            vector.add("Select Status");
 
             while (resultSet.next()) {
                 vector.add(resultSet.getString("name"));
@@ -125,6 +127,28 @@ public class AddItems extends javax.swing.JDialog {
 
             DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
             jComboBox4.setModel(model);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    private void itemUsed() {
+        try {
+            ResultSet resultSet = MYSQL2.executeSearch("SELECT * FROM `item_used`");
+
+            Vector<String> vector = new Vector<>();
+            vector.add("Select Item Used");
+
+            while (resultSet.next()) {
+                vector.add(resultSet.getString("name"));
+                itemUsedMap.put(resultSet.getString("name"), resultSet.getString("id"));
+
+            }
+
+            DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+            jComboBox5.setModel(model);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -295,9 +319,9 @@ public class AddItems extends javax.swing.JDialog {
         String category = String.valueOf(jComboBox2.getSelectedItem());
         String itemName = jTextField3.getText().trim();
         String total = jTextField4.getText().trim();
-//        String itemUsed = jTextField5.getText().trim();
-        String laundry = String.valueOf(jComboBox3.getSelectedItem()); // Updated for unique ComboBox
-        String status = String.valueOf(jComboBox4.getSelectedItem());  // Updated for unique ComboBox
+        String itemUsed = String.valueOf(jComboBox5.getSelectedItem());
+        String laundry = String.valueOf(jComboBox3.getSelectedItem());
+        String status = String.valueOf(jComboBox4.getSelectedItem());
 
         // Validation
         if (unitName.equals("Select Unit") || unitName.isEmpty()) {
@@ -316,14 +340,14 @@ public class AddItems extends javax.swing.JDialog {
         }
 
         if (!isNumeric(total)) {
-            JOptionPane.showMessageDialog(null, "Total must be a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Total must be a valid number (integer or decimal).", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-//        if (!isNumeric(itemUsed)) {
-//            JOptionPane.showMessageDialog(null, "Item used must be a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
+        if (itemUsed.equals("Select Item Used") || itemUsed.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please select a valid item used option.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         if (laundry.equals("Select Laundry Item") || laundry.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a valid laundry item.", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -335,33 +359,47 @@ public class AddItems extends javax.swing.JDialog {
             return;
         }
 
-        // Proceed with adding the item to the database
-//        try {
-//
-//            MYSQL2.executeSearch("SELECT * FROM `item` WHERE `name` = '" + itemName + "' AND `item_category_id` = '" + CategoryNameMap.get(category) + "' AND `item_used_id` = '"++
-//            "'");
-//            String query = "INSERT INTO item (item_unit_id, item_category_id, name, total_items, item_used, laundry_item_id, status_id) "
-//                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-//            PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
-//
-//            preparedStatement.setString(1, unitName);
-//            preparedStatement.setString(2, category);
-//            preparedStatement.setString(3, itemName);
-//            preparedStatement.setFloat(4, Float.parseFloat(total));
-//            preparedStatement.setFloat(5, Float.parseFloat(itemUsed));
-//            preparedStatement.setString(6, laundry);
-//            preparedStatement.setString(7, status);
-//
-//            int rowsInserted = preparedStatement.executeUpdate();
-//
-//            if (rowsInserted > 0) {
-//                JOptionPane.showMessageDialog(null, "Item successfully added!", "Success", JOptionPane.INFORMATION_MESSAGE);
-//                resetFields(); // Reset fields after successful insertion
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//        }
+        try {
+            // Check if the item already exists in the database
+            String checkQuery = "SELECT * FROM `item` WHERE `name` = ? AND `item_category_id` = ? AND `item_used_id` = ? "
+                    + "AND `item_unit_id` = ? AND `laundry_item_id` = ?";
+            PreparedStatement checkStatement = MYSQL2.getConnection().prepareStatement(checkQuery);
+            checkStatement.setString(1, itemName);
+            checkStatement.setString(2, CategoryNameMap.get(category)); // Replace with your category mapping logic
+            checkStatement.setString(3, itemUsedMap.get(itemUsed)); // Replace with your item used mapping logic
+            checkStatement.setString(4, UnitNameMap.get(unitName)); // Replace with your unit mapping logic
+            checkStatement.setString(5, LoundryItemMap.get(laundry)); // Replace with your laundry mapping logic
+
+            ResultSet rs = checkStatement.executeQuery();
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "This Item is already added.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Insert the item into the database
+                String query = "INSERT INTO item (item_unit_id, item_category_id, name, total_items, item_used_id, laundry_item_id, status_id) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = MYSQL2.getConnection().prepareStatement(query);
+
+                preparedStatement.setString(1, UnitNameMap.get(unitName)); // Replace with unit mapping logic
+                preparedStatement.setString(2, CategoryNameMap.get(category)); // Replace with category mapping logic
+                preparedStatement.setString(3, itemName);
+                preparedStatement.setFloat(4, Float.parseFloat(total));
+                preparedStatement.setString(5, itemUsedMap.get(itemUsed)); // Replace with item used mapping logic
+                preparedStatement.setString(6, LoundryItemMap.get(laundry)); // Replace with laundry mapping logic
+                preparedStatement.setString(7, StatusMap.get(status)); // Replace with status mapping logic
+
+                int rowsInserted = preparedStatement.executeUpdate();
+
+                if (rowsInserted > 0) {
+                    JOptionPane.showMessageDialog(null, "Item successfully added!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    resetFields(); // Reset fields after successful insertion
+                    parent.item("item.name", "ASC", "");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 // Helper method to validate numeric input
 
@@ -386,7 +424,18 @@ public class AddItems extends javax.swing.JDialog {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        resetFields();
 
+        // Show confirmation dialog before closing
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to close?",
+                "Confirm Close",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose(); // Close the window
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
