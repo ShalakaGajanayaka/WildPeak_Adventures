@@ -30,6 +30,9 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import raven.cell.TableActionCellEditor;
+import raven.cell.TableActionCellRender;
+import raven.cell.TableActionEvent;
 
 /**
  *
@@ -43,8 +46,10 @@ public class RoomImages extends javax.swing.JPanel {
      * Creates new form RoomList
      */
     public RoomImages(Dashboard parent) {
+         this.parent = parent;
         initComponents();
-        this.parent = parent;
+        tableActionButtons();
+       
 
 //        roomImages();
         refreshImages();
@@ -52,6 +57,44 @@ public class RoomImages extends javax.swing.JPanel {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
+    }
+    
+      public void openEditRoom() {
+        EditRoomImages editRoomImages = new EditRoomImages(this, true);
+        editRoomImages.setVisible(true);
+    }
+
+    public void tableActionButtons() {
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+//                System.out.println("Edit row : " + row);
+                openEditRoom();
+            }
+
+            @Override
+            public void onDelete(int row) {
+                if (jTable1.isEditing()) {
+                    jTable1.getCellEditor().stopCellEditing();
+                }
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.removeRow(row);
+            }
+
+            @Override
+            public void onView(int row) {
+                System.out.println("View row : " + row);
+            }
+        };
+        jTable1.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
+        jTable1.getColumnModel().getColumn(3).setCellEditor(new TableActionCellEditor(event));
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                setHorizontalAlignment(SwingConstants.RIGHT);
+                return super.getTableCellRendererComponent(jtable, o, bln, bln1, i, i1);
+            }
+        });
     }
 
 //    public void roomImages() {
@@ -463,13 +506,14 @@ public class RoomImages extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setRowHeight(40);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
