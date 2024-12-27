@@ -6,13 +6,18 @@ package hotel.gui.dashboard.subpanels.hotelssub;
 
 import hotel.gui.dashboard.Dashboard;
 import hotel.model.MYSQL2;
+import java.awt.Component;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import raven.cell.TableActionCellEditor;
+import raven.cell.TableActionCellRender;
+import raven.cell.TableActionEvent;
 
 /**
  *
@@ -26,12 +31,52 @@ public class RoomFacilitesList extends javax.swing.JPanel {
      * Creates new form RoomList
      */
     public RoomFacilitesList(Dashboard parent) {
+         this.parent = parent;
         initComponents();
-        this.parent = parent;
+        tableActionButtons();
+       
         roomFacility("id", "ASC", jTextField2.getText());
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         jTable1.setDefaultRenderer(Object.class, renderer);
+    }
+
+    public void openEditFacilites() {
+        EditRoomFacilites editRoomFacilites = new EditRoomFacilites(this, true);
+        editRoomFacilites.setVisible(true);
+    }
+
+    public void tableActionButtons() {
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+//                System.out.println("Edit row : " + row);
+                openEditFacilites();
+            }
+
+            @Override
+            public void onDelete(int row) {
+                if (jTable1.isEditing()) {
+                    jTable1.getCellEditor().stopCellEditing();
+                }
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.removeRow(row);
+            }
+
+            @Override
+            public void onView(int row) {
+                System.out.println("View row : " + row);
+            }
+        };
+        jTable1.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRender());
+        jTable1.getColumnModel().getColumn(2).setCellEditor(new TableActionCellEditor(event));
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                setHorizontalAlignment(SwingConstants.RIGHT);
+                return super.getTableCellRendererComponent(jtable, o, bln, bln1, i, i1);
+            }
+        });
     }
 
     public void roomFacility(String column, String orderby, String searchText) {
@@ -178,13 +223,14 @@ public class RoomFacilitesList extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setRowHeight(40);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
