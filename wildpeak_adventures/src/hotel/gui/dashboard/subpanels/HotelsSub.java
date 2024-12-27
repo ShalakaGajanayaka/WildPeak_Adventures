@@ -162,9 +162,19 @@ public class HotelsSub extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
         jLabel6.setText("Room Book");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel7.setText("Description text here....");
@@ -205,9 +215,19 @@ public class HotelsSub extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
         jLabel9.setText("Room List");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel10.setText("Description text here....");
@@ -248,9 +268,19 @@ public class HotelsSub extends javax.swing.JPanel {
 
         jLabel11.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
         jLabel12.setText("Room Status");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel13.setText("Description text here....");
@@ -291,9 +321,19 @@ public class HotelsSub extends javax.swing.JPanel {
 
         jLabel14.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
         jLabel15.setText("Room Image");
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel16.setText("Description text here....");
@@ -602,6 +642,11 @@ public class HotelsSub extends javax.swing.JPanel {
 
         jLabel37.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
+        jLabel37.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel37MouseClicked(evt);
+            }
+        });
 
         jLabel38.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
         jLabel38.setText("Promocode");
@@ -645,6 +690,11 @@ public class HotelsSub extends javax.swing.JPanel {
 
         jLabel40.setFont(new java.awt.Font("Poppins", 0, 15)); // NOI18N
         jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel/resources/back_icon.png"))); // NOI18N
+        jLabel40.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel40MouseClicked(evt);
+            }
+        });
 
         jLabel41.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
         jLabel41.setText("Booking Report");
@@ -885,7 +935,8 @@ public class HotelsSub extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel47MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        parent.roomListPanel();        // TODO add your handling code here:
+        parent.roomListPanel();
+           // TODO add your handling code here:
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -957,8 +1008,16 @@ public class HotelsSub extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel38MouseClicked
 
     private void jLabel40MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseClicked
-//parent.        // TODO add your handling code here:
+
     }//GEN-LAST:event_jLabel40MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        parent.fillOutBookingDetailsPanel();        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        parent.fillOutBookingDetailsPanel();        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel6MouseClicked
 //>>>>>>> Stashed changes
 
 
