@@ -252,7 +252,7 @@ public class BookingReports extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "CAR", "CAR NUMBER", "CAR TYPE", "FUEL TYPE", "SEAT CAPACITY", "ACTIONS"
+                "NAME", "ROOM TYPE", "CHECK IN", "CHECK OUT", "PAID AMOUNT", "DUE MOUNT", "PAYMENT STATUS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
