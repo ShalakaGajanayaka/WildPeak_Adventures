@@ -21,17 +21,15 @@ import raven.cell.TableActionEvent;
 public class RoomBookingList extends javax.swing.JPanel {
 
     private Dashboard parent;
+
     /**
      * Creates new form RoomList
      */
     public RoomBookingList(Dashboard parent) {
-         this.parent = parent;
+        this.parent = parent;
         initComponents();
 
-       
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -217,8 +215,7 @@ public class RoomBookingList extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        AddCabBooking addCabBooking = new AddCabBooking(this, true);
-//        addCabBooking.setVisible(true);
+        parent.fillOutBookingDetailsPanel();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
