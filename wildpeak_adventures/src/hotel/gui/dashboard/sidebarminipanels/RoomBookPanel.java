@@ -4,6 +4,7 @@
  */
 package hotel.gui.dashboard.sidebarminipanels;
 
+import hotel.gui.dashboard.Dashboard;
 import hotel.model.HoverPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,10 +16,13 @@ import javax.swing.JPanel;
  */
 public class RoomBookPanel extends JPanel {
 
+    private Dashboard parent;
+
     /**
      * Creates new form RoomBookPanel
      */
-    public RoomBookPanel() {
+    public RoomBookPanel(Dashboard parent) {
+        this.parent = parent;
         initComponents();
 
         hoverPanelStart();
@@ -52,8 +56,19 @@ public class RoomBookPanel extends JPanel {
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        btn_bookingList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_bookingListMouseClicked(evt);
+            }
+        });
+
         jLabel12.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         jLabel12.setText("Booking List");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btn_bookingListLayout = new javax.swing.GroupLayout(btn_bookingList);
         btn_bookingList.setLayout(btn_bookingListLayout);
@@ -141,6 +156,14 @@ public class RoomBookPanel extends JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        parent.roomBookingListPanel(); // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void btn_bookingListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_bookingListMouseClicked
+        parent.roomBookingListPanel();        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_bookingListMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

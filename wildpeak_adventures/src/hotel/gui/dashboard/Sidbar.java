@@ -39,7 +39,7 @@ public class Sidbar extends javax.swing.JPanel {
 
         hoverPanelStart();
 
-        pnl_roomBook.add(new RoomBookPanel());
+        pnl_roomBook.add(new RoomBookPanel(this.parent));
         pnl_roomBook.setVisible(false);
 
         pnl_roomFacilites.add(new RoomFacilitesPanel());
