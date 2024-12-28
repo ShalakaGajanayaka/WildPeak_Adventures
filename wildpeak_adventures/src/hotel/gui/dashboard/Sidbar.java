@@ -42,7 +42,7 @@ public class Sidbar extends javax.swing.JPanel {
         pnl_roomBook.add(new RoomBookPanel(this.parent));
         pnl_roomBook.setVisible(false);
 
-        pnl_roomFacilites.add(new RoomFacilitesPanel());
+        pnl_roomFacilites.add(new RoomFacilitesPanel(this.parent));
         pnl_roomFacilites.setVisible(false);
 
         pnl_houseKeeping.add(new HouseKeepingPanel());

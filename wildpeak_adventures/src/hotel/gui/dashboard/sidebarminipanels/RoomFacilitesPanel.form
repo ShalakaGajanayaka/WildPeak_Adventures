@@ -58,6 +58,9 @@
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="btn_facilitesList">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_facilitesListMouseClicked"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -87,6 +90,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Facilites List"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel12MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

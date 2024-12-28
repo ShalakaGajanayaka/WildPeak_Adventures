@@ -4,16 +4,21 @@
  */
 package hotel.gui.dashboard.sidebarminipanels;
 
+import hotel.gui.dashboard.Dashboard;
+
 /**
  *
  * @author shalaka
  */
 public class RoomFacilitesPanel extends javax.swing.JPanel {
 
+    private Dashboard parent;
+
     /**
      * Creates new form RoomFacilitesPanel
      */
-    public RoomFacilitesPanel() {
+    public RoomFacilitesPanel(Dashboard parent) {
+        this.parent = parent;
         initComponents();
     }
 
@@ -37,8 +42,19 @@ public class RoomFacilitesPanel extends javax.swing.JPanel {
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        btn_facilitesList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_facilitesListMouseClicked(evt);
+            }
+        });
+
         jLabel12.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         jLabel12.setText("Facilites List");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btn_facilitesListLayout = new javax.swing.GroupLayout(btn_facilitesList);
         btn_facilitesList.setLayout(btn_facilitesListLayout);
@@ -126,6 +142,14 @@ public class RoomFacilitesPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        parent.roomFacilitesListPanel();        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void btn_facilitesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_facilitesListMouseClicked
+        parent.roomFacilitesListPanel();        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_facilitesListMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
