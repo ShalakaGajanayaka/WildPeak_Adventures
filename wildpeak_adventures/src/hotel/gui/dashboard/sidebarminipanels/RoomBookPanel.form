@@ -130,6 +130,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="btn_roomStatus">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_roomStatusMouseClicked"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -159,6 +162,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Room Status"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel14MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

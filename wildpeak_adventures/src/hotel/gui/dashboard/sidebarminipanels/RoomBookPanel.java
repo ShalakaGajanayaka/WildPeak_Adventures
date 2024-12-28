@@ -107,8 +107,19 @@ public class RoomBookPanel extends JPanel {
                 .addContainerGap())
         );
 
+        btn_roomStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_roomStatusMouseClicked(evt);
+            }
+        });
+
         jLabel14.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         jLabel14.setText("Room Status");
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btn_roomStatusLayout = new javax.swing.GroupLayout(btn_roomStatus);
         btn_roomStatus.setLayout(btn_roomStatusLayout);
@@ -164,6 +175,14 @@ public class RoomBookPanel extends JPanel {
     private void btn_bookingListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_bookingListMouseClicked
         parent.roomBookingListPanel();        // TODO add your handling code here:
     }//GEN-LAST:event_btn_bookingListMouseClicked
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        parent.roomStatusPanel();        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void btn_roomStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_roomStatusMouseClicked
+        parent.roomStatusPanel();        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_roomStatusMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
